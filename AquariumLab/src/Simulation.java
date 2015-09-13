@@ -24,6 +24,7 @@
 
 import java.awt.Color;
 import java.util.Random;
+import java.util.ArrayList;
 
 /** Aquarium Lab Series:     
  *  A Simulation object controls a simulation of fish movement in
@@ -40,7 +41,7 @@ public class Simulation
     // Encapsulated data: aquarium in which fish swim, list of fish,
     // and user interface that can display the results.
     private Aquarium aqua;
-    private AquaFish[] allFish;
+    private ArrayList<AquaFish> allFish;
     private AquaSimGUI userInterface;
     private boolean isHungry;
     private static Random generator = new Random();
@@ -58,21 +59,21 @@ public class Simulation
     	userInterface = gui;
         // Construct the fish.
     	
-    	allFish = new AquaFish[numFish];
+    	allFish = new ArrayList<AquaFish>();
     	for (int i = 0; i < numFish; i++) {
     		isHungry = false;
     		if (generator.nextInt(6) == 0) {
     			isHungry = true;
     			System.out.println("fish is hungry");
     		}
-    		allFish[i] = new AquaFish(aqua, isHungry);
+    		allFish.add(new AquaFish(aqua, isHungry));
     	}
             
 
         // View the initial configuration.
     	userInterface.showAquarium();
         for (int i = 0; i < numFish; i++) {
-        	userInterface.showFish(allFish[i]);
+        	userInterface.showFish(allFish.get(i));
         }
         userInterface.repaint();
         userInterface.pauseToView();
@@ -95,30 +96,34 @@ public class Simulation
     public void step()
     {
     	userInterface.showAquarium();
-        for (int j = 0; j < allFish.length; j++) {
-        	userInterface.showFish(allFish[j]);
+        for (int j = 0; j < allFish.size(); j++) {
+        	userInterface.showFish(allFish.get(j));
         }
         userInterface.repaint();
         userInterface.pauseToView();
-        for (int j = 0; j < allFish.length; j++) {
-        	if (allFish[j].isHungry() == true) {
-        		if (allFish[j].facingRight() == true) {
-        			for (int l = 0; l < allFish.length; l++) {
-        				if (allFish[l].position().xCoord() == allFish[j].position().xCoord() + .5 * allFish[j].length() + .5 * allFish[l].length()) 
+        for (int j = 0; j < allFish.size(); j++) {
+        	if (allFish.get(j).isHungry() == true) {
+        		if (allFish.get(j).facingRight() == true) {
+        			for (int l = 0; l < allFish.size(); l++) {
+        				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
+        						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
+        						&& allFish.get(j).position().yCoord() == allFish.get(l).position().yCoord()
+        						&& l != j) 
         				{
-        					
+        					allFish.remove(allFish.get(l));
+        					System.out.println("fish eaten!");
         				}
         				}
         		}
         	}
         }
-        for (int j = 0; j < allFish.length; j++) {
-        	allFish[j].move();
+        for (int j = 0; j < allFish.size(); j++) {
+        	allFish.get(j).move();
         }
     }
 
     /** Get all the fish in the aquarium. **/
-    public AquaFish[] getAllFish()
+    public ArrayList getAllFish()
     {
     	return allFish;
     }
