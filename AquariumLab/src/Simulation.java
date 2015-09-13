@@ -42,6 +42,8 @@ public class Simulation
     private Aquarium aqua;
     private AquaFish[] allFish;
     private AquaSimGUI userInterface;
+    private boolean isHungry;
+    private static Random generator = new Random();
 
     /** Construct a Simulation object for a particular environment.
      *  @param aquarium    the aquarium in which fish will swim
@@ -58,7 +60,12 @@ public class Simulation
     	
     	allFish = new AquaFish[numFish];
     	for (int i = 0; i < numFish; i++) {
-    		allFish[i] = new AquaFish(aqua);
+    		isHungry = false;
+    		if (generator.nextInt(6) == 0) {
+    			isHungry = true;
+    			System.out.println("fish is hungry");
+    		}
+    		allFish[i] = new AquaFish(aqua, isHungry);
     	}
             
 
@@ -93,6 +100,18 @@ public class Simulation
         }
         userInterface.repaint();
         userInterface.pauseToView();
+        for (int j = 0; j < allFish.length; j++) {
+        	if (allFish[j].isHungry() == true) {
+        		if (allFish[j].facingRight() == true) {
+        			for (int l = 0; l < allFish.length; l++) {
+        				if (allFish[l].position().xCoord() == allFish[j].position().xCoord() + .5 * allFish[j].length() + .5 * allFish[l].length()) 
+        				{
+        					
+        				}
+        				}
+        		}
+        	}
+        }
         for (int j = 0; j < allFish.length; j++) {
         	allFish[j].move();
         }

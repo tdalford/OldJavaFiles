@@ -161,6 +161,7 @@ public class AquaView
         double leftEndOfBody;        // value depends on fish's direction
 
         double eyeSize = 0.1 * fishLength;
+  
         double topOfEye = verticalCenter - (0.1 * fishLength)
                           - eyeSize / 2;
         double leftEndOfEye;        // value depends on fish's direction
@@ -203,7 +204,16 @@ public class AquaView
         drawingSurface.fill(tailOutline);
 
         // Draw the eye as a small circle.
-        drawingSurface.setPaint(Color.black);
+        if (fish.isHungry() == true) 
+        {
+        	drawingSurface.setPaint(Color.red);
+        	System.out.println("hungry fish");
+        }
+        else 
+        {
+        	drawingSurface.setPaint(Color.black);
+        }
+       
         Ellipse2D.Double eye
              = new Ellipse2D.Double(leftEndOfEye, topOfEye,
                  eyeSize, eyeSize);

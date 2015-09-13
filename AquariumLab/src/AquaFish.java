@@ -50,7 +50,7 @@ public class AquaFish
     private int myLength, myHeight;  // define size of fish
     private int halfLength, halfHeight;  // useful for knowing perimeter of
                                          //   fish (myPos is center position)
-
+    private boolean isHungry;
 
     /**
      *  The AquaFish constructor sets properties of the AquaFish.
@@ -59,15 +59,19 @@ public class AquaFish
      *  plus 10 pixels of padding in all four directions.
      *  @param    aqua   the Aquarium in which to place the fish
      **/
-    public AquaFish(Aquarium aqua)
+    public AquaFish(Aquarium aqua, boolean isHungry)
     {
         // Place fish in aquarium and initialize ID and color.
         //this (aqua, Color.white);
+    	
     	this (aqua, new Color (generator.nextInt(256),        // amount of red
                 generator.nextInt(256),        // amount of green
-                generator.nextInt(256)));      // amount of blue
+                generator.nextInt(256)), isHungry);      // amount of blue
 
-        
+    	 
+    		 this.isHungry = isHungry;
+         
+         
         
     }
 
@@ -81,7 +85,7 @@ public class AquaFish
      *  @param    aqua   the Aquarium in which to place the fish
      *  @param    color  the Color to associate with the fish
      **/
-    public AquaFish(Aquarium aqua, Color color)
+    public AquaFish(Aquarium aqua, Color color, boolean isHungry)
     {
         // Place fish in aquarium and initialize ID and color.
         theAquarium = aqua;
@@ -91,6 +95,7 @@ public class AquaFish
         // Initialize size, position, and direction).
         initSize();
         initPos();
+        this.isHungry = isHungry;
     }
 
     /**
@@ -134,6 +139,10 @@ public class AquaFish
     {
         return myHeight;
     }
+    public boolean isHungry()
+    {
+    	return isHungry;
+    }
 
     /**
      *  Determine whether the fish is facing right.
@@ -170,12 +179,12 @@ public class AquaFish
     }
     public int distanceToSurface() 
     {
-    	int topOfFish = myPos.yCoord() + (halfHeight);
+    	int topOfFish = myPos.yCoord() - (halfHeight + 1);
     	return topOfFish;
     }
     public int distanceToBottom() 
     {
-    	int bottomOfFish = myPos.yCoord() - (halfHeight);
+    	int bottomOfFish = myPos.yCoord() + (halfHeight + 1);
     	return (theAquarium.height() - bottomOfFish);
     }
 
@@ -244,14 +253,18 @@ public class AquaFish
         Random randNumGen = numGen.getInstance();
         int randomNum;
         randomNum = randNumGen.nextInt(4);
-        if (atWall() == true || randomNum == 0) {
+        
+        if (atWall() == true || randomNum == 0) 
+        {
      		changeDir();
-     }
+        }
         randomNum = randNumGen.nextInt(3);
 
-        if (atSurface() == true) {
+        if (atSurface() == true) 
+        {
 
-        if (randomNum != 0) {
+        if (randomNum != 0) 
+        	{
 
         descend();
 
@@ -273,13 +286,15 @@ public class AquaFish
 
         else {
 
-        if (randomNum == 0) {
+        if (randomNum == 0) 
+        {
 
         ascend();
 
         }
 
-        else if (randomNum == 1) {
+        else if (randomNum == 1) 
+        	{
 
         descend();
 
@@ -295,7 +310,7 @@ public class AquaFish
         // First get random number in range [0, MAX_DISTANCE-MIN_DISTANCE],
         // then shift to [MIN_DISTANCE, MAX_DISTANCE].  If moving that
         // far would mean swimming out of the aquarium, only move to edge
-        // of aquarium.  Ajust fish's x coordinate by a positive or 
+        // of aquarium.  Adjust fish's x coordinate by a positive or 
         // negative amount, depending on whether fish is facing right or left.
         int moveAmt = generator.nextInt(MAX_DISTANCE - MIN_DISTANCE + 1);
         moveAmt += MIN_DISTANCE;
