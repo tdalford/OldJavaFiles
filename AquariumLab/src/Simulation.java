@@ -104,7 +104,9 @@ public class Simulation
         for (int j = 0; j < numFish; j++) {
         	if (allFish.get(j).isHungry() == true) {
         		if (allFish.get(j).facingRight() == true) {
-        			for (int l = 0; l < numFish; l++) {
+        			for (int l = 0; l < numFish; l++) {    				
+        				//code to check is fish is touching or almost touching the other fish to eat it:
+        				if (j < allFish.size() && l < allFish.size()) {
         				if (allFish.get(j).position().xCoord() >= allFish.get(l).position().xCoord() 
         						- .5 * allFish.get(j).length() - .5 * allFish.get(l).length() 
         						&& allFish.get(j).position().xCoord() <= (allFish.get(l).position().xCoord() + 5)
@@ -118,10 +120,13 @@ public class Simulation
         					numFish--;
         				}
         				}
+        			}
         		}
         		
+        		else if (j < allFish.size()) {
         		if (allFish.get(j).facingLeft() == true) {
         			for (int l = 0; l < numFish; l++) {
+        				if (j < allFish.size() && l < allFish.size()) {
         				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
         						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
         						&& allFish.get(j).position().xCoord() >= (allFish.get(l).position().xCoord() - 5)
@@ -135,6 +140,8 @@ public class Simulation
         					numFish--;
         				}
         				}
+        				}
+        			}
         		}
         	}
         }
