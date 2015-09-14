@@ -101,10 +101,10 @@ public class Simulation
         }
         userInterface.repaint();
         userInterface.pauseToView();
-        for (int j = 0; j < allFish.size(); j++) {
+        for (int j = 0; j < numFish; j++) {
         	if (allFish.get(j).isHungry() == true) {
         		if (allFish.get(j).facingRight() == true) {
-        			for (int l = 0; l < allFish.size(); l++) {
+        			for (int l = 0; l < numFish; l++) {
         				if (allFish.get(j).position().xCoord() >= allFish.get(l).position().xCoord() 
         						- .5 * allFish.get(j).length() - .5 * allFish.get(l).length() 
         						&& allFish.get(j).position().xCoord() <= (allFish.get(l).position().xCoord() + 5)
@@ -112,7 +112,7 @@ public class Simulation
         						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10)
         						&& l != j) 
         				{
-        					allFish.remove(allFish.get(l));
+        					allFish.remove(l);
         					System.out.println("fish eaten!");
         					System.out.println("number of fish left = " + allFish.size());
         					numFish--;
@@ -121,7 +121,7 @@ public class Simulation
         		}
         		
         		if (allFish.get(j).facingLeft() == true) {
-        			for (int l = 0; l < allFish.size(); l++) {
+        			for (int l = 0; l < numFish; l++) {
         				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
         						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
         						&& allFish.get(j).position().xCoord() >= (allFish.get(l).position().xCoord() - 5)
@@ -129,7 +129,7 @@ public class Simulation
         						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10) 
         						&& l != j) 
         				{
-        					allFish.remove(allFish.get(l));
+        					allFish.remove(l);
         					System.out.println("fish eaten!");
         					System.out.println("number of fish left = " + allFish.size());
         					numFish--;
