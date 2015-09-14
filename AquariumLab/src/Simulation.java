@@ -77,7 +77,7 @@ public class Simulation
         userInterface.repaint();
         userInterface.pauseToView();
        
-        // Draw the aquarium and fish, redisplay the user interface in the
+        // Draw the aquarium and fish, redisplay the user interface inside the
         // window so that users can see what was drawn.
     }
 
