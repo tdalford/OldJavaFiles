@@ -64,7 +64,6 @@ public class Simulation
     		isHungry = false;
     		if (generator.nextInt(6) == 0) {
     			isHungry = true;
-    			System.out.println("fish is hungry");
     		}
     		allFish.add(new AquaFish(aqua, isHungry));
     	}
@@ -96,7 +95,8 @@ public class Simulation
     public void step()
     {
     	userInterface.showAquarium();
-        for (int j = 0; j < allFish.size(); j++) {
+    	int numFish = allFish.size();
+        for (int j = 0; j < numFish; j++) {
         	userInterface.showFish(allFish.get(j));
         }
         userInterface.repaint();
@@ -105,13 +105,34 @@ public class Simulation
         	if (allFish.get(j).isHungry() == true) {
         		if (allFish.get(j).facingRight() == true) {
         			for (int l = 0; l < allFish.size(); l++) {
-        				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
-        						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
-        						&& allFish.get(j).position().yCoord() == allFish.get(l).position().yCoord()
+        				if (allFish.get(j).position().xCoord() >= allFish.get(l).position().xCoord() 
+        						- .5 * allFish.get(j).length() - .5 * allFish.get(l).length() 
+        						&& allFish.get(j).position().xCoord() <= (allFish.get(l).position().xCoord() + 5)
+        						&& (allFish.get(j).position().yCoord() <= allFish.get(l).position().yCoord() + 10 
+        						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10)
         						&& l != j) 
         				{
         					allFish.remove(allFish.get(l));
         					System.out.println("fish eaten!");
+        					System.out.println("number of fish left = " + allFish.size());
+        					numFish--;
+        				}
+        				}
+        		}
+        		
+        		if (allFish.get(j).facingLeft() == true) {
+        			for (int l = 0; l < allFish.size(); l++) {
+        				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
+        						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
+        						&& allFish.get(j).position().xCoord() >= (allFish.get(l).position().xCoord() - 5)
+        						&& (allFish.get(j).position().yCoord() <= allFish.get(l).position().yCoord() + 10 
+        						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10) 
+        						&& l != j) 
+        				{
+        					allFish.remove(allFish.get(l));
+        					System.out.println("fish eaten!");
+        					System.out.println("number of fish left = " + allFish.size());
+        					numFish--;
         				}
         				}
         		}
@@ -123,7 +144,7 @@ public class Simulation
     }
 
     /** Get all the fish in the aquarium. **/
-    public ArrayList getAllFish()
+    public ArrayList<AquaFish> getAllFish()
     {
     	return allFish;
     }

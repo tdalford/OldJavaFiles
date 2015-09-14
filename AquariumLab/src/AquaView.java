@@ -207,7 +207,7 @@ public class AquaView
         if (fish.isHungry() == true) 
         {
         	drawingSurface.setPaint(Color.red);
-        	System.out.println("hungry fish");
+        	
         }
         else 
         {

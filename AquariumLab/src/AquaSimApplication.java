@@ -88,6 +88,7 @@ public class AquaSimApplication
 
         // Remind user how to quit application.
         System.out.println ("Close GUI display window to quit.");
+        
 
     }//end main
 
