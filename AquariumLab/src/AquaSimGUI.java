@@ -52,7 +52,7 @@ public class AquaSimGUI extends DisplayPanel
 
     private static final int DEFAULT_FISH = 50;  // default # of fish
     private static final int DEFAULT_STEPS = 300; // # steps to run simulation
-    private static final int VIEW_TIME = 20;  // allow viewer to see display
+    private static final int VIEW_TIME = 50;  // allow viewer to see display
     private static final int WAIT_TIME = 100;   // between Start button checks
 
 

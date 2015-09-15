@@ -45,14 +45,15 @@ public class Simulation
     private AquaSimGUI userInterface;
     private boolean isHungry;
     private static Random generator = new Random();
-    String[] names = {"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
+    String[] names = {/*"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
     		"HANS","MONTE","BLAINE","ERNIE","CURT","QUENTIN","AGUSTIN","MURRAY","JAMAL","ADOLFO","HARRISON",
     		"TYSON","BURTON","BRADY","ELLIOTT","WILFREDO", "ESTHER","PAULINE","EMMA","JUANITA","ANITA",
     		"RHONDA","HAZEL","AMBER","EVA","DEBBIE","APRIL","LESLIE","CLARA","LUCILLE","JAMIE","JOANNE",
     		"ELEANOR","VALERIE","DANIELLE","MEGAN","ALICIA","SUZANNE","MICHELE","GAIL","BERTHA","DARLENE",
     		"VERONICA","JILL","ERIN","GERALDINE","LAUREN","CATHY","JOANN","LORRAINE","LYNN","SALLY","REGINA",
     		"ERICA","BEATRICE","DOLORES","BERNICE","AUDREY","YVONNE","ANNETTE","JUNE","SAMANTHA","MARION",
-    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY"};
+    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY", */"TOMMY", "SIMON", "DANIEL", 
+    		"GRACE", "CHRIS", "NATHAN",  "BRIAN"};
 
     /** Construct a Simulation object for a particular environment.
      *  @param aquarium    the aquarium in which fish will swim
