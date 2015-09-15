@@ -48,7 +48,8 @@ public class AquaFish
     private AquaPoint myPos;         // fish's position in the Aquarium
     private Direction myDir;         // fish's direction
     private int myLength, myHeight;  // define size of fish
-    private int halfLength, halfHeight;  // useful for knowing perimeter of
+    private int halfLength, halfHeight; // useful for knowing perimeter of
+    private String fishName;
                                          //   fish (myPos is center position)
     private boolean isHungry;
 
@@ -59,17 +60,24 @@ public class AquaFish
      *  plus 10 pixels of padding in all four directions.
      *  @param    aqua   the Aquarium in which to place the fish
      **/
-    public AquaFish(Aquarium aqua, boolean isHungry)
+    public AquaFish(Aquarium aqua, boolean isHungry, String fishName)
     {
         // Place fish in aquarium and initialize ID and color.
         //this (aqua, Color.white);
     	
     	this (aqua, new Color (generator.nextInt(256),        // amount of red
                 generator.nextInt(256),        // amount of green
-                generator.nextInt(256)), isHungry);      // amount of blue
+                generator.nextInt(256)), isHungry, fishName);      // amount of blue
 
     	 
-    		 this.isHungry = isHungry;
+    	/*if (isHungry == true) {
+    		myLength *= 1.5;
+    		halfLength *= 1.5;
+    		myHeight *= 1.25;
+    		halfHeight *= 1.25;
+    	}*/
+    	this.isHungry = isHungry;
+    	this.fishName = fishName;
          
          
         
@@ -85,7 +93,7 @@ public class AquaFish
      *  @param    aqua   the Aquarium in which to place the fish
      *  @param    color  the Color to associate with the fish
      **/
-    public AquaFish(Aquarium aqua, Color color, boolean isHungry)
+    public AquaFish(Aquarium aqua, Color color, boolean isHungry, String fishName)
     {
         // Place fish in aquarium and initialize ID and color.
         theAquarium = aqua;
@@ -95,7 +103,14 @@ public class AquaFish
         // Initialize size, position, and direction).
         initSize();
         initPos();
+    	/*if (isHungry == true) {
+    		myLength *= 1.5;
+    		halfLength *= 1.5;
+    		myHeight *= 1.25;
+    		halfHeight *= 1.25;
+    	}*/
         this.isHungry = isHungry;
+        this.fishName = fishName;
     }
 
     /**
@@ -142,6 +157,10 @@ public class AquaFish
     public boolean isHungry()
     {
     	return isHungry;
+    }
+    public String myName()
+    {
+    	return fishName;
     }
 
     /**
@@ -350,6 +369,12 @@ public class AquaFish
     		descAmt = distanceToBottom();
     	}
     	myPos.sink(descAmt);
+    }
+    public void grow(double scale) {
+    	myHeight *= scale;
+    	halfHeight *= scale;
+    	myLength *= scale;
+    	halfLength *= scale;
     }
     
     

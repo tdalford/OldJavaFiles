@@ -45,6 +45,7 @@ public class Simulation
     private AquaSimGUI userInterface;
     private boolean isHungry;
     private static Random generator = new Random();
+    String[] names = {"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO","HANS","MONTE","BLAINE","ERNIE","CURT","QUENTIN","AGUSTIN","MURRAY","JAMAL","ADOLFO","HARRISON","TYSON","BURTON","BRADY","ELLIOTT","WILFREDO", "ESTHER","PAULINE","EMMA","JUANITA","ANITA","RHONDA","HAZEL","AMBER","EVA","DEBBIE","APRIL","LESLIE","CLARA","LUCILLE","JAMIE","JOANNE","ELEANOR","VALERIE","DANIELLE","MEGAN","ALICIA","SUZANNE","MICHELE","GAIL","BERTHA","DARLENE","VERONICA","JILL","ERIN","GERALDINE","LAUREN","CATHY","JOANN","LORRAINE","LYNN","SALLY","REGINA","ERICA","BEATRICE","DOLORES","BERNICE","AUDREY","YVONNE","ANNETTE","JUNE","SAMANTHA","MARION","DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY"};
 
     /** Construct a Simulation object for a particular environment.
      *  @param aquarium    the aquarium in which fish will swim
@@ -65,7 +66,8 @@ public class Simulation
     		if (generator.nextInt(6) == 0) {
     			isHungry = true;
     		}
-    		allFish.add(new AquaFish(aqua, isHungry));
+    		String fishName = names[generator.nextInt(names.length)];
+    		allFish.add(new AquaFish(aqua, isHungry, fishName));
     	}
             
 
@@ -102,49 +104,60 @@ public class Simulation
         userInterface.repaint();
         userInterface.pauseToView();
         for (int j = 0; j < numFish; j++) {
-        	if (allFish.get(j).isHungry() == true) {
-        		if (allFish.get(j).facingRight() == true) {
-        			for (int l = 0; l < numFish; l++) {    				
+        	AquaFish eater = allFish.get(j);
+        	if (eater.isHungry() == true) {
+        		if (eater.facingRight() == true) {
+        			for (int l = 0; l < numFish; l++) {
+        				AquaFish victim = allFish.get(l);
         				//code to check is fish is touching or almost touching the other fish to eat it:
         				if (j < allFish.size() && l < allFish.size()) {
-        				if (allFish.get(j).position().xCoord() >= allFish.get(l).position().xCoord() 
-        						- .5 * allFish.get(j).length() - .5 * allFish.get(l).length() 
-        						&& allFish.get(j).position().xCoord() <= (allFish.get(l).position().xCoord() + 5)
-        						&& (allFish.get(j).position().yCoord() <= allFish.get(l).position().yCoord() + 10 
-        						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10)
-        						&& l != j) 
-        				{
+        				if (eater.position().xCoord() >= victim.position().xCoord() 
+        						- .5 * eater.length() - .5 * victim.length() 
+        						&& eater.position().xCoord() <= (victim.position().xCoord() + eater.length())
+        						&& (eater.position().yCoord() <= victim.position().yCoord() + eater.height() 
+        						&& eater.position().yCoord() >= victim.position().yCoord() - eater.height())
+        						&& victim != eater) 
+        				{					
         					allFish.remove(l);
-        					System.out.println("fish eaten!");
-        					System.out.println("number of fish left = " + allFish.size());
+        					eater.grow(1.04);
         					numFish--;
-        				}
+        					System.out.println(eater.myName() + " ate " + victim.myName() + "!");
+        					System.out.println("number of fish left = " + numFish);
+        					  if (allFish.size() == 1) {
+        				        	System.out.println(allFish.get(0).myName() + " is the winner!");
+        				        }
+        					}
         				}
         			}
         		}
         		
-        		else if (j < allFish.size()) {
-        		if (allFish.get(j).facingLeft() == true) {
+        		
+        		else if (eater.facingLeft() == true) {
         			for (int l = 0; l < numFish; l++) {
+        				AquaFish victim = allFish.get(l);
         				if (j < allFish.size() && l < allFish.size()) {
-        				if (allFish.get(j).position().xCoord() <= allFish.get(l).position().xCoord() 
-        						+ .5 * allFish.get(j).length() + .5 * allFish.get(l).length() 
-        						&& allFish.get(j).position().xCoord() >= (allFish.get(l).position().xCoord() - 5)
-        						&& (allFish.get(j).position().yCoord() <= allFish.get(l).position().yCoord() + 10 
-        						&& allFish.get(j).position().yCoord() >= allFish.get(l).position().yCoord() - 10) 
-        						&& l != j) 
-        				{
+        				if (eater.position().xCoord() <= victim.position().xCoord() 
+        						+ .5 * eater.length() + .5 * victim.length() 
+        						&& eater.position().xCoord() >= (victim.position().xCoord() - eater.length())
+        						&& (eater.position().yCoord() <= victim.position().yCoord() + eater.height() 
+        						&& eater.position().yCoord() >= victim.position().yCoord() - eater.height()) 
+        						&& victim != eater) 
+        				{       					
         					allFish.remove(l);
-        					System.out.println("fish eaten!");
-        					System.out.println("number of fish left = " + allFish.size());
+        					eater.grow(1.04);
         					numFish--;
-        				}
-        				}
-        				}
+        					System.out.println(eater.myName() + " ate " + victim.myName() + "!");
+        					System.out.println("number of fish left = " + numFish);
+        					  if (allFish.size() == 1) {
+        				        	System.out.println(allFish.get(0).myName() + " is the winner!");
+        				        }
+        					}
+        				}      				
         			}
         		}
         	}
         }
+    
         for (int j = 0; j < allFish.size(); j++) {
         	allFish.get(j).move();
         }
