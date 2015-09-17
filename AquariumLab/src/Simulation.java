@@ -45,14 +45,14 @@ public class Simulation
     private AquaSimGUI userInterface;
     private boolean isHungry;
     private static Random generator = new Random();
-    String[] names = {/*"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
+    String[] names = {"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
     		"HANS","MONTE","BLAINE","ERNIE","CURT","QUENTIN","AGUSTIN","MURRAY","JAMAL","ADOLFO","HARRISON",
     		"TYSON","BURTON","BRADY","ELLIOTT","WILFREDO", "ESTHER","PAULINE","EMMA","JUANITA","ANITA",
     		"RHONDA","HAZEL","AMBER","EVA","DEBBIE","APRIL","LESLIE","CLARA","LUCILLE","JAMIE","JOANNE",
     		"ELEANOR","VALERIE","DANIELLE","MEGAN","ALICIA","SUZANNE","MICHELE","GAIL","BERTHA","DARLENE",
     		"VERONICA","JILL","ERIN","GERALDINE","LAUREN","CATHY","JOANN","LORRAINE","LYNN","SALLY","REGINA",
     		"ERICA","BEATRICE","DOLORES","BERNICE","AUDREY","YVONNE","ANNETTE","JUNE","SAMANTHA","MARION",
-    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY",*/"TOMMY", "SIMON", "DANIEL", "CHRIS", 
+    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY","TOMMY", "SIMON", "DANIEL", "CHRIS", 
     		"NATHAN",  "BRIAN"};
 
     /** Construct a Simulation object for a particular environment.
@@ -69,9 +69,11 @@ public class Simulation
         // Construct the fish.
     	
     	allFish = new ArrayList<AquaFish>();
-    	for (int i = 0; i < numFish; i++) {
+    	for (int i = 0; i < numFish; i++) 
+    	{
     		isHungry = false;
-    		if (generator.nextInt(6) == 0) {
+    		if (generator.nextInt(6) == 0) 
+    		{
     			isHungry = true;
     		}
     		String fishName = names[generator.nextInt(names.length)];
@@ -81,7 +83,8 @@ public class Simulation
 
         // View the initial configuration.
     	userInterface.showAquarium();
-        for (int i = 0; i < numFish; i++) {
+        for (int i = 0; i < numFish; i++) 
+        {
         	userInterface.showFish(allFish.get(i));
         }
         userInterface.repaint();
@@ -96,7 +99,8 @@ public class Simulation
      **/
     public void run(int numSteps)
     {
-    	 for (int i = 0; i < numSteps; i++) {
+    	 for (int i = 0; i < numSteps; i++) 
+    	 	   {
     		 step();	    
     	       }
     	 
@@ -108,72 +112,40 @@ public class Simulation
     {
     	userInterface.showAquarium();
     	int numFish = allFish.size();
-        for (int j = 0; j < numFish; j++) {
+        for (int j = 0; j < numFish; j++) 
+        {
         	userInterface.showFish(allFish.get(j));
         }
         userInterface.repaint();
         userInterface.pauseToView();
-        for (int j = 0; j < numFish; j++) {
+        for (int j = 0; j < numFish; j++) 
+        {
         	AquaFish eater = allFish.get(j);
-        	//if (eater.isHungry() == true) {
-        		//if (eater.facingRight() == true) {
-        			for (int l = 0; l < numFish; l++) {
+        			for (int l = 0; l < numFish; l++) 
+        			{
         				AquaFish victim = allFish.get(l);
         				//code to check is fish is touching or almost touching the other fish to eat it:
-        				if (j < allFish.size() && l < allFish.size()) {
-        					if (canEat(eater, victim) == true) {
-        						
-        				/*old code just in case new method doesn't work:
-        				 * if (eater.position().xCoord() >= victim.position().xCoord() 
-        						- .5 * eater.length() - .5 * victim.length() 
-        					&& eater.position().xCoord() <= (victim.position().xCoord() + eater.length())
-        					&& (eater.position().yCoord() <= victim.position().yCoord() + eater.height() 
-        					&& eater.position().yCoord() >= victim.position().yCoord() - eater.height())
-        					&& victim != eater) 
-        				{	*/				
+        				if (j < allFish.size() && l < allFish.size()) 
+        				{
+        					if (canEat(eater, victim) == true) 
+        					{
         					allFish.remove(l);
         					eater.grow(1.04);
         					numFish--;
         					System.out.println(eater.myName() + " ate " + victim.myName() + "!");
         					System.out.println("number of fish left = " + numFish);
-        					  if (allFish.size() == 1) {
+        					  if (allFish.size() == 1) 
+        					  {
         				        	System.out.println(allFish.get(0).myName() + " is the winner!");
         				        	System.out.println("number of steps = " + stepcount);
-        				        }
-        					//}
+        				     }
         				}
         			}
-        		}
-        		
-        		
-        		/*else if (eater.facingLeft() == true) {
-        			for (int l = 0; l < numFish; l++) {
-        				AquaFish victim = allFish.get(l);
-        				if (j < allFish.size() && l < allFish.size()) {
-        				if (eater.position().xCoord() <= victim.position().xCoord() 
-        						+ .5 * eater.length() + .5 * victim.length() 
-        					&& eater.position().xCoord() >= (victim.position().xCoord() - eater.length())
-        					&& (eater.position().yCoord() <= victim.position().yCoord() + eater.height() 
-        					&& eater.position().yCoord() >= victim.position().yCoord() - eater.height()) 
-        					&& victim != eater) 
-        				{       	*/				
-        					/*allFish.remove(l);
-        					eater.grow(1.04);
-        					numFish--;
-        					System.out.println(eater.myName() + " ate " + victim.myName() + "!");
-        					System.out.println("number of fish left = " + numFish);
-        					  if (allFish.size() == 1) {
-        				        	System.out.println(allFish.get(0).myName() + " is the winner!");
-        				        }
-        					}
-        				}      				
-        			}
-        		}
+        		}        		       		
         	}
-        }*/
-    }
        
-        for (int j = 0; j < allFish.size(); j++) {
+        for (int j = 0; j < allFish.size(); j++) 
+        {
         	allFish.get(j).move();
         }
         stepcount++;
@@ -184,9 +156,13 @@ public class Simulation
     {
     	return allFish;
     }
-    public boolean canEat(AquaFish eater, AquaFish victim) {
-    	if (eater.isHungry() == true) {
-    		if (eater.facingRight() == true) {
+    
+    public boolean canEat(AquaFish eater, AquaFish victim) 
+    {
+    	if (eater.isHungry() == true) 
+    	{
+    		if (eater.facingRight() == true) 
+    		{
     			if (eater.position().xCoord() >= victim.position().xCoord() 
 						- .5 * eater.length() - .5 * victim.length() 
 					&& eater.position().xCoord() <= (victim.position().xCoord() + eater.length())
@@ -196,11 +172,13 @@ public class Simulation
 				{					
     				return true;
 				}
-    			else {
+    			else 
+    			{
     				return false;
     			}
     		}
-    		else {
+    		else 
+    		{
     			if (eater.position().xCoord() <= victim.position().xCoord() 
 						+ .5 * eater.length() + .5 * victim.length() 
 					&& eater.position().xCoord() >= (victim.position().xCoord() - eater.length())
@@ -210,18 +188,21 @@ public class Simulation
 				{   
     				return true;
 				}
-    			else {
+    			else 
+    			{
     				return false;
-    			}
-    	    }
-    		
+    			}    	        		
+    		}
     	}
-    	else {
+    	else 
+    	{
     		return false;
     	}
-    	
     }
-  public int getNumberOfSteps() {
+    	
+   
+  public int getNumberOfSteps() 
+    {
     	return stepcount;
     }
 
