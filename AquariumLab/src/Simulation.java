@@ -45,14 +45,14 @@ public class Simulation
     private AquaSimGUI userInterface;
     private boolean isHungry;
     private static Random generator = new Random();
-    String[] names = {"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
+    String[] names = {/*"BOBBY", "TED", "UBEN","STAN","AUGUST","LEONARDO","JASPER","RUSSEL","ERWIN","BENITO",
     		"HANS","MONTE","BLAINE","ERNIE","CURT","QUENTIN","AGUSTIN","MURRAY","JAMAL","ADOLFO","HARRISON",
     		"TYSON","BURTON","BRADY","ELLIOTT","WILFREDO", "ESTHER","PAULINE","EMMA","JUANITA","ANITA",
     		"RHONDA","HAZEL","AMBER","EVA","DEBBIE","APRIL","LESLIE","CLARA","LUCILLE","JAMIE","JOANNE",
     		"ELEANOR","VALERIE","DANIELLE","MEGAN","ALICIA","SUZANNE","MICHELE","GAIL","BERTHA","DARLENE",
     		"VERONICA","JILL","ERIN","GERALDINE","LAUREN","CATHY","JOANN","LORRAINE","LYNN","SALLY","REGINA",
     		"ERICA","BEATRICE","DOLORES","BERNICE","AUDREY","YVONNE","ANNETTE","JUNE","SAMANTHA","MARION",
-    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY","TOMMY", "SIMON", "DANIEL", "CHRIS", 
+    		"DANA","STACY","ANA","RENEE","IDA","VIVIAN","ROBERTA","HOLLY",*/"TOMMY", "SIMON", "DANIEL", "CHRIS", 
     		"NATHAN",  "BRIAN"};
 
     /** Construct a Simulation object for a particular environment.
@@ -99,9 +99,11 @@ public class Simulation
     	 for (int i = 0; i < numSteps; i++) {
     		 step();	    
     	       }
+    	 
     }
 
     /** Run through a single step of the simulation. **/
+    int stepcount = 0;
     public void step()
     {
     	userInterface.showAquarium();
@@ -136,6 +138,7 @@ public class Simulation
         					System.out.println("number of fish left = " + numFish);
         					  if (allFish.size() == 1) {
         				        	System.out.println(allFish.get(0).myName() + " is the winner!");
+        				        	System.out.println("number of steps = " + stepcount);
         				        }
         					//}
         				}
@@ -173,6 +176,7 @@ public class Simulation
         for (int j = 0; j < allFish.size(); j++) {
         	allFish.get(j).move();
         }
+        stepcount++;
     }
 
     /** Get all the fish in the aquarium. **/
@@ -216,6 +220,9 @@ public class Simulation
     		return false;
     	}
     	
+    }
+  public int getNumberOfSteps() {
+    	return stepcount;
     }
 
 }
