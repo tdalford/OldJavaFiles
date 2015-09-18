@@ -38,7 +38,7 @@ import java.util.ArrayList;
  **/
 public class Simulation
 {
-    // Encapsulated data: aquarium in which fish swim, list of fish,
+    // Encapsulated data: aquarium in which fish swim, list of fish, list of names for fish
     // and user interface that can display the results.
     private Aquarium aqua;
     private ArrayList<AquaFish> allFish;
@@ -83,15 +83,16 @@ public class Simulation
 
         // View the initial configuration.
     	userInterface.showAquarium();
-        for (int i = 0; i < numFish; i++) 
-        {
-        	userInterface.showFish(allFish.get(i));
-        }
-        userInterface.repaint();
-        userInterface.pauseToView();
+
        
         // Draw the aquarium and fish, redisplay the user interface inside the
         // window so that users can see what was drawn.
+    	 for (int i = 0; i < numFish; i++) 
+         {
+         	userInterface.showFish(allFish.get(i));
+         }
+         userInterface.repaint();
+         userInterface.pauseToView();
     }
 
     /** Run the Aquarium Simulation.
@@ -124,7 +125,6 @@ public class Simulation
         			for (int l = 0; l < numFish; l++) 
         			{
         				AquaFish victim = allFish.get(l);
-        				//code to check is fish is touching or almost touching the other fish to eat it:
         				if (j < allFish.size() && l < allFish.size()) 
         				{
         					if (canEat(eater, victim) == true) 
@@ -158,6 +158,7 @@ public class Simulation
     }
     
     public boolean canEat(AquaFish eater, AquaFish victim) 
+    //code to check is fish is touching or almost touching the other fish to eat it:
     {
     	if (eater.isHungry() == true) 
     	{
@@ -201,7 +202,7 @@ public class Simulation
     }
     	
    
-  public int getNumberOfSteps() 
+  public int getNumberOfSteps() //to see how long it takes for only one fish to survive
     {
     	return stepcount;
     }

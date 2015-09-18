@@ -51,7 +51,7 @@ public class AquaFish
     private int halfLength, halfHeight; // useful for knowing perimeter of
     private String fishName;
                                          //   fish (myPos is center position)
-    private boolean isHungry;
+    private boolean isHungry;        //if fish can eat other fish
 
     /**
      *  The AquaFish constructor sets properties of the AquaFish.
@@ -68,19 +68,9 @@ public class AquaFish
     	this (aqua, new Color (generator.nextInt(256),        // amount of red
                 generator.nextInt(256),        // amount of green
                 generator.nextInt(256)), isHungry, fishName);      // amount of blue
-
-    	 
-    	/*if (isHungry == true) {
-    		myLength *= 1.5;
-    		halfLength *= 1.5;
-    		myHeight *= 1.25;
-    		halfHeight *= 1.25;
-    	}*/
+    	
     	this.isHungry = isHungry;
     	this.fishName = fishName;
-         
-         
-        
     }
 
     /**
@@ -103,12 +93,6 @@ public class AquaFish
         // Initialize size, position, and direction).
         initSize();
         initPos();
-    	/*if (isHungry == true) {
-    		myLength *= 1.5;
-    		halfLength *= 1.5;
-    		myHeight *= 1.25;
-    		halfHeight *= 1.25;
-    	}*/
         this.isHungry = isHungry;
         this.fishName = fishName;
     }
@@ -266,7 +250,7 @@ public class AquaFish
      *  Move forward horizontally by random increments, staying
      *  within the aquarium.
      **/
-    public void move() 
+    public void move()  //checks if at wall, then at surface/bottom, then goes up/down, then moves forward
     {
     	RandNumGenerator numGen = new RandNumGenerator();
         Random randNumGen = numGen.getInstance();
@@ -370,7 +354,7 @@ public class AquaFish
     	}
     	myPos.sink(descAmt);
     }
-    public void grow(double scale) {
+    public void grow(double scale) {				//method to make fish get bigger when eating others
     	myHeight *= scale;
     	halfHeight *= scale;
     	myLength *= scale;

@@ -1,3 +1,11 @@
+/*******
+ * Author: Tommy Alford
+ * Date: September 18, 2016
+ * Creates an Aquarium based on user inputs of number of fish and amount of steps, with step and run buttons.
+ * Also added names to fish and randomly creates hungry fish that eat others. 
+ * 
+ *******/
+
 /*
  *  Aquarium Lab Series
  *
@@ -71,24 +79,12 @@ public class AquaSimApplication
         // Draw the aquarium; redisplay the user interface in the
         // window so that users can see what was drawn.
         
-        /*int numSteps = userInterface.getNumberOfSteps();
-        int numFish = userInterface.getNumberOfFish();
-        Simulation fishSim = new Simulation(aqua, numFish, userInterface);
-        */
-
-       
         // RUN THE AQUARIUM SIMULATION.
         
-        /*fishSim.run(numSteps);
-         
-         */
-
-
         // WRAP UP.
 
         // Remind user how to quit application.
         System.out.println ("Close GUI display window to quit.");
-        
 
     }//end main
 

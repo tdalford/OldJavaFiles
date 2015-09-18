@@ -203,7 +203,7 @@ public class AquaView
         tailOutline.closePath();
         drawingSurface.fill(tailOutline);
 
-        // Draw the eye as a small circle.
+        // Draw the eye as a small circle. Hungry fish have red eyes.
         if (fish.isHungry() == true) 
         {
         	drawingSurface.setPaint(Color.red);
