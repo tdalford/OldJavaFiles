@@ -1,3 +1,11 @@
+/*******Class: PrimeFactorization
+Author: Tommy Alford
+Date: 9/28/15
+
+returns the prime factorization of an input in the form of an ArrayList,
+then giving the user an option to repeat the procedure
+
+*********/
 import java.util.ArrayList;
 import java.util.Scanner;
  public class PrimeFact {
