@@ -14,13 +14,13 @@ import java.util.Scanner;
 		numb /= 2;
 		primeFacts.add(2);
 	}
-	for (int i = 3; i <= numb && numb > 1; i++) 
+	for (int i = 3; i <= numb/2 && numb > 1; i+=2) 
 	{
 		boolean check = true;
 		//check if prime:
-		for (int j = 0; j < primes.size() && check; j++) 
+		for (int j = 0; j < primes.size() && Math.sqrt(i) >= primes.get(j) && check; j++) 
 		{
-			if (numb % primes.get(j) == 0) 
+			if (i % primes.get(j) == 0) 
 			{
 				check = false;
 			}
@@ -35,6 +35,10 @@ import java.util.Scanner;
 				primeFacts.add(i);
 			}
 		}
+	}
+	if (numb > 1)
+	{
+		primeFacts.add((int)numb);
 	}
 	return primeFacts;
 }
@@ -78,3 +82,28 @@ import java.util.Scanner;
 }
 
 }
+/*
+for(int i = 3; i<=numb; i+=2)
+{
+	if(numb % i == 0)
+	{
+		checkPrime(i);
+	}
+}
+
+boolean checkPrime(int num)
+{
+	//bitwise check
+	//if true, return false
+	//else, go on with program
+	
+	for(int i = 3; i <= math.sqrt(num); i+=2)
+	{
+		if(num % i == 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
+*/
