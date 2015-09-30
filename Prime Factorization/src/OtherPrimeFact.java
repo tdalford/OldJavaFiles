@@ -22,14 +22,6 @@ public class OtherPrimeFact {
 		System.out.println("input a number to be factorized");
 		double factee = myScanner.nextDouble();
 		System.out.println(listPrimeFact(factee));
-		System.out.println(args[0]);
-		double prod = 1;
-		ArrayList<Double> factors = listPrimeFact(factee);
-		for (int i = 0; i < factors.size(); i++)
-		{
-			prod *= factors.get(i);
-		}
-		System.out.println(prod);
 		System.out.println("would you like to run this sequence again?");
 		boolean noAnswer = true;
 		//check if user wants to check another value
@@ -104,7 +96,7 @@ public class OtherPrimeFact {
 					//to check to the sqrt of numb
 					if (isPrime(numb))
 					{
-						primeFacts.add( numb);
+						primeFacts.add(numb);
 						return primeFacts;
 					}
 					
