@@ -2,7 +2,7 @@
 public class GCFandLCM {
 	public static void main(String[] args)
 	{
-		System.out.println(GCF(6, 12));
+		System.out.println(GCF(9, 12));
 		System.out.println(LCM(9, 12));
 	}
 	
@@ -20,7 +20,7 @@ public class GCFandLCM {
 			else 
 			{
 				int maxFact = 0;
-				for (int a = 1; a <= Math.sqrt(firstNumber); a++) 
+				for (int a = 2; a <= Math.sqrt(firstNumber); a++) 
 				{
 					if (firstNumber % a == 0 && secondNumber % a == 0) 
 					{
@@ -31,7 +31,7 @@ public class GCFandLCM {
 			}
 	}
 	
-	//returns the least common multiple of two numbers
+	/*returns the least common multiple of two numbers, old method:
 	public static int LCM(int firstNumber, int secondNumber)
 	{
 		if (secondNumber % firstNumber == 0) 
@@ -65,6 +65,12 @@ public class GCFandLCM {
 			}
 		}
 		return firstNumber;
+	}
+	*/
+	
+	public static int LCM(int firstNumber, int secondNumber)
+	{
+		return firstNumber * secondNumber / GCF(firstNumber, secondNumber);
 	}
 
 }

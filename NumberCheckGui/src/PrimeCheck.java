@@ -68,8 +68,19 @@ public boolean isPrime (int testNumb)
      return true;
  }
 
+public static int factorial (int testNumb)
+{
+	int fact = 1;
+	for (int i = testNumb; i > 1; i--)
+	{
+		fact *= i;
+	}
+	return fact;
+}
+
 public static void main (String[] args)
 {
+	System.out.println(factorial(10));
 	//Instantiate the GUI part
 	Frame frm = new PrimeCheck();    
 	//Set the application's window width and height in pixels
