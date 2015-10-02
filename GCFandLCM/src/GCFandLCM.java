@@ -2,48 +2,44 @@
 public class GCFandLCM {
 	public static void main(String[] args)
 	{
-		System.out.println(GCF(9, 12));
-		System.out.println(LCM(9, 12));
+
+		System.out.println(GCF(3, 20));
+		System.out.println(LCM(3, 20));
+
 	}
-	
 	//returns the greatest common factor of two numbers
 	public static int GCF(int firstNumber, int secondNumber)
 	{
-		if (secondNumber % firstNumber == 0) 
-			{
-				return firstNumber;
-			}
-			else if (firstNumber % secondNumber == 0) 
+		//change first and second numbers if second > first
+		if (secondNumber > firstNumber)
+		{
+			int temp = secondNumber;
+			secondNumber = firstNumber;
+			firstNumber = temp;
+		}
+			
+		if (firstNumber % secondNumber == 0) 
 			{
 				return secondNumber;
 			}
 			else 
 			{
-				int maxFact = 0;
-				for (int a = 2; a <= Math.sqrt(firstNumber); a++) 
-				{
-					if (firstNumber % a == 0 && secondNumber % a == 0) 
+				for (int a = 1; a < Math.sqrt(secondNumber); a++) 
+				{	
+
+					//checks factors from sqrt(smaller number) and then divides it out so that it gets every factor (the bigger ones)
+					if (secondNumber % (secondNumber / a) == 0 && firstNumber % (secondNumber / a) == 0) 
 					{
-						maxFact = a;
+						return  secondNumber / a;
 					}
 				}
-				return maxFact;
 			}
-	}
+		return 1;
+	}	
 	
 	/*returns the least common multiple of two numbers, old method:
 	public static int LCM(int firstNumber, int secondNumber)
 	{
-		if (secondNumber % firstNumber == 0) 
-		{
-			return secondNumber;
-		}
-		else if (firstNumber % secondNumber == 0) 
-		{
-			return firstNumber;
-		}
-		else 
-		{
 			if (secondNumber > firstNumber) 
 			{
 				int temporary = secondNumber;
@@ -51,9 +47,9 @@ public class GCFandLCM {
 				firstNumber = temporary;
 			}
 			
-			for (int a = 2; a <= secondNumber; a++)
+			for (int a = 1; a <= secondNumber; a++)
 			{
-				for (int b = 2; b <= firstNumber; b++)
+				for (int b = 1; b <= firstNumber; b++)
 				{
 					
 			if (firstNumber * a == secondNumber * b) 
@@ -63,14 +59,13 @@ public class GCFandLCM {
 			
 			}
 			}
-		}
 		return firstNumber;
 	}
 	*/
 	
 	public static int LCM(int firstNumber, int secondNumber)
 	{
-		return firstNumber * secondNumber / GCF(firstNumber, secondNumber);
+		return (firstNumber * secondNumber) / GCF(firstNumber, secondNumber);
 	}
 
 }
