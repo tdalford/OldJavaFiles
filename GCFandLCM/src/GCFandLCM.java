@@ -3,8 +3,8 @@ public class GCFandLCM {
 	public static void main(String[] args)
 	{
 
-		System.out.println(GCF(3, 20));
-		System.out.println(LCM(3, 20));
+		System.out.println(GCF(8, 36));
+		System.out.println(LCM(8, 36));
 
 	}
 	//returns the greatest common factor of two numbers
@@ -18,12 +18,6 @@ public class GCFandLCM {
 			firstNumber = temp;
 		}
 			
-		if (firstNumber % secondNumber == 0) 
-			{
-				return secondNumber;
-			}
-			else 
-			{
 				for (int a = 1; a < Math.sqrt(secondNumber); a++) 
 				{	
 
@@ -32,7 +26,6 @@ public class GCFandLCM {
 					{
 						return  secondNumber / a;
 					}
-				}
 			}
 		return 1;
 	}	
