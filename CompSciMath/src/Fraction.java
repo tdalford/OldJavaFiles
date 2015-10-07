@@ -1,3 +1,8 @@
+/*
+ * 	Date		Task
+ * 10/7/2105	Coding started and finished, javadoc style comments started
+ */
+
 /**
  * 
  * @author Tommy Alford
