@@ -1,11 +1,14 @@
 /*
  * 	Date		Task
  * 10/7/2105	Coding started and finished, javadoc style comments started
+ * 10/8/15		javadoc style comments finished
  */
 
 /**
- * 
+ * This class contains a number of methods for manipulating and generating fractions
  * @author Tommy Alford
+ * @version 2.0
+ * @since 10-7-2015 
  *
  */
 public class Fraction 
@@ -18,9 +21,9 @@ public class Fraction
 	// Constructors
 	
 	/**
-	 * 
-	 * @param num 
-	 * @param den 
+	 * constructs a fraction
+	 * @param num the numerator of the fraction
+	 * @param den the denominator of the fraction
 	 */
 	public Fraction(int num, int den)
 	{
@@ -32,8 +35,8 @@ public class Fraction
 	// Accessor Methods
 	
 	/**
-	 * 
-	 * @return 
+	 * returns the numerator of the fraction
+	 * @return numerator
 	 */
 	public int getNum()
 	{
@@ -41,8 +44,8 @@ public class Fraction
 	}
 	
 	/**
-	 *  
-	 * @return
+	 * returns the denominator of the fraction
+	 * @return denominator
 	 */
 	public int getDen()
 	{
@@ -51,8 +54,10 @@ public class Fraction
 	
 	
 	// Other Methods
+	
 	/**
-	 * 
+	 * returns the fraction in the form of a string
+	 * @return the string of the fraction
 	 */
 	public String toString()
 	{
@@ -60,9 +65,9 @@ public class Fraction
 	}
 	
 	/**
-	 * 
-	 * @param other
-	 * @return
+	 * returns the new fraction created by dividing one fraction by the other
+	 * @param other the second fraction (the dividend)
+	 * @return the first fraction / the second fraction
 	 */
 	public Fraction divide(Fraction other)
 	{
@@ -92,6 +97,10 @@ public class Fraction
 	TASK: Complete Javadoc style comments for the class
 	*/
 	
+	/**
+	 * simplifies the fraction to put the numerator and denominator in lowest terms
+	 * @return the new simplified fraction
+	 */
 	public void simplify()
 	{
 		int num = getNum();
@@ -104,11 +113,20 @@ public class Fraction
 		denominator = den;
 	}
 	
+	/**
+	 * displays the decimal value of the fraction
+	 * @return the decimal value
+	 */
 	public double decimalValue(Fraction frac)
 	{
 		return (frac.getNum() / frac.getDen());
 	}
 	
+	/**
+	 * returns the new fraction created by adding one fraction to the other
+	 * @param other the second fraction to be added
+	 * @return the first fraction + the second fraction
+	 */
 	public Fraction add(Fraction other)
 	{
 		int lcm = Utility.lcm(denominator, other.getDen());
@@ -117,6 +135,11 @@ public class Fraction
 		return new Fraction(newNum, newDen);
 	}
 	
+	/**
+	 * returns the new fraction created by subtracting one fraction to the other
+	 * @param other the fraction to be subtracted from the first
+	 * @return the first fraction - the second fraction (other)
+	 */
 	public Fraction subtract(Fraction other)
 	{
 		int lcm = Utility.lcm(denominator, other.getDen());
@@ -125,6 +148,11 @@ public class Fraction
 		return new Fraction(newNum, newDen);
 	}
 	
+	/**
+	 * returns the new fraction created by multiplying one fraction by the other
+	 * @param other the second fraction to be multiplied
+	 * @return the first fraction * the second fraction
+	 */
 	public Fraction multiply(Fraction other)
 	{
 		int num1 = this.numerator;
