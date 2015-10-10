@@ -109,6 +109,12 @@ public class Fraction
 		num /= gcf;
 		den /= gcf;
 		
+		if (den < 0)
+		{
+			den *= -1;
+			num *= -1;
+		}
+		
 		numerator = num;
 		denominator = den;
 	}

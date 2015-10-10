@@ -47,8 +47,8 @@ public class Utility
 	 */
 	public static int gcf(int a, int b)
 	{
-		if(a<1 || b<1)
-			return -1;
+		a = Math.abs(a);
+		b = Math.abs(b);
 		// Make sure a is the larger number
 		if(a<b)
 		{
@@ -142,7 +142,7 @@ public class Utility
 	
 	public static void main(String[] args)
 	{
-		int g=12, h=30, j=17;
+		int g=-12, h=30, j=17;
 		System.out.println(g + " is prime: " + Utility.isPrime(g));
 		System.out.println(j + " is prime: " + Utility.isPrime(j));
 		int common = Utility.gcf(g, h);

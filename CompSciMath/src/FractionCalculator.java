@@ -15,7 +15,7 @@ public class FractionCalculator extends GBFrame
    	//integer values.
   	private TextField firstField; 
    	private TextField secondField; 
-   	private TextField answerField; 
+   	private TextArea answerField; 
 
    	//The command buttons: these trigger the buttonClicked method when
    	//clicked.
@@ -40,9 +40,9 @@ public class FractionCalculator extends GBFrame
    		secondLabel = addLabel("second fraction",2,1,1,1);
    		answerLabel = addLabel("        answer",3,1,1,1);
    		
-   		firstField = addDoubleField(0,1,2,1,1);
-   		secondField = addDoubleField(0,2,2,1,1);
-   		answerField = addDoubleField(0,3,2,1,1);
+   		firstField = addDoubleField(0, 1,2,1,1);
+   		secondField = addDoubleField(0, 2,2,1,1);
+   		answerField = addTextArea("",3,2,3,1);
    		
    		additionButton = addButton("+",5,1,1,1);
    		subtractButton = addButton("-",5,2,1,1);
@@ -58,85 +58,73 @@ public class FractionCalculator extends GBFrame
       		// get the values in each of the fields
       		String firstFraction = firstField.getText();
       		String secondFraction = secondField.getText();
-      		String[] values = firstFraction.split("");
-      		String[] secValues = secondFraction.split("");
+
       		String firstNum, secondNum, firstDen, secondDen;  
       		firstNum = "";
       		firstDen = "";
       		secondNum = "";
       		secondDen = "";
-      		firstNum: 
-      			for (int i = 0; i < values.length; i++)
-      		{
-      				if (values[i].isEmpty() == false)
-      			{
-      				firstNum = values[i];
-      				System.out.println(firstNum);
-      				i++;
-      				while (values[i].isEmpty() == false && values[i] != "/")
-      				{
-      				firstNum = firstNum + values[i];
-      				System.out.println(firstNum);
-      				i++;
-      				}
-      				break firstNum;
-      			}
-      		}
       		
-      		secondNum: 
-      			for (int i = 0; i < secValues.length; i++)
-      		{
-      				if (secValues[i].isEmpty() == false)
-      			{
-      				secondNum = secValues[i];
-      				i++;
-      				while (secValues[i].isEmpty() == false && values[i] != "/")
+      		firstNum:
+      			for (int i = 0; i < firstFraction.length(); i++)
       				{
-      				secondNum = secondNum + secValues[i];	
+      			while (firstFraction.charAt(i) != ' ' && firstFraction.charAt(i) != '/')
+      			{
+      				firstNum += firstFraction.charAt(i);
       				i++;
-      				}
-      				break secondNum;
       			}
-      		}
+      			if (firstNum != "")
+      			{	
+      			break firstNum;
+      			}
+      			
+      			}
+      		
+      		secondNum:
+      			for (int i = 0; i < secondFraction.length(); i++)
+  				{
+  			while (secondFraction.charAt(i) != ' ' && secondFraction.charAt(i) != '/')
+  			{
+  				secondNum += secondFraction.charAt(i);
+  				i++;
+  			}
+  			if (secondNum != "")
+  			{
+  				break secondNum;
+  			}
+  				}
       		
       		firstDen:
-      			for (int i = values.length - 1; i >= 0; i--)
-      			{
-      				if (values[i].isEmpty() == false)
-          			{
-          				firstDen = values[i];
-          				i--;
-          				while (values[i].isEmpty() == false && values[i] != "/")
-          				{
-          				firstDen = values[i] + firstDen;	
-          				i--;
-          				}
-          				break firstDen;
-          			}
-      			}
-      		
-      		secondDen:
-      			for (int i = secValues.length - 1; i >= 0; i--)
-      			{
-      				if (secValues[i].isEmpty() == false)
-          			{
-          				secondDen = secValues[i];
-          				i--;
-          				while (secValues[i].isEmpty() == false && values[i] != "/")
-          				{
-          				secondDen = secValues[i - 1] + secondDen;	
-          				i--;
-          				}
-          				break secondDen;
-          			}
-      			}      			
+      			for (int i = firstFraction.length() - 1; i > 0; i--)
+  				{
+  			while (firstFraction.charAt(i) != ' ' && firstFraction.charAt(i) != '/')
+  			{
+  				firstDen = firstFraction.charAt(i) + firstDen;
+  				i--;
+  			}
+  			if (firstDen != "")
+  			{	
+  			break firstDen;
+  			}
+  				}
+  			
+  			secondDen:
+  				for (int i = secondFraction.length() - 1; i > 0; i--)
+  				{
+  			while (secondFraction.charAt(i) != ' ' && secondFraction.charAt(i) != '/')
+  			{
+  				secondDen  = secondFraction.charAt(i) + secondDen;
+  				i--;
+  			}
+  			if (secondDen != "")
+  			{
+  				break secondDen;
+  			}
+  				}
           		
         Fraction frac1 = new Fraction(Integer.parseInt(firstNum), Integer.parseInt(firstDen));
         Fraction frac2 = new Fraction(Integer.parseInt(secondNum), Integer.parseInt(secondDen));
-        System.out.println(frac1.toString());
-        System.out.println(frac2.toString());
-      			
-	
+        
         Fraction answer;
       		
      		// now figure out which button was clicked
@@ -150,25 +138,25 @@ public class FractionCalculator extends GBFrame
       		{  
       			answer = frac1.add(frac2);
       			answer.simplify();
-      			answerField.setText(answer.toString());
+      			answerField.append(frac1.toString() + " + " + frac2.toString() + " = " + answer.toString() + "\n");
       		}
       		else if (buttonObj == subtractButton)
       		{
       			answer = frac1.subtract(frac2);
       			answer.simplify();  					
-      			answerField.setText(answer.toString());
+      			answerField.append(frac1.toString() + " - " + frac2.toString() + " = " + answer.toString() + "\n");
       		}
       		else if (buttonObj == multiplyButton)
       		{
       			answer = frac1.multiply(frac2);
       			answer.simplify();
-      			answerField.setText(answer.toString());
+      			answerField.append(frac1.toString() + " * " + frac2.toString() + " = " + answer.toString() + "\n");
       		}
       		else if (buttonObj == divideButton)
       		{	
       			answer = frac1.divide(frac2);
       			answer.simplify();
-      			answerField.setText(answer.toString());
+      			answerField.append(frac1.toString() + " / " + frac2.toString() + " = " + answer.toString() + "\n");
       		}
       		
       		
