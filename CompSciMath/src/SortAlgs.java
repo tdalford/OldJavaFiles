@@ -23,11 +23,11 @@ public class SortAlgs {
 		printArray(test2);
 		
 		Scanner myScanner = new Scanner(System.in);
-		System.out.println("input a string to be reversed");
+		System.out.println("\ninput a string to be reversed");
 		String myString = myScanner.nextLine();
-		System.out.println(myString);
-		reverseTheString(myString);
-		System.out.println("reversed String = " + myString);
+		System.out.println("My String is: " + myString);
+		System.out.println("\nNow reverse the String to get:");
+		System.out.println("My String is: " + reverseTheString(myString));
 	}
 	
 	public static void printArray(int[] myArray)
@@ -56,11 +56,10 @@ public class SortAlgs {
 		}
 	}
 	
-	public static void reverseTheString(String myString)
+	public static String reverseTheString(String myString)
 	{
-		// Put code here that reverses the elements of myArray
+		// Put code here that reverses the elements of myString
 		{
-		int low = 0;
 		int length = myString.length();
 		int counter = 1;
 		while (counter < length)
@@ -71,6 +70,7 @@ public class SortAlgs {
 					+ myString.substring(counter + 1);
 			counter++;
 			}
+		return myString;
 		}
 	}
 }
