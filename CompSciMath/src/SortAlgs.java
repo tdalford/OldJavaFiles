@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Random;
 
 
 public class SortAlgs {
@@ -26,8 +27,9 @@ public class SortAlgs {
 		System.out.println("\ninput a string to be reversed");
 		String myString = myScanner.nextLine();
 		System.out.println("My String is: " + myString);
-		System.out.println("\nNow reverse the String to get:");
+		System.out.println("\nNow reverse and scramble the String to get: \n");
 		System.out.println("My String is: " + reverseTheString(myString));
+		System.out.println("My String scrambled = " +  scramble(myString));
 	}
 	
 	public static void printArray(int[] myArray)
@@ -73,4 +75,19 @@ public class SortAlgs {
 		return myString;
 		}
 	}
+	
+	public static String scramble(String myString)
+	{
+		Random rand = new Random();
+		String scrambledString = "";
+		int length = myString.length();
+		for (int i = 0; i < length; i++)
+		{
+			int randNum = rand.nextInt(myString.length());
+			scrambledString = scrambledString + myString.charAt(randNum);
+			myString = myString.substring(0, randNum) + myString.substring(randNum + 1);
+		}
+		return scrambledString;
+	}
+	
 }
