@@ -38,11 +38,11 @@ public class FractionCalculator extends GBFrame
    	{
    		firstLabel = addLabel("first fraction",1,1,1,1);
    		secondLabel = addLabel("second fraction",2,1,1,1);
-   		answerLabel = addLabel("        answer",3,1,1,1);
+   		answerLabel = addLabel("        answer",3,1,1,2);
    		
    		firstField = addDoubleField(0, 1,2,1,1);
    		secondField = addDoubleField(0, 2,2,1,1);
-   		answerField = addTextArea("",3,2,3,1);
+   		answerField = addTextArea("",3,2,3,2);
    		
    		additionButton = addButton("+",5,1,1,1);
    		subtractButton = addButton("-",5,2,1,1);

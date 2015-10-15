@@ -9,7 +9,7 @@ public class Problem44 {
 			pentNumbs.add(i*(3*i - 1) / 2);
 		}
 		System.out.println(pentNumbs);
-		int minDiff = 1000;
+		int minDiff = pentNumbs.get(pentNumbs.size() - 1) - 1;
 		for (int a = 0; a < pentNumbs.size(); a++)
 		{
 			second:
@@ -18,7 +18,6 @@ public class Problem44 {
 				int pent1 = pentNumbs.get(a);
 				int pent2 = pentNumbs.get(b);
 				int diff = Math.abs(pent1 - pent2);
-				System.out.println(diff);
 				if (diff >= minDiff)
 				{
 					break second;
@@ -53,7 +52,8 @@ public class Problem44 {
 					diffSearch:
 						for (int k = 0; k < pentNumbs.size() && check; k++)
 					{
-						if (pentNumbs.get(k) == diff)
+							
+							if (pentNumbs.get(k) == diff)
 						{
 							break diffSearch;
 						}
