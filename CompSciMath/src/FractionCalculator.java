@@ -55,7 +55,7 @@ public class FractionCalculator extends GBFrame
 
    	public void buttonClicked (Button buttonObj)
    	{
-      		// get the values in each of the fields
+      		// get the values in each of the fields for each fraction
       		String firstFraction = firstField.getText();
       		String secondFraction = secondField.getText();
 

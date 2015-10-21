@@ -24,7 +24,7 @@ public class SortAlgs {
 		printArray(test2);
 		
 		Scanner myScanner = new Scanner(System.in);
-		System.out.println("\ninput a string to be reversed");
+		System.out.println("\ninput a string to be reversed and then scrambled");
 		String myString = myScanner.nextLine();
 		System.out.println("My String is: " + myString);
 		System.out.println("\nNow reverse and scramble the String to get: \n");
