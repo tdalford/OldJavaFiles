@@ -1,3 +1,10 @@
+/*******Class: PrimeFactorization
+Author: Tommy Alford
+Date: 10/8/15
+
+adds, subtracts, multiplies, and divides fractions using a GUI
+*********/
+
 import java.awt.*;
 
 import BreezyGUI.*;
