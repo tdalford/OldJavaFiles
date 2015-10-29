@@ -1,9 +1,9 @@
-/*******Class: PrimeFactorization
-Author: Tommy Alford
-Date: 10/8/15
-
-adds, subtracts, multiplies, and divides fractions using a GUI
-*********/
+/**
+ * This class creates a fraction calculator GUI that uses fraction objects 
+ * and adds, subtracts, multiplies, and divides them
+ * @author Tommy Alford
+ * @version 2.0
+ */
 
 import java.awt.*;
 
@@ -41,7 +41,10 @@ public class FractionCalculator extends GBFrame
  	
 
    
-   	public FractionCalculator( )
+ 	/**
+	 * constructs a fraction calculator with multiple buttons and fields
+	 */
+ 	public FractionCalculator( )
    	{
    		firstLabel = addLabel("first fraction",1,1,1,1);
    		secondLabel = addLabel("second fraction",2,1,1,1);
@@ -59,7 +62,10 @@ public class FractionCalculator extends GBFrame
    	}
 
    
-
+   	/**
+	 * appends a value to the answerField depending on which button was clicked
+	 * @param n buttonObj the button that was clicked
+	 */
    	public void buttonClicked (Button buttonObj)
    	{
       		// get the values in each of the fields for each fraction
@@ -129,10 +135,9 @@ public class FractionCalculator extends GBFrame
   			}
   				}
           		
-        Fraction frac1 = new Fraction(Integer.parseInt(firstNum), Integer.parseInt(firstDen));
-        Fraction frac2 = new Fraction(Integer.parseInt(secondNum), Integer.parseInt(secondDen));
-        
-        Fraction answer;
+  			Fraction frac1 = new Fraction(Integer.parseInt(firstNum), Integer.parseInt(firstDen));
+  			Fraction frac2 = new Fraction(Integer.parseInt(secondNum), Integer.parseInt(secondDen));      
+  			Fraction answer;
       		
      		// now figure out which button was clicked
       		if(buttonObj == clearButton)
@@ -145,25 +150,29 @@ public class FractionCalculator extends GBFrame
       		{  
       			answer = frac1.add(frac2);
       			answer.simplify();
-      			answerField.append(frac1.toString() + " + " + frac2.toString() + " = " + answer.toString() + "\n");
+      			answerField.append(frac1.toString() + " + " + frac2.toString() + " = " 
+      			+ answer.toString() + "\n");
       		}
       		else if (buttonObj == subtractButton)
       		{
       			answer = frac1.subtract(frac2);
       			answer.simplify();  					
-      			answerField.append(frac1.toString() + " - " + frac2.toString() + " = " + answer.toString() + "\n");
+      			answerField.append(frac1.toString() + " - " + frac2.toString() + " = " 
+      			+ answer.toString() + "\n");
       		}
       		else if (buttonObj == multiplyButton)
       		{
       			answer = frac1.multiply(frac2);
       			answer.simplify();
-      			answerField.append(frac1.toString() + " * " + frac2.toString() + " = " + answer.toString() + "\n");
+      			answerField.append(frac1.toString() + " * " + frac2.toString() + " = " 
+      			+ answer.toString() + "\n");
       		}
       		else if (buttonObj == divideButton)
       		{	
       			answer = frac1.divide(frac2);
       			answer.simplify();
-      			answerField.append(frac1.toString() + " / " + frac2.toString() + " = " + answer.toString() + "\n");
+      			answerField.append(frac1.toString() + " / " + frac2.toString() + " = " 
+      			+ answer.toString() + "\n");
       		}
       		
       		

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
  * 	Date		Task
@@ -140,9 +141,81 @@ public class Utility
 		return (firstNumber * secondNumber) / gcf(firstNumber, secondNumber);
 	}
 	
+	/**
+	 * returns the name of the author of the program
+	 * @return the author'sname
+	 */
+	public static String whoAmI()
+	{
+		return "Alford, Tommy";
+	}
+	
+	/**
+	 * reverses all the elements in an array
+	 * @param myArray the array to be reversed
+	 */
+	public static void reverseTheArray(int[] myArray)
+	{
+		// Put code here that reverses the elements of myArray
+		{
+		int low = 0;
+		int high = myArray.length - 1;
+		while (low < high)
+			{
+			int temp = myArray[high];
+			myArray[high] = myArray[low];
+			myArray[low] = temp;
+			low++;
+			high--;
+			}
+		}
+	}
+	
+	/**
+	 * reverses all the characters in a String
+	 * @param myString the String to be reversed
+	 * @return the reversed version of myString
+	 */
+	public static String reverseTheString(String myString)
+	{
+		// Put code here that reverses the elements of myString
+		{
+		int length = myString.length();
+		int counter = 1;
+		while (counter < length)
+			{
+			//myString
+			//gnirtSym
+			myString = myString.charAt(counter) + myString.substring(0, counter)
+					+ myString.substring(counter + 1);
+			counter++;
+			}
+		return myString;
+		}
+	}
+	
+	/**
+	 * scrambles all the characters in a String
+	 * @param myString the String to be scrambled
+	 * @return the scrambled version of myString
+	 */
+	public static String scramble(String myString)
+	{
+		Random rand = new Random();
+		String scrambledString = "";
+		int length = myString.length();
+		for (int i = 0; i < length; i++)
+		{
+			int randNum = rand.nextInt(myString.length());
+			scrambledString = scrambledString + myString.charAt(randNum);
+			myString = myString.substring(0, randNum) + myString.substring(randNum + 1);
+		}
+		return scrambledString;
+	}
+	
 	public static void main(String[] args)
 	{
-		int g=-12, h=30, j=17;
+		int g=12, h=30, j=17;
 		System.out.println(g + " is prime: " + Utility.isPrime(g));
 		System.out.println(j + " is prime: " + Utility.isPrime(j));
 		int common = Utility.gcf(g, h);
@@ -156,6 +229,10 @@ public class Utility
 		System.out.println(g + "! " + "= " + factorial);
 		int leastCommon = lcm(g, h);
 		System.out.println("The lcm of "+g+" & "+h+" is "+ leastCommon);
+		String myString = "TommyAlford";
+		System.out.println("My String is: " + myString);
+		System.out.println("My String reversed is: " + reverseTheString(myString));
+		System.out.println("My String scrambled = " +  scramble(myString));
 		
 	}
 }
