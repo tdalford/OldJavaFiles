@@ -32,15 +32,21 @@ public class MeanMedianRange {
 				System.out.println();
 		}
 		
-		// Put code here to find and print out
-		// the mean, median and range of the 
-		// values in data
-		
-		
-		System.out.println("  The mean is: " + mean(data));	
+		System.out.println("The mean is: " + mean(data));	
 		System.out.println("The median is: " + median(data));	
+		
+		if (mode(data) == -1)
+		{
+			System.out.println("There is no mode.");
+		}
+		
+		else 
+		{	
 		System.out.println("The mode is: " + mode(data));
-		System.out.println(" The range is: " + range(data));
+		}
+		
+		System.out.println("The range is: " + range(data));
+
 	}
 	
 	public static double mean(int[] data)
@@ -56,7 +62,7 @@ public class MeanMedianRange {
 	public static double median(int[] data)
 	{
 		//sort array in numerical order
-		Arrays.sort(data);		
+		sort(data);		
 		int length = data.length;
 		double median;
 		if (length % 2 == 0)
@@ -72,17 +78,22 @@ public class MeanMedianRange {
 	
 	public static int mode(int[] data)
 	{
-		Arrays.sort(data);
+		sort(data);
 		int maxCount = 0;
 		int mode = 0;
 		
 		for (int i = 0; i < data.length - 1; i++)
 		{
 			int count = 1;
-			while (data[i] == data[i+1])
+			while (data[i] == data[i+1] && i < data.length - 2)
 			{
 				count++;
 				i++;
+			}
+			
+			if (count == maxCount)
+			{
+				mode = -1;
 			}
 			
 			if (count > maxCount)
@@ -90,14 +101,40 @@ public class MeanMedianRange {
 				maxCount = count;
 				mode = data[i];
 			}
+			
+			
 		}
+		
 		return mode;
 		
 	}
 	
 	public static int range(int[] data)
 	{
-		Arrays.sort(data);
+		sort(data);
 		return (data[data.length - 1] - data[0]);
+	}
+	
+	public static void sort(int[] data)
+	{
+		for (int count = 0; count < data.length; count++)
+		{
+		int smallest = data[count];
+		int smallIndex = count;
+		for (int i = count + 1; i < data.length; i++)
+			{
+			if (data[i] < smallest)
+				{
+				smallest = data[i];
+				smallIndex = i;
+				}
+			
+			}
+		
+		int temp = data[count];
+		data[count] = smallest;
+		data[smallIndex] = temp;
+
+		}
 	}
 }
