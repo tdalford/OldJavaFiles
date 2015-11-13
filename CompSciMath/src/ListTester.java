@@ -97,12 +97,17 @@ public class ListTester
 		// order. Then display each student in the list, one line at a time.
 		
 		temp = new Student("Bons", "Lucas", 3.99);
-		Student secTemp = new Student("Stewart", "Jimmy", 2.87);
 		for (int i = 0; i < list.size(); i++)
 		{
 			if (list.get(i).getGPA() < temp.getGPA())
 			{
 				list.add(i, temp);
+				break;
+			}
+			
+			if (i == list.size() - 1)
+			{
+				list.add(temp);
 				break;
 			}
 		}
