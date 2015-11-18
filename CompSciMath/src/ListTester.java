@@ -97,37 +97,41 @@ public class ListTester
 		// order. Then display each student in the list, one line at a time.
 		
 		temp = new Student("Bons", "Lucas", 3.99);
-		for (int i = 0; i < list.size(); i++)
+		Student secTemp = new Student("Stewart", "Jimmy", 3.56);
+		
+		boolean firstDone = false;
+		boolean secondDone = false;
+		
+		if (temp.getGPA() < list.get(list.size() - 1).getGPA())
+		{
+			list.add(temp);
+			firstDone = true;
+		}
+		
+		for (int i = 0; i < list.size() && firstDone == false; i++)
 		{
 			if (list.get(i).getGPA() < temp.getGPA())
 			{
 				list.add(i, temp);
-				break;
-			}
-			
-			if (i == list.size() - 1)
-			{
-				list.add(temp);
 				break;
 			}
 		}
 		
-		temp = new Student("Stewart", "Jimmy", 2.87);
-	
-		for (int i = 0; i < list.size(); i++)
+		if (secTemp.getGPA() < list.get(list.size() - 1).getGPA())
 		{
-			if (list.get(i).getGPA() < temp.getGPA())
+			list.add(secTemp);
+			secondDone = true;
+		}
+		
+		for (int i = 0; i < list.size() && secondDone == false; i++)
+		{
+			if (list.get(i).getGPA() < secTemp.getGPA())
 			{
-				list.add(i, temp);
-				break;
-			}
-			
-			if (i == list.size() - 1)
-			{
-				list.add(temp);
+				list.add(i, secTemp);
 				break;
 			}
 		}
+
 		
 		
 		
