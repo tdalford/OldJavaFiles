@@ -24,16 +24,20 @@ public FastGazelle(Cage myCage, Color magenta)
 
 public String toString()
 {
-	return (myPos.toString() + " is a fast gazelle.");
+	return (myPos.toString() + " is a Fast Gazelle.");
 }
 
 public boolean act()
 {
 	boolean didIAct = false;
-	super.act();
-	super.act();
-	didIAct = true;
+	didIAct = super.act();
+	didIAct = super.act();
 	return didIAct;
+}
+
+public String getSpecies()
+{
+	return "Fast Gazelle";
 }
 	
 }
