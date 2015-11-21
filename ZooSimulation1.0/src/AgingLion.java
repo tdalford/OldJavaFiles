@@ -3,6 +3,7 @@ import java.awt.Color;
 
 public class AgingLion extends Lion
 {
+	protected int myAge = 0;
 	public AgingLion(Cage myCage, Color yellow) 	
 	{
 		super(myCage, yellow);	
@@ -20,24 +21,25 @@ public class AgingLion extends Lion
 	
 	public boolean act()
 	{
-		if (super.myAge == 25)
+		if (myAge == 25)
 		{
 			changeColor(Color.green);
 		}
-		else if (super.myAge == 50)
+		else if (myAge == 50)
 		{
 			changeColor(Color.red);
 		}
-		else if (super.myAge == 75)
+		else if (myAge == 75)
 		{
 			changeColor(Color.blue);
 		}
-		else if (super.myAge == 100)
+		else if (myAge == 100)
 		{
 			changeColor(Color.black);
 		}
 		boolean didIAct = false;
 		didIAct = super.act();
+		myAge++;
 		return didIAct;
 	}
 	
