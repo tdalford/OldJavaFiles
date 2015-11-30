@@ -11,12 +11,12 @@ public class Dingo extends Prey
 	}
 	
 	
-	public Animal findClosestGazelle()
+	public Animal findClosestPrey()
 	{
 		
-		Animal closestGazelle = new Animal(myCage);
+		Animal closestPrey = new Animal(myCage);
 		double distanceToClosest = visualRange+.01;
-		// Distance set to just longer than a Lion can see
+		// Distance set to just longer than a Dingo can see
 		
 		for(int y=0; y<myCage.getMax_Y(); y++)
 		{
@@ -24,13 +24,22 @@ public class Dingo extends Prey
 			{
 					if(myPos.distanceTo(new Position(x,y)) < distanceToClosest)
 					{
-						closestGazelle = myCage.animalAt(x,y);
+						closestPrey = myCage.animalAt(x,y);
 						distanceToClosest = myPos.distanceTo(new Position(x,y));
 					}
 			}
 		}
 		
-		return closestGazelle;
+		return closestPrey;
+	}
+	
+	public boolean isSomethingICanEat(Animal obj)
+	{
+		if(obj instanceof Prey && obj instanceof Dingo == false)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 	public boolean act()
@@ -38,7 +47,7 @@ public class Dingo extends Prey
 		boolean didIAct = false;
 		int xPrey, yPrey, myX, myY;
 		
-		Animal closestGazelle = findClosestPrey();
+		Animal closestPrey = findClosestPrey();
 		
 		if(isSomethingICanEat(closestPrey)==true)
 		{
@@ -61,7 +70,7 @@ public class Dingo extends Prey
 			
 			newPos = new Position(myX, myY);
 			
-			// check to see if Lion just caught Prey
+			// check to see if Dingo just caught Prey
 			if(newPos.equals(closestPrey.getPosition()))
 			{
 				closestPrey.kill();

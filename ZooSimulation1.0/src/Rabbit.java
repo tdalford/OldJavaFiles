@@ -34,29 +34,19 @@ public boolean act()
 	int y = super.myPos.getY();
 	for (int i = 0; i < babies; i++)
 	{
-		if (i == 0)
-		{
-			x++;
-		}
+		int xAdd = rn.nextInt(5) - 2;
+		int yAdd = rn.nextInt(5) - 2;
 		
-		if (i == 1)
-		{
-			x -= 2;
-		}
+		int newX = x + xAdd;
+		int newY = y + yAdd;
 		
-		if (i == 2)
+		if (newX > 0 && newX < myCage.getMax_X() && newY > 0 && newY < myCage.getMax_Y())
 		{
-			x++;
-			y++;
-		}
-		
-		if (i == 3)
-		{
-			x -= 2;
-			y -= 2;
-		}	
-
-		new Rabbit(myCage, Color.gray, new Position(x, y));
+		if (myCage.isEmptyAt(new Position(x + xAdd, y + yAdd)))
+				{
+			myCage.addAnimal(new Rabbit(myCage, Color.gray, new Position(x + xAdd, y + yAdd)));
+				}
+		}		
 	}
 	}
 	boolean didIAct = false;
