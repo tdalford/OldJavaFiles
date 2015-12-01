@@ -22,11 +22,14 @@ public class Dingo extends Prey
 		{
 			for(int x=0; x<myCage.getMax_X(); x++)
 			{
+				if(isSomethingICanEat(myCage.animalAt(x,y)) == true)
+				{
 					if(myPos.distanceTo(new Position(x,y)) < distanceToClosest)
 					{
 						closestPrey = myCage.animalAt(x,y);
 						distanceToClosest = myPos.distanceTo(new Position(x,y));
 					}
+				}
 			}
 		}
 		
@@ -35,7 +38,7 @@ public class Dingo extends Prey
 	
 	public boolean isSomethingICanEat(Animal obj)
 	{
-		if(obj instanceof Prey && obj instanceof Dingo == false)
+		if(obj instanceof Prey && (obj instanceof Dingo == false))
 		{
 			return true;
 		}
