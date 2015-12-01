@@ -38,7 +38,7 @@ public class Dingo extends Prey
 	
 	public boolean isSomethingICanEat(Animal obj)
 	{
-		if(obj instanceof Prey && (obj instanceof Dingo == false))
+		if(obj instanceof Prey && obj instanceof Dingo == false)
 		{
 			return true;
 		}

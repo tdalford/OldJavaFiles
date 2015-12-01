@@ -29,6 +29,8 @@ public boolean act()
 {
 	if (isFemale)
 	{
+	if (rn.nextInt(4) == 0)
+	{
 	int babies = rn.nextInt(4) + 1;
 	int x = super.myPos.getX();
 	int y = super.myPos.getY();
@@ -47,6 +49,7 @@ public boolean act()
 			myCage.addAnimal(new Rabbit(myCage, Color.gray, new Position(x + xAdd, y + yAdd)));
 				}
 		}		
+	}
 	}
 	}
 	boolean didIAct = false;
