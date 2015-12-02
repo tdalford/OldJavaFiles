@@ -1,3 +1,17 @@
+/********************************************************************
+
+ Class:  Dingo  (extends Prey which extends Animal)
+Author:  Tommy Alford
+  Date:  November 23, 2015
+
+Models the behavior of FastGazelles in the simulation
+
+Date			Modification
+11-20-2015  Main coding started
+11-23-2015 Perfected act method so it didn't eat itself but still ate other Prey
+
+
+*********************************************************************/
 import java.awt.Color;
 
 
@@ -5,12 +19,24 @@ public class Dingo extends Prey
 {
 	private double visualRange = 50.0;
 	
+	/**
+	*	Constructor creates a Dingo in a random empty spot in
+	*	the given cage with the specified Color.
+	*	@param cage  the cage in which Dingo will be created.
+	*	@param color  the color of the Dingo
+	*/
 	public Dingo(Cage myCage, Color orange) 	
 	{
 		super(myCage, orange);	
 	}
 	
 	
+	/**
+	*	Method is similar to the Lion's method, returning the closest Prey to the Dingo 
+	*	provided that Prey is also within the Dingo's visual range. If no Prey is seen it 
+	*	will return a generic Animal.
+	*	@return	closest Prey the Dingo can see
+	*/
 	public Animal findClosestPrey()
 	{
 		
@@ -36,8 +62,15 @@ public class Dingo extends Prey
 		return closestPrey;
 	}
 	
+	/**
+	*	Method returns true if obj is a type the animal can eat,
+	*	returns false otherwise
+	*	@param	obj	object to be evaluated
+	*	@return true if obj can be eaten, false otherwise
+	*/
 	public boolean isSomethingICanEat(Animal obj)
 	{
+		//can eat all prey except for themselves
 		if(obj instanceof Prey && obj instanceof Dingo == false)
 		{
 			return true;
@@ -45,6 +78,11 @@ public class Dingo extends Prey
 		return false;
 	}
 	
+	/**
+	*	Method similar to Lion's which causes the Dingo to act.  
+	*	This may include any number of behaviors (moving, eating, etc.).
+	*	@return	true if Dingo did act, false otherwise
+	*/
 	public boolean act()
 	{
 		boolean didIAct = false;
@@ -101,11 +139,21 @@ public class Dingo extends Prey
 		return didIAct;
 	}
 	
+	/**
+	*	Returns String form of Dingo, which is its position
+	*	and its type.
+	*	@return String form of Dingo
+	*/
 	public String toString()
 	{
 		return (myPos.toString() + " is a  Dingo.  ");
 	}
 	
+	/**
+	*	Method returns the String form of the Animal's
+	*	species, in this case "Dingo"
+	*	@return	the String "Dingo"
+	*/
 	public String getSpecies()
 	{
 		return "Dingo";
