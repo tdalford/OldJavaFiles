@@ -65,15 +65,16 @@ public class Dingo extends Animal implements Predator, Prey{
 		{
 			for(int x=0; x<myCage.getMax_X(); x++)
 			{
+				if(isSomethingICanEat(myCage.animalAt(x,y)) || canItEatMe(myCage.animalAt(x,y)))
+				{
 					if(myPos.distanceTo(new Position(x,y)) < distanceToClosest)
 					{
 						closestAnimal = myCage.animalAt(x,y);
 						distanceToClosest = myPos.distanceTo(new Position(x,y));
 					}
-				
+				}
 			}
 		}
-		
 		return closestAnimal;
 	}
 	
@@ -105,16 +106,21 @@ public class Dingo extends Animal implements Predator, Prey{
 				myY++;
 			newPos = new Position(myX, myY);
 			
-			// Dingo could not move away, so it moves as a 
+			/*// Dingo could not move away, so it moves as a 
 			// generic Prey, which means randomly
 			if(newPos.equals(oldPos))
 				super.act();
+				*/
 			// Dingo moves to new position which is empty
-			else if (myCage.isEmptyAt(newPos))
+			if (myCage.isEmptyAt(newPos))
 			{
 				myPos = newPos;
 				myCage.moveAnimal(oldPos, this);
 			}
+			
+			else 
+			super.act();
+			
 		}
 		
 		else if(isSomethingICanEat(closestAnimal)==true)
@@ -163,6 +169,28 @@ public class Dingo extends Animal implements Predator, Prey{
 		{
 			super.act();
 		}	
+		
+		
 	}
+	/**
+	*	Returns String form of Animal, which is its position
+	*	and its type.
+	*	@return String form of Animal
+	*/
+	public String toString()
+	{
+		return (myPos.toString() + " is a Dingo.  ");
+	}
+	
+	/**
+	*	Method returns the String form of the Animal's
+	*	species, in this case "Lion"
+	*	@return	the String "Lion"
+	*/
+	public String getSpecies()
+	{
+		return "Dingo";
+	}
+	
 	
 }
