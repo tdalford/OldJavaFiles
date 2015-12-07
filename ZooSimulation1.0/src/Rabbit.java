@@ -16,18 +16,19 @@ Date			Modification
 import java.awt.Color;
 import java.util.Random;
 
-/**
-*	Constructor creates a Rabbit in a random empty spot in
-*	the given cage with the specified Color.
-*	@param cage  the cage in which Rabbit will be created.
-*	@param color  the color of the Rabbit
-*/
+
 public class Rabbit extends Prey
 {
 	
 boolean isFemale;
 Random rn = new Random();
 
+/**
+*	Constructor creates a Rabbit in a random empty spot in
+*	the given cage with the specified Color.
+*	@param cage  the cage in which Rabbit will be created.
+*	@param color  the color of the Rabbit
+*/
 public Rabbit(Cage myCage, Color gray) 	
 {
 	super(myCage, gray);
