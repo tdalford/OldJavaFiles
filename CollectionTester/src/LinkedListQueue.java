@@ -34,15 +34,18 @@ private LinkedList<E> queue;
 	
 	public static void main(String[] args)
 	{
-	LinkedListQueue<String> list = new LinkedListQueue<String>();
-	list.enqueue("Bob");
-	list.enqueue("Josh");
-	list.enqueue("Brice");
+	long startTime = System.nanoTime();
+	LinkedListStack<String> list = new LinkedListStack<String>();
+	list.push("Bob");
+	list.push("Josh");
+	list.push("Brice");
 	while(!list.isEmpty())
 	{
-	System.out.println(list.peekFront());
-	System.out.println(list.dequeue());
+	System.out.println(list.peek());
+	System.out.println(list.pop());
 	System.out.println();
 	}
+	long endTime = System.nanoTime();
+	System.out.println(endTime - startTime);
 	}
 }
