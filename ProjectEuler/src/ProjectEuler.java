@@ -1610,7 +1610,8 @@ public class ProjectEuler {
 		System.out.println("total sum = " + pandSubDivSum);
 	}
 
-	public static void problem44() {
+	public static void problem44() 
+	{
 		ArrayList<Long> pentNumbs = new ArrayList<Long>();
 		for (long i = 1; i < 3000; i++) {
 			pentNumbs.add(i * (3 * i - 1) / 2);
@@ -1669,8 +1670,48 @@ public class ProjectEuler {
 		System.out.println(minDiff);
 	}
 
-	public static void main(String[] args) {
-		problem3();
-		problem24();
+	public static void problem45() 
+	{
+		for (long i = 286; i < 10000000; i++) 
+		{
+			double triNum = .5*(i*i + i);
+			double pentCheck = (1 + Math.sqrt(1 + 24*triNum)) / 6;
+			double hexCheck = (1 + Math.sqrt(1 + 8*triNum)) / 4;
+			if (pentCheck == (int) pentCheck && hexCheck == (int) hexCheck) 
+			{
+				System.out.println((int) triNum);
+				break;
+			}
+		}
+	}
+	
+	public static void problem46()
+	{
+		big:
+		for (int i = 35; i < 10001; i+= 2)
+		{
+			if (isPrime(i, eSieve(10001)) == false)
+			{
+				boolean check = false;
+				for (int j = 1; j < Math.sqrt(.5*(i-3)); j++)
+				{
+					if (isPrime(i - 2*j*j, eSieve(i - 2)))
+					{
+						check = true;
+						break;
+					}
+				}
+				if (check == false)
+				{
+					System.out.println(i);
+					break big;
+				}
+			}
+		}
+	}
+
+	public static void main(String[] args) 
+	{
+		problem46();
 	}
 }
