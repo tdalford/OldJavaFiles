@@ -19,18 +19,24 @@ public class FileEncrypt {
 			num = num + shift;
 			if(num>90)
 				num = num-26;
+			if(num<65)
+				num = num + 26;
 		}
 		else if(num >=97 && num <= 122) 
 		{
 			num = num + shift;
 			if(num>122)
 				num = num-26;
+			if(num<97)
+				num = num + 26;
 		}
 		else if(num>=48 && num<=57)
 		{
 			num = num + shift;
 			if(num>57)
 				num = num - 10;
+			if(num<48)
+				num = num + 10;
 		}
 		ch = (char)num;
 		return ch;
@@ -50,13 +56,18 @@ public class FileEncrypt {
 		}
 		message.remove(message.size()-1);  // removes end of file character
 		printArrayList(message);
-		printArrayList(encrypt(message, 7));
-		printArrayList(decrypt(message, 7));
+		int shift = 7;
+		printArrayList(encrypt(message, shift));
+		printArrayList(decrypt(message, shift));
 		
 		
 
 	}
 	
+	/**
+	 * Takes an ArrayList of strings and prints out each element in a new line
+	 * @param message the ArrayList to be printed
+	 */
 	public static void printArrayList(ArrayList<String> message)
 	{
 		for (int i = 0; i < message.size(); i++)
@@ -65,6 +76,12 @@ public class FileEncrypt {
 		}
 	}
 	
+	/**
+	 * Takes an ArrayList of strings and encrypts it line by line
+	 * @param message the ArrayList of strings to be encrypted
+	 * @param shift the amount each character is shifted in the cipher
+	 * @return the encrypted ArrayList
+	 */
 	public static ArrayList<String> encrypt(ArrayList<String> message, int shift)
 	{
 		for (int i = 0; i < message.size(); i++)
@@ -79,6 +96,12 @@ public class FileEncrypt {
 		return message;
 	}
 	
+	/**
+	 * Takes an ArrayList of strings and decrypts it line by line
+	 * @param message the ArrayList of strings to be decrypted
+	 * @param shift the amount each character is shifted back in the cipher
+	 * @return the decrypted ArrayList
+	 */
 	public static ArrayList<String> decrypt(ArrayList<String> message, int shift)
 	{
 		encrypt(message, 26 - shift);
