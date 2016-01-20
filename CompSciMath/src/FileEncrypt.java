@@ -12,10 +12,11 @@ public class FileEncrypt {
 	 */
 	public static char characterShift(char ch, int shift)
 	{
-		shift = shift%26;
+		
 		int num = (int)ch;
 		if(num >=65 && num <= 90) 
 		{
+			shift = shift%26;
 			num = num + shift;
 			if(num>90)
 				num = num-26;
@@ -24,6 +25,7 @@ public class FileEncrypt {
 		}
 		else if(num >=97 && num <= 122) 
 		{
+			shift = shift%26;
 			num = num + shift;
 			if(num>122)
 				num = num-26;
@@ -32,6 +34,7 @@ public class FileEncrypt {
 		}
 		else if(num>=48 && num<=57)
 		{
+			shift = shift%10;
 			num = num + shift;
 			if(num>57)
 				num = num - 10;
