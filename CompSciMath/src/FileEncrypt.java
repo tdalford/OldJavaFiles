@@ -49,8 +49,41 @@ public class FileEncrypt {
 			message.add(infile.readLine());
 		}
 		message.remove(message.size()-1);  // removes end of file character
-		System.out.println(message);
+		printArrayList(message);
+		printArrayList(encrypt(message, 7));
+		printArrayList(decrypt(message, 7));
 		
 		
+
 	}
+	
+	public static void printArrayList(ArrayList<String> message)
+	{
+		for (int i = 0; i < message.size(); i++)
+		{
+			System.out.println(message.get(i));
+		}
+	}
+	
+	public static ArrayList<String> encrypt(ArrayList<String> message, int shift)
+	{
+		for (int i = 0; i < message.size(); i++)
+		{
+			String line = message.get(i);
+			for (int j = 0; j < line.length(); j++)
+			{
+				line = line.substring(0, j) + characterShift(line.charAt(j), shift) + line.substring(j+1);
+			}
+			message.set(i, line);
+		}
+		return message;
+	}
+	
+	public static ArrayList<String> decrypt(ArrayList<String> message, int shift)
+	{
+		encrypt(message, 26 - shift);
+		return message;
+	}
+	
+	
 }
