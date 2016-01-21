@@ -62,6 +62,14 @@ public class FileEncrypt {
 		int shift = 7;
 		printArrayList(encrypt(message, shift));
 		printArrayList(decrypt(message, shift));
+		int[] shiftvalues = new int[4];
+		shiftvalues[0] = 1;
+		shiftvalues[1] = 4;
+		shiftvalues[2] = 1;
+		shiftvalues[3] = 5;
+		printArrayList(newEncrypt(message, shiftvalues));
+		printArrayList(newDecrypt(message, shiftvalues));
+		
 		
 		
 
@@ -99,6 +107,21 @@ public class FileEncrypt {
 		return message;
 	}
 	
+	public static ArrayList<String> newEncrypt(ArrayList<String> message, int[] shiftvalues)
+	{
+		for (int i = 0; i < message.size(); i++)
+		{
+			String line = message.get(i);
+			
+			for (int j = 0; j < line.length(); j++)
+			{
+				line = line.substring(0, j) + characterShift(line.charAt(j), shiftvalues[j % shiftvalues.length]) + line.substring(j+1);
+			}
+			message.set(i, line);
+		}
+		return message;
+	}
+	
 	/**
 	 * Takes an ArrayList of strings and decrypts it line by line
 	 * @param message the ArrayList of strings to be decrypted
@@ -109,6 +132,19 @@ public class FileEncrypt {
 	{
 		encrypt(message, 26 - shift);
 		return message;
+	}
+	public static ArrayList<String> newDecrypt(ArrayList<String> message, int[] shiftvalues)
+	{
+		for (int i = 0; i < message.size(); i++)
+		{
+			String line = message.get(i);
+		for (int j = 0; j < line.length(); j++)
+		{
+			line = line.substring(0, j) + characterShift(line.charAt(j), 26 - shiftvalues[j % shiftvalues.length]) + line.substring(j+1);
+		}
+		message.set(i, line);
+	}
+	return message;
 	}
 	
 	
