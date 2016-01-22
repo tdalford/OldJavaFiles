@@ -53,7 +53,7 @@ public class OtherPrimeFact {
 	
 	
 	//check if number is prime
-	static boolean isPrime (double testNumb)
+	public static boolean isPrime (double testNumb)
 	{
 		 if (testNumb <= 1) {
 	         return false;

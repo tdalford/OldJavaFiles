@@ -1709,9 +1709,106 @@ public class ProjectEuler {
 			}
 		}
 	}
+	
+	public static void problem47()
+	{
+		for (double i = 644; i < 1000000; i++)
+		{
+			boolean check = true;
+			for (double count = 0; count < 4; count++)
+			{
+				if (hasFourDistinctPrimeFactors(i + count) == false)
+				{
+					i++;
+					check = false;
+				}
+			}
+			if (check)
+			{
+				System.out.println(i);
+				break;
+			}
+		}
+	}
+	
+	public static boolean hasFourDistinctPrimeFactors(double testNumb)
+	{
+		ArrayList<Double> primeFacts = listPrimeFact(testNumb);
+		for (int i = 1; i < primeFacts.size(); i++)
+		{
+			if (primeFacts.get(i) - primeFacts.get(i - 1) == 0.0)
+			{
+				primeFacts.remove(i);
+				i--;
+				
+			}
+		}
+		if (primeFacts.size() == 4)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public static ArrayList<Double> listPrimeFact(double numb)
+	{
+		ArrayList<Double> primeFacts = new ArrayList<Double>();
+		if(numb == 2 || numb == 3)
+		{
+			primeFacts.add(numb);
+			return primeFacts;
+		}
+				
+				for (double i = 2; i <= Math.sqrt(numb) && numb > 1; i+= 2)
+				{
+					
+						//check if i is a factor of numb and if it's prime
+						while (isPrime(i) && numb % i == 0)	
+						{
+						numb /= i;
+						primeFacts.add(i);
+						}
+						
+						//always check if numb is prime after diving it by the factor (that way you only have 
+						//to check to the sqrt of numb
+						if (isPrime(numb))
+						{
+							primeFacts.add(numb);
+							return primeFacts;
+						}
+						
+						//makes it so that it goes to three on the next iteration after two
+						if (i == 2)
+						{
+							i--;
+						}
+				}
+				
+				return primeFacts;
+			}
+
+	public static boolean isPrime (double testNumb)
+	{
+	 if (testNumb <= 1) {
+         return false;
+     }
+     if (testNumb == 2) {
+         return true;
+     }
+     if (testNumb % 2 == 0) {
+         return false;
+     }
+     for (int i = 3; i <= Math.sqrt(testNumb) + 1; i += 2) {
+         if (testNumb % i == 0) {
+             return false;
+         }
+     }
+     return true;
+	}
 
 	public static void main(String[] args) 
 	{
 		problem46();
+		problem47();
 	}
 }

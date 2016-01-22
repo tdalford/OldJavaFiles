@@ -57,10 +57,9 @@ public class FileEncrypt {
 			message.add(infile.readLine());
 		}
 		message.remove(message.size()-1);  // removes end of file character
-		printArrayList(message);
-		int shift = 8;
+		int shift = 10;
 		printArrayList(encrypt(message, shift));
-		printArrayList(decrypt(message, shift));
+		/*printArrayList(decrypt(message, shift));
 		int[] shiftvalues = new int[4];
 		shiftvalues[0] = 1;
 		shiftvalues[1] = 4;
@@ -68,7 +67,8 @@ public class FileEncrypt {
 		shiftvalues[3] = 5;
 		printArrayList(newEncrypt(message, shiftvalues));
 		printArrayList(newDecrypt(message, shiftvalues));
-		System.out.println(isAWord("hi"));
+		*/
+		System.out.println("Cipher shift = " + decryptShift(message));
 				
 
 	}
@@ -83,6 +83,7 @@ public class FileEncrypt {
 		{
 			System.out.println(message.get(i));
 		}
+		System.out.println();
 	}
 	
 	/**
@@ -145,44 +146,61 @@ public class FileEncrypt {
 	return message;
 	}
 	
-	public static int checkShift(ArrayList<String> message)
+	public static int decryptShift(ArrayList<String> message)
 	{		
-		int shiftChecker = 1;
+		int bestShift = 0;
+		int mostWords = 0;
+		for (int shiftChecker = 0; shiftChecker < 26; shiftChecker++)
+		{
+		decrypt(message, shiftChecker);	
+		int realWords = 0;
 		for (int i = 0; i < message.size(); i++)
 		{
 			String line = message.get(i);
-			boolean isCoherant = true;
-			int wordsNeeded = 3;
-			int count = 0;
 			for (int j = 0; j < line.length(); j++)
 			{
 				String word = "";
-				while (isCoherant && count < wordsNeeded)
+				while (line.charAt(j) != ' ')
 				{
-					while (line.charAt(j) != ' ')
+					word += line.charAt(j);
+					if (j == line.length() - 1)
 					{
-						word += line.charAt(j);
+						break;
 					}
-					count++;
-					
+					j++;
+				}
+				if (isAWord(word.toLowerCase()))
+				{
+					realWords++;
 				}
 			}
 		}
-		return shiftChecker;
+		if (realWords > mostWords)
+		{
+			bestShift = shiftChecker;
+			mostWords = realWords;	
+		}
+		encrypt(message, shiftChecker);
+		}
+		printArrayList(decrypt(message, bestShift));	
+		return bestShift;
 	}
 	
 	public static boolean isAWord(String text)
 	{
-		EasyReader infile = new EasyReader("dictionary.txt");
-		String wordBlob = " ";
+		EasyReader infile = new EasyReader("words.txt");
+		ArrayList<String> words = new ArrayList<String>();
+		while(!infile.eof())
+		{
+			words.add(infile.readLine());
+		}
 		
 		
-		if (wordBlob.indexOf(text) != -1)
+		if (words.contains(text))
 		{
 			return true;
 		}
-		return false;
-		
+		return false;	
 	}
 	
 	
