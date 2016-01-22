@@ -50,16 +50,15 @@ public class FileEncrypt {
 	// folder for the project
 	public static void main(String[] args)
 	{
-		EasyReader infile = new EasyReader("quoteA.txt");
+		EasyReader infile = new EasyReader("testMessage.txt");
 		ArrayList<String> message = new ArrayList<String>();
-		
 		while(!infile.eof())
 		{
 			message.add(infile.readLine());
 		}
 		message.remove(message.size()-1);  // removes end of file character
 		printArrayList(message);
-		int shift = 7;
+		int shift = 8;
 		printArrayList(encrypt(message, shift));
 		printArrayList(decrypt(message, shift));
 		int[] shiftvalues = new int[4];
@@ -69,9 +68,8 @@ public class FileEncrypt {
 		shiftvalues[3] = 5;
 		printArrayList(newEncrypt(message, shiftvalues));
 		printArrayList(newDecrypt(message, shiftvalues));
-		
-		
-		
+		System.out.println(isAWord("hi"));
+				
 
 	}
 	
@@ -145,6 +143,47 @@ public class FileEncrypt {
 		message.set(i, line);
 	}
 	return message;
+	}
+	
+	public static int checkShift(ArrayList<String> message)
+	{		
+		int shiftChecker = 1;
+		for (int i = 0; i < message.size(); i++)
+		{
+			String line = message.get(i);
+			boolean isCoherant = true;
+			int wordsNeeded = 3;
+			int count = 0;
+			for (int j = 0; j < line.length(); j++)
+			{
+				String word = "";
+				while (isCoherant && count < wordsNeeded)
+				{
+					while (line.charAt(j) != ' ')
+					{
+						word += line.charAt(j);
+					}
+					count++;
+					
+				}
+			}
+		}
+		return shiftChecker;
+	}
+	
+	public static boolean isAWord(String text)
+	{
+		EasyReader infile = new EasyReader("dictionary.txt");
+		String wordBlob = " ";
+		
+		System.out.println(wordBlob);
+		
+		if (wordBlob.indexOf(text) != -1)
+		{
+			return true;
+		}
+		return false;
+		
 	}
 	
 	
