@@ -176,7 +176,6 @@ public class FileEncrypt {
 		EasyReader infile = new EasyReader("dictionary.txt");
 		String wordBlob = " ";
 		
-		System.out.println(wordBlob);
 		
 		if (wordBlob.indexOf(text) != -1)
 		{
