@@ -69,6 +69,14 @@ public class FileEncrypt {
 		printArrayList(newDecrypt(message, shiftvalues));
 		*/
 		System.out.println("Cipher shift = " + decryptShift(message));
+		String newMessage = "Jsyv wgsvi erh wizir cievw eks syv jexlivw fvsyklx jsvxl "
+ + "sr xlmw gsrxmrirx, e ria rexmsr, gsrgimzih mr Pmfivxc," 
+ + "erh hihmgexih xs xli tvstswmxmsr xlex epp qir evi gviexih iuyep.";
+		ArrayList<String> test = new ArrayList<String>();
+		test.add(newMessage);
+		printArrayList(test);
+		System.out.println("Cipher shift = " + decryptShift(test));
+		
 				
 
 	}
