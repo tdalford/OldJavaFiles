@@ -76,6 +76,18 @@ public class FileEncrypt {
 		test.add(newMessage);
 		printArrayList(test);
 		System.out.println("Cipher shift = " + decryptShift(test));
+		newMessage = "O znxkc g coyn ot znk ckrr "
+				+ "Jut'z gyq sk O'rr tkbkx zkrr "
+				+ "O ruuqkj gz eua gy oz lkrr "
+				+ "Gtj tuc eua'xk ot se cge "
+				+ "O zxgjk se yuar lux g coyn "
+				+ "Vkttoky gtj josky lux g qoyy "
+				+ "O cgyt'z ruuqotm lux znoy "
+				+ "Haz tuc eua'xk ot se cge";
+		test.remove(0);
+		test.add(newMessage);
+		printArrayList(test);
+		System.out.println("Cipher shift = " + decryptShift(test));
 		
 				
 
@@ -156,7 +168,56 @@ public class FileEncrypt {
 	
 	public static int decryptShift(ArrayList<String> message)
 	{		
-		int bestShift = 0;
+		
+		for (int shiftChecker = 0; shiftChecker < 26; shiftChecker++)
+		{
+			decrypt(message, shiftChecker);
+			int realConsecWords = 0;
+			int nonConsecWords = 0;
+			int wordsNeeded = 4;
+			check:
+			for (int i = 0; i < message.size(); i++)
+			{
+				String line = message.get(i);
+				for (int j = 0; j < line.length(); j++)
+				{
+					String word = "";
+					while (line.charAt(j) != ' ')
+					{
+						word += line.charAt(j);
+						if (j == line.length() - 1)
+						{
+							break;
+						}
+						j++;
+					}
+					if (isAWord(word.toLowerCase()))
+					{
+						realConsecWords++;
+						nonConsecWords = 0;
+					}
+					else
+					{
+						realConsecWords = 0;
+						nonConsecWords++;
+					}
+					if (realConsecWords == wordsNeeded)
+					{
+						printArrayList(message);
+						return shiftChecker;
+					}
+					if (nonConsecWords == wordsNeeded)
+					{
+						break check;
+					}
+					
+				}
+			}
+			encrypt(message, shiftChecker);
+		}
+		return 0;
+		
+		/*int bestShift = 0;
 		int mostWords = 0;
 		for (int shiftChecker = 0; shiftChecker < 26; shiftChecker++)
 		{
@@ -192,6 +253,7 @@ public class FileEncrypt {
 		}
 		printArrayList(decrypt(message, bestShift));	
 		return bestShift;
+		*/
 	}
 	
 	public static boolean isAWord(String text)
