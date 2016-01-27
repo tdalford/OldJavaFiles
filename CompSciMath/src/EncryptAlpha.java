@@ -104,21 +104,47 @@ public class EncryptAlpha
 	{
 		// Brownie points for anyone who knows why the name of
 		// EncryptAlpha object is enigma.
+		EasyReader infile = new EasyReader("testMessage.txt");
+		ArrayList<String> message = new ArrayList<String>();
+		while(!infile.eof())
+		{
+			message.add(infile.readLine());
+		}
+		message.remove(message.size()-1);  // removes end of file character
 		int[] values = {3, 2, 8, 1, 7,3};
 		EncryptAlpha enigma = new EncryptAlpha(values);
-		String message = "I really like robots.";
+		//String message = "I really like robots.";
 		
 		// Test the private methods
-		ArrayList<Integer> converted = enigma.convert(message);
+		ArrayList<Integer> converted = new ArrayList<Integer>();
+		ArrayList<ArrayList<Integer>> lines = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < message.size(); i++)
+		{
+		String line = message.get(i);
+		converted = enigma.convert(line);
 		System.out.println(converted);
-		String original = enigma.deconvert(converted);
+		lines.add(converted);
+		}
+		String original;
+		for (int i = 0; i < message.size(); i++)
+		{
+		converted = lines.get(i);
+		original = enigma.deconvert(converted);
 		System.out.println(original);
 		System.out.println();
+		}
 		
 		// Test the public methods
-		ArrayList<Integer> encrypted = enigma.encrypt(message);
+		for (int i = 0; i < message.size(); i++)
+		{
+		ArrayList<Integer> encrypted = enigma.encrypt(message.get(i));
 		System.out.println(encrypted);
-		original = enigma.decrypt(encrypted);
+		lines.set(i, encrypted);
+		}
+		for (int i = 0; i < message.size(); i++)
+		{
+		original = enigma.decrypt(lines.get(i));
 		System.out.println(original);
+		}
 	}
 }
