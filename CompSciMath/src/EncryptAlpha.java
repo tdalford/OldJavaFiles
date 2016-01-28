@@ -100,6 +100,15 @@ public class EncryptAlpha
 	}
 	
 	
+	public static void printArrayList(ArrayList message)
+	{
+		for (int i = 0; i < message.size(); i++)
+		{
+			System.out.print(message.get(i) + ", ");
+		}
+		System.out.println();
+	}
+	
 	public static void main(String[] args)
 	{
 		// Brownie points for anyone who knows why the name of
@@ -122,7 +131,7 @@ public class EncryptAlpha
 		{
 		String line = message.get(i);
 		converted = enigma.convert(line);
-		System.out.println(converted);
+		printArrayList(converted);
 		lines.add(converted);
 		}
 		String original;
@@ -135,12 +144,19 @@ public class EncryptAlpha
 		}
 		
 		// Test the public methods
+		EasyWriter outFile = new EasyWriter("encryptedFile.txt");
 		for (int i = 0; i < message.size(); i++)
 		{
 		ArrayList<Integer> encrypted = enigma.encrypt(message.get(i));
-		System.out.println(encrypted);
+		printArrayList(encrypted);
+		for (int j = 0; j < encrypted.size(); j++)
+		{
+			outFile.print(encrypted.get(j) + ", ");
+		}
+		outFile.println();
 		lines.set(i, encrypted);
 		}
+		outFile.close();
 		for (int i = 0; i < message.size(); i++)
 		{
 		original = enigma.decrypt(lines.get(i));
