@@ -11,7 +11,7 @@ public class Deck {
 	/**
 	 * cards contains all the cards in the deck.
 	 */
-	private List<Card> cards;
+	private List<Card> cards = new ArrayList<Card>();
 
 	/**
 	 * size is the number of not-yet-dealt cards.
@@ -33,7 +33,8 @@ public class Deck {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		for (int i = 0; i < ranks.length; i++)
 		{
-			cards.add(new Card(ranks[i], suits[i], values[i]));
+			Card newCard = new Card(ranks[i], suits[i], values[i]);
+			cards.add(newCard);
 		}
 		size = cards.size();
 		shuffle();
