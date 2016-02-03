@@ -33,8 +33,11 @@ public class Deck {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		for (int i = 0; i < ranks.length; i++)
 		{
-			Card newCard = new Card(ranks[i], suits[i], values[i]);
+			for (int j = 0 ; j < suits.length; j++)
+			{
+			Card newCard = new Card(ranks[i], suits[j], values[i]);
 			cards.add(newCard);
+			}
 		}
 		size = cards.size();
 		shuffle();

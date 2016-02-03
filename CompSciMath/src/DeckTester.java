@@ -11,8 +11,7 @@ public class DeckTester {
 		/* *** TO BE IMPLEMENTED IN ACTIVITY 2 *** */
 		String[] ranks = {"Ace", "Two", "Three", "Four", "Five", "Six", 
 				"Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-		String[] suits = {"Spades", "Diamonds", "Clubs", "Hearts", "Spades", "Diamonds", 
-				"Clubs", "Hearts","Spades", "Diamonds", "Clubs", "Hearts", "Spades"};
+		String[] suits = {"Spades", "Diamonds", "Clubs", "Hearts"};
 		int[] pointValues = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};		
 		Deck fullDeck = new Deck(ranks, suits, pointValues);
 		System.out.println(fullDeck.toString());
