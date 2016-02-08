@@ -1,3 +1,20 @@
+/**************
+ * Tommy Alford
+ * February 8, 2016
+ * Elevens Lab Questions:
+ * 
+ * 1. 5 of spades/6 of clubs, 6 of clubs/5 of clubs, 
+ * 
+ * 2. Yes, or else there would be one card left when a last match was made, which isn't possible, as each match takes an
+ * even number of cards except for K/Q/J, and three of those matches leaves three left for a last match. 
+ * 
+ * 3. Strategy doesn't matter in the slightest. Each card can only match with one or two specific cards that do not change. 
+ * Therefore if there are multiple matches available the order in which you make them does not matter. They will always 
+ * stay there until you make the match, and because you only match point values, the suit of the cards don't matter as well.
+ * 
+ * 
+ */
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
