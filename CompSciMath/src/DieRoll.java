@@ -9,7 +9,7 @@ public class DieRoll
 	
 	public static void main(String[] args)
 	{
-		int numRolls = 1000;
+		int numRolls = 10000000;
 		int numSides = 6;
 		int[] rolls = new int[numRolls];
 		for (int i = 0; i < numRolls; i++)
