@@ -11,12 +11,18 @@ public class DieRoll
 	{
 		int numRolls = 10000000;
 		int numSides = 6;
+		int numDice = 3;
 		int[] rolls = new int[numRolls];
 		for (int i = 0; i < numRolls; i++)
 		{
-			rolls[i] = dieRoll(numSides);
+			int sum = 0;
+			for (int j = 0; j < numDice; j++)
+			{
+			sum += dieRoll(numSides);
+			}
+			rolls[i] = sum;
 		}
-		int[] counts = new int[numSides + 1];
+		int[] counts = new int[numSides*numDice + 1];
 		for (int i = 0; i < counts.length; i++)
 		{
 			counts[i] = 0;
