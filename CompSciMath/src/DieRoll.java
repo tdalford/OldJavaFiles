@@ -9,7 +9,7 @@ public class DieRoll
 	
 	public static void main(String[] args)
 	{
-		int numRolls = 10000000;
+		int numRolls = 100000;
 		int numSides = 6;
 		int numDice = 3;
 		int[] rolls = new int[numRolls];
@@ -34,7 +34,7 @@ public class DieRoll
 		for (int i = 1; i < counts.length; i++)
 		{
 			double percent = counts[i]*100.0 / numRolls;
-			System.out.println(i + ": " + percent);
+			System.out.println(i + ": " + percent / 100);
 		}
 	}
 }
