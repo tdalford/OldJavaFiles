@@ -37,9 +37,7 @@ public class RandomPi
 				upperBound = test;
 			}
 		}
-		System.out.println(lowerBound);
-		System.out.println(upperBound);
-		
+		System.out.println((upperBound + lowerBound) / 2);
 	}
 		
 		
