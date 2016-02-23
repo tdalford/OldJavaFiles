@@ -84,9 +84,19 @@ public static void main(String[] args)
 		}
 		else
 		{
-		//modulus is useful!!!!
+		//modulus is useful!!!! 
 			x = (Xs[0].getX() + Xs[1].getX()) % 3;
 			y = (Xs[0].getY() + Xs[1].getY()) % 3;
+			block = new Point(x, y);
+		}
+		if (ticTac.emptyBoard.contains(block)) //you already played in block, play strategically
+		{
+			
+		}
+		else //block the lineup!!!
+		{
+			Os[1] = ticTac.findPoint(block);
+			ticTac.fill(Os[1]);
 		}
 	}
 	
