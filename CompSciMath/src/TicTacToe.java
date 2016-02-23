@@ -18,52 +18,77 @@ public static void main(String[] args)
 	Point[] Xs = new Point[5];
 	Point[] Os = new Point[4];
 	//first X, play at a random corner
-	Xs[0] = ticTac.randomEmptyCorner();
-	ticTac.fill(Xs[0]);
+	Xs[0] = ticTac.findPoint(ticTac.randomEmptyCorner());
 	System.out.println(Xs[0].toString());
+	ticTac.fill(Xs[0]);
 	//first 0
 	if (Xs[0].isCorner()) //play in the middle
 	{
-		Os[0] = new Point(1, 1);
+		Os[0] = ticTac.findPoint(new Point(1, 1));
 	}
 	else //play at a random adjacent corner
 	{
 		ArrayList<Point> adjCorn = ticTac.adjacentCorners(ticTac.findPoint(Xs[0]));
-		Os[0] = adjCorn.get(rn.nextInt(adjCorn.size()));
+		Os[0] = ticTac.findPoint(adjCorn.get(rn.nextInt(adjCorn.size())));
 	}
-	ticTac.fill(Os[0]);
 	System.out.println(Os[0].toString());
+	ticTac.fill(Os[0]);
 	//second X
 	if (Os[0].isMiddle())
 	{
-		Xs[1] = Xs[0].opposite();
+		Xs[1] = ticTac.findPoint(Xs[0].opposite());
 	}
 	else if (Os[0].isCorner())
 	{
-		if (Os[0].opposite() == Xs[0])
+		if (Os[0].opposite().equals(Xs[0]))
 		{
-			Xs[1] = ticTac.randomEmptyCorner();
+			Xs[1] = ticTac.findPoint(ticTac.randomEmptyCorner());
 		}
 		else
 		{
-			Xs[1] = Os[0].opposite();
+			Xs[1] = ticTac.findPoint(Os[0].opposite());
 		}
 	}
-	else //an edge, play the corner adjacent that isn't opposite
+	else //an edge, if edge is adjacent, play corner in line that isn't adjacent, else play non-opposite adj corner
 	{
-		ArrayList<Point> corners = ticTac.adjacentCorners(ticTac.findPoint(Os[0]));
-		if (corners.get(0).opposite() == Xs[0])
+		if (Os[0].isAdjacentTo(Xs[0]))
 		{
-			Xs[1] = corners.get(1);
+			Xs[1] = ticTac.findPoint(ticTac.adjacentCorners(Os[0]).get(0).opposite());
 		}
 		else
 		{
-			Xs[1] = corners.get(0);
+			ArrayList<Point> availCorners = ticTac.adjacentCorners(Os[0]);
+			if (availCorners.get(0).opposite().equals(Xs[0]))
+			{
+				//choose non-opposite point
+				Xs[1] = ticTac.findPoint(availCorners.get(1));
+			}
+			else
+			{
+				//choose non-opposite
+				Xs[1] = ticTac.findPoint(availCorners.get(0));
+			}
 		}
 	}
 	System.out.println(Xs[1].toString());
 	ticTac.fill(Xs[1]);
-
+	//second 0, check if player one can win, if it can, block, if not 
+	if (Xs[0].inLine(Xs[1]) == true)
+	{
+		Point block;
+		double x;
+		double y;
+		if (Xs[0].isCorner() && Xs[1].isCorner())
+		{
+			block = Xs[0].midPoint(Xs[1]);
+		}
+		else
+		{
+		//modulus is useful!!!!
+			x = (Xs[0].getX() + Xs[1].getX()) % 3;
+			y = (Xs[0].getY() + Xs[1].getY()) % 3;
+		}
+	}
 	
 	
 	

@@ -3,9 +3,14 @@ import java.util.Random;
 public class Board {
 	Random rn = new Random();
 	ArrayList<Point> board = new ArrayList<Point>();
+	ArrayList<Point> emptyCorners;
+	ArrayList<Point> emptyEdges;
+	ArrayList<Point> emptyBoard;
 	public Board (ArrayList<Point> points)
 	{
 		board = points;
+		emptyCorners = getCorners();
+		emptyBoard = board;
 	}
 	
 	public ArrayList<Point> getCorners()
@@ -23,26 +28,24 @@ public class Board {
 	
 	public ArrayList<Point> adjacentCorners(Point point)
 	{
-		ArrayList<Point> adjCorn = new ArrayList();
+		ArrayList<Point> adjCorn = emptyCorners;
 		if (point.isCorner())
 		{
-			return adjCorn;
+			return null;
 		}
 		else if (point.isMiddle())
 		{
-			adjCorn = getCorners();
+			return getCorners();
 		}
 		else
 		{
-			if (point.getX() == 1)
+			for (int i = 0; i < adjCorn.size(); i++)
 			{
-				adjCorn.add(new Point(0, point.getY()));
-				adjCorn.add(new Point(2, point.getY()));
-			}
-			else
-			{
-				adjCorn.add(new Point(point.getX(), 0));
-				adjCorn.add(new Point(point.getX(), 2));
+				if (adjCorn.get(i).isAdjacentTo(point) == false)
+				{
+					adjCorn.remove(i);
+					i--;
+				}
 			}
 		}
 		return adjCorn;
@@ -52,9 +55,14 @@ public class Board {
 	{
 		for (int i = 0; i < board.size(); i++)
 		{
-			if (board.get(i) == point)
+			if (board.get(i).equals(point))
 			{
 				board.get(i).fill();
+				if (point.isCorner())
+				{
+					emptyCorners.remove(point);
+					emptyBoard.remove(point);
+				}
 				break;
 			}
 		}
@@ -64,7 +72,7 @@ public class Board {
 	{
 		for (int i = 0; i < board.size(); i++)
 		{
-			if (point == board.get(i))
+			if (point.equals(board.get(i)))
 			{
 				return board.get(i);
 			}
@@ -72,16 +80,28 @@ public class Board {
 		return null;
 	}
 	
+	public ArrayList<Point> emptyCorners()
+	{
+		return emptyCorners;
+	}
+	
 	public Point randomEmptyCorner()
 	{
-		ArrayList<Point> emptyCorners = getCorners();
-		for (int i = 0; i < emptyCorners.size(); i++)
-		{
-			if (emptyCorners.get(i).isFilled())
-			{
-				emptyCorners.remove(i);
-			}
-		}
-		return emptyCorners.get(rn.nextInt(emptyCorners.size()));
+		return (emptyCorners.get(rn.nextInt(emptyCorners.size())));
 	}
+	
+	public ArrayList<Point> filled()
+	{
+		ArrayList<Point> filledPoints = new ArrayList<Point>();
+		for (int i = 0; i < board.size(); i++)
+		{
+			if (board.get(i).isFilled() == true);
+			{
+				filledPoints.add(board.get(i));
+			}	
+		}
+		return filledPoints;
+					
+	}
+			
 }
