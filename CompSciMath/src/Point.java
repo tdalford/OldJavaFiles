@@ -1,22 +1,22 @@
 import java.util.ArrayList;
 public class Point 
 {
-	int x;
-	int y;
+	double x;
+	double y;
 	boolean filled;
-	public Point (int xCoordinate, int yCoordinate)
+	public Point (double xCoordinate, double yCoordinate)
 	{
 		x = xCoordinate;
 		y = yCoordinate;
 		filled = false;
 	}
 	
-	public int getX()
+	public double getX()
 	{
 		return x;
 	}
 	
-	public int getY()
+	public double getY()
 	{
 		return y;
 	}
@@ -58,18 +58,20 @@ public class Point
 		filled = true;
 	}
 	
-	public ArrayList<Point> adjacentCorners()
+	public Point opposite()
 	{
-		ArrayList<Point> adjCorn = new ArrayList();
-		if (isCorner())
-		{
-			return adjCorn;
-		}
-		else if (isMiddle())
-		{
-			
-		}
-		return adjCorn;
+		return (new Point(2 - x, 2 - y));
 	}
+	
+	public Point midPoint(Point second)
+	{
+		return  (new Point(.5*(x + second.getX()), .5*(y + second.getY())));
+	}
+	
+	public String toString()
+	{
+		return "(" + x + ", " + y + ")" ;
+	}
+	
 	
 }
