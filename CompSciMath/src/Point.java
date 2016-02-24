@@ -117,5 +117,10 @@ public class Point
 		return true;
 	}
 	
+	public double magnitude()
+	{
+		return Math.sqrt(x*x + y*y);		
+	}
+	
 	
 }

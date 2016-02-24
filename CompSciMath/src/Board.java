@@ -6,11 +6,14 @@ public class Board {
 	ArrayList<Point> emptyCorners;
 	ArrayList<Point> emptyEdges;
 	ArrayList<Point> emptyBoard;
+	Point block;
 	public Board (ArrayList<Point> points)
 	{
 		board = points;
 		emptyCorners = getCorners();
+		emptyEdges = getEdges();
 		emptyBoard = board;
+		
 	}
 	
 	public ArrayList<Point> getCorners()
@@ -26,22 +29,35 @@ public class Board {
 		return corners;
 	}
 	
+	public ArrayList<Point> getEdges()
+	{
+		ArrayList<Point> edges = new ArrayList<Point>();
+		for (int i = 0; i < board.size(); i++)
+		{
+			if (board.get(i).isEdge() == true)
+			{
+				edges.add(board.get(i));
+			}
+		}
+		return edges;
+	}
+	
 	public ArrayList<Point> adjacentCorners(Point point)
 	{
-		ArrayList<Point> adjCorn = emptyCorners;
+		ArrayList<Point> adjCorn = getCorners();
 		if (point.isCorner())
 		{
 			return null;
 		}
 		else if (point.isMiddle())
 		{
-			return getCorners();
+			return emptyCorners;
 		}
 		else
 		{
 			for (int i = 0; i < adjCorn.size(); i++)
 			{
-				if (adjCorn.get(i).isAdjacentTo(point) == false)
+				if (adjCorn.get(i).isAdjacentTo(point) == false || adjCorn.get(i).isFilled())
 				{
 					adjCorn.remove(i);
 					i--;
@@ -61,8 +77,12 @@ public class Board {
 				if (point.isCorner())
 				{
 					emptyCorners.remove(point);
-					emptyBoard.remove(point);
 				}
+				else if (point.isEdge())
+				{
+					emptyEdges.remove(point);
+				}
+				emptyBoard.remove(point);
 				break;
 			}
 		}
@@ -85,9 +105,19 @@ public class Board {
 		return emptyCorners;
 	}
 	
+	public ArrayList<Point> emptyEdges()
+	{
+		return emptyEdges;
+	}
+	
 	public Point randomEmptyCorner()
 	{
 		return (emptyCorners.get(rn.nextInt(emptyCorners.size())));
+	}
+	
+	public Point randomEmptyEdge()
+	{
+		return (emptyEdges.get(rn.nextInt(emptyEdges.size())));
 	}
 	
 	public ArrayList<Point> filled()
@@ -102,6 +132,50 @@ public class Board {
 		}
 		return filledPoints;
 					
+	}
+	
+	public boolean aboutToWin(Point first, Point second)
+	{
+		if (first.inLine(second) == true)
+		{
+		double x;
+		double y;
+		if (first.isCorner() && second.isCorner())
+		{
+			block = first.midPoint(second);
+		}
+		else
+		{
+		//find the bigger point, start there and add difference from smaller --> bigger to bigger
+			//modulus is useful for wraparound!!!! 
+			Point bigger = null;
+			Point smaller = null;
+			if (first.magnitude() > second.magnitude()) //Xs[0] is bigger
+			{
+				bigger = first;
+				smaller = second;
+			}
+			else //Xs[1] is bigger
+			{
+				bigger = second;
+				smaller = first;
+			}
+			//bigger + (bigger - smaller) = 2*bigger - smaller			
+			x = (2 * bigger.getX()  - smaller.getX()) % 3;
+			y = (2 * bigger.getY()  - smaller.getY()) % 3;
+			block = new Point(x, y);
+		}
+		if (emptyBoard.contains(findPoint(block))) //block the lineup!!!
+		{		 
+			return true;
+		}
+	}
+		return false;
+	}
+	
+	public Point block()
+	{
+		return findPoint(block);
 	}
 			
 }
