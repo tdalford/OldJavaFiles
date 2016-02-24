@@ -3,15 +3,14 @@ import java.util.Random;
 public class TicTacToe 
 {
 	
-static Point XMove;
-static Point OMove;
 static Point[] Xs = new Point[5];
 static Point[] Os = new Point[4];
 static Board ticTac;
 static boolean hasWon = false;
 static Random rn = new Random();
 
-public static void XPlaySimonBot(Robot simonBot) {
+/*public static void PlaySimonBot(Robot simonBot) 
+{
 
 	//add points to the board
 	ArrayList<Point> points = new ArrayList<Point>();
@@ -23,18 +22,21 @@ public static void XPlaySimonBot(Robot simonBot) {
 		}
 	}
 	ticTac = new Board(points);
-	Point p = simonBot.makeMove();
-	
-	Point myP = makeMyMoveGivenSimonsLastMove(p);
-	p = simonBot.makeMoveGivenTommysLastMove(myP);
+	int moveNum = 0;
+	while (hasWon == false)
+	{
+		Xs[moveNum] = makeXMove(moveNum);
+		Os[moveNum] = simonBot.makeMove();
+		ticTac.fill(ticTac.findPoint(Os[moveNum]));
+		displayBoard(Xs, Os);
+		moveNum++;
+	}		
 	
 }
+*/
 	
 public static void main(String[] args)
 {
-	int moveCount = 0;
-	boolean hasWon = false;
-	Random rn = new Random();
 	//add points to the board
 		ArrayList<Point> points = new ArrayList<Point>();
 		for (int i = 0; i < 3; i++)
@@ -45,6 +47,21 @@ public static void main(String[] args)
 			}
 		}
 	ticTac = new Board(points);
+	for (int i = 0; i < 4 && hasWon == false; i++)
+	{
+		Xs[i] = makeXMove(i);
+		if (hasWon == false)
+		{
+			Os[i] = makeOMove(i);
+		}
+	}
+	if (hasWon == false)
+	{
+		Xs[4] = makeXMove(4);
+	}
+	/*int moveCount = 0;
+	boolean hasWon = false;
+	Random rn = new Random();
 	//first X, play at a random corner
 	//Xs[0] = ticTac.findPoint(ticTac.randomEmptyCorner());
 	//ticTac.fill(Xs[0]);
@@ -435,9 +452,9 @@ public static void main(String[] args)
 		//displayBoard(Xs, Os);
 		XMove = Xs[4];
 		Xs[4] = makeXMove(4);
-		System.out.println("Tie...");
-		
+		System.out.println("Tie...");	
 	}
+	*/
 }
 
 public static void displayBoard(Point[] Xs, Point[] Os)
@@ -483,16 +500,6 @@ public static void displayBoard(Point[] Xs, Point[] Os)
 	System.out.println();
 }
 
-public Point XMove()
-{
-	return XMove;
-}
-
-public Point OMove()
-{
-	return OMove;
-}
-
 public static Point makeXMove(int moveNum)
 {
 	
@@ -505,7 +512,6 @@ public static Point makeXMove(int moveNum)
 		//System.out.println(Xs[0].toString());
 		ticTac.fill(Xs[0]);
 		displayBoard(Xs, Os);
-		XMove = Xs[0];
 	}
 	else if (moveNum == 1)
 	{
@@ -556,7 +562,6 @@ public static Point makeXMove(int moveNum)
 		//System.out.println(Xs[1].toString());
 		ticTac.fill(Xs[1]);
 		displayBoard(Xs, Os);
-		XMove = Xs[1];
 	}
 	else if (moveNum == 2)
 	{
@@ -569,14 +574,12 @@ public static Point makeXMove(int moveNum)
 			hasWon = true;
 			//System.out.println(Xs[2].toString());
 			displayBoard(Xs, Os);
-			XMove = Xs[2];
 			System.out.println("X won!!!");
 		}
 		else if (ticTac.aboutToWin(Os[0], Os[1]))//block O from winning
 		{
 			Xs[2] = ticTac.block();
 			ticTac.fill(Xs[2]);
-			XMove = Xs[2];
 			displayBoard(Xs, Os);
 			//System.out.println(Xs[2].toString());
 		}
@@ -606,7 +609,6 @@ public static Point makeXMove(int moveNum)
 			ticTac.fill(Xs[2]);
 			//System.out.println(Xs[2].toString());
 			displayBoard(Xs, Os);
-			XMove = Xs[2];
 		}
 	}
 	else if (moveNum == 3)
@@ -622,7 +624,6 @@ public static Point makeXMove(int moveNum)
 							ticTac.fill(Xs[3]);
 						//	System.out.println(Xs[3].toString());
 							displayBoard(Xs, Os);
-							XMove = Xs[3];
 							System.out.println("X won!!!");
 							hasWon = true;
 						}
@@ -640,7 +641,6 @@ public static Point makeXMove(int moveNum)
 							ticTac.fill(Xs[3]);
 							//System.out.println(Xs[3].toString());
 							displayBoard(Xs, Os);
-							XMove = Xs[3];
 							break outer;
 						}
 					}
@@ -665,7 +665,6 @@ public static Point makeXMove(int moveNum)
 				ticTac.fill(Xs[3]);
 				//System.out.println(Xs[3].toString());
 				displayBoard(Xs, Os);
-				XMove = Xs[3];
 			}
 	}
 	else
@@ -674,7 +673,6 @@ public static Point makeXMove(int moveNum)
 		ticTac.fill(Xs[4]);
 		//System.out.println(Xs[4].toString());
 		displayBoard(Xs, Os);
-		XMove = Xs[4];
 		System.out.println("Tie...");	
 	}
 	return Xs[moveNum];
@@ -695,11 +693,10 @@ public static Point makeOMove(int moveNum)
 			Os[0] = ticTac.findPoint(adjCorn.get(rn.nextInt(adjCorn.size())));
 		}
 		//test:
-		//Os[0] = ticTac.findPoint(new Point(0, 2));
+		//Os[0] = ticTac.findPoint(new Point(0, 1));
 		//System.out.println(Os[0].toString());
 		ticTac.fill(Os[0]);
 		displayBoard(Xs, Os);
-		OMove = Os[0];
 	}
 	else if (moveNum == 1)
 	{
@@ -769,7 +766,6 @@ public static Point makeOMove(int moveNum)
 		//System.out.println(Os[1].toString());
 		ticTac.fill(Os[1]);
 		displayBoard(Xs, Os);
-		OMove = Os[1];
 	}
 	else if (moveNum == 2)
 	{
@@ -780,7 +776,6 @@ public static Point makeOMove(int moveNum)
 			ticTac.fill(Os[2]);
 			//System.out.println(Os[2].toString());
 			displayBoard(Xs, Os);
-			OMove = Os[2];
 			hasWon = true;
 			System.out.println("O won!!!");
 		}
@@ -797,7 +792,6 @@ public static Point makeOMove(int moveNum)
 						ticTac.fill(Os[2]);
 						//System.out.println(Os[2].toString());
 						displayBoard(Xs, Os);
-						OMove = Os[2];
 						break outer;
 					}
 				}
@@ -823,7 +817,6 @@ public static Point makeOMove(int moveNum)
 			ticTac.fill(Os[2]);
 			//System.out.println(Os[2].toString());
 			displayBoard(Xs, Os);
-			OMove = Os[2];
 		}
 	}
 	else 
@@ -839,7 +832,6 @@ public static Point makeOMove(int moveNum)
 					ticTac.fill(Os[3]);
 					//System.out.println(Os[3].toString());
 					displayBoard(Xs, Os);
-					OMove = Os[3];
 					System.out.println("O won!!!");
 					hasWon = true;
 				}
@@ -857,7 +849,6 @@ public static Point makeOMove(int moveNum)
 					ticTac.fill(Os[3]);
 				//	System.out.println(Os[3].toString());
 					displayBoard(Xs, Os);
-					OMove = Os[3];
 					break outer;
 				}
 			}
@@ -882,7 +873,6 @@ public static Point makeOMove(int moveNum)
 		ticTac.fill(Os[3]);
 		//System.out.println(Os[3].toString());
 		displayBoard(Xs, Os);
-		OMove = Os[3];
 	}
 	}
 	ticTac.fill(Os[moveNum]);
