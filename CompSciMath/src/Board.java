@@ -168,7 +168,7 @@ public class Board {
 			}
 			if (y < 0)
 			{
-				x += 3;
+				y += 3;
 			}
 			block = new Point(x, y);
 		}
