@@ -12,8 +12,7 @@ public class Board {
 		board = points;
 		emptyCorners = getCorners();
 		emptyEdges = getEdges();
-		emptyBoard = board;
-		
+		emptyBoard = board;		
 	}
 	
 	public ArrayList<Point> getCorners()
@@ -163,6 +162,14 @@ public class Board {
 			//bigger + (bigger - smaller) = 2*bigger - smaller			
 			x = (2 * bigger.getX()  - smaller.getX()) % 3;
 			y = (2 * bigger.getY()  - smaller.getY()) % 3;
+			if (x < 0)
+			{
+				x += 3;
+			}
+			if (y < 0)
+			{
+				x += 3;
+			}
 			block = new Point(x, y);
 		}
 		if (emptyBoard.contains(findPoint(block))) //block the lineup!!!
