@@ -9,31 +9,6 @@ static Board ticTac;
 static boolean hasWon = false;
 static Random rn = new Random();
 
-/*public static void PlaySimonBot(Robot simonBot) 
-{
-
-	//add points to the board
-	ArrayList<Point> points = new ArrayList<Point>();
-	for (int i = 0; i < 3; i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			points.add(new Point(i, j));
-		}
-	}
-	ticTac = new Board(points);
-	int moveNum = 0;
-	while (hasWon == false)
-	{
-		Xs[moveNum] = makeXMove(moveNum);
-		Os[moveNum] = simonBot.makeMove();
-		ticTac.fill(ticTac.findPoint(Os[moveNum]));
-		displayBoard(Xs, Os);
-		moveNum++;
-	}		
-	
-}
-*/
 	
 public static void main(String[] args)
 {

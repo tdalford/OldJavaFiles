@@ -27,7 +27,7 @@ public class BinaryConverter
 	    else
 	    {
 	    	toBinary(inBase10 / 2);
-				System.out.print(inBase10 % 2);
+			System.out.print(inBase10 % 2);
 		}
 	}
 	
