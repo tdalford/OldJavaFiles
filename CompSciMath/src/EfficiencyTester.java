@@ -3,10 +3,10 @@ public class EfficiencyTester
 {
 	public static void main(String[] args)
 	{
-		double[] ratios = new double[100];
-		for (int scale = 1; scale < ratios.length; scale++)
+		double[] ratios = new double[10];
+		for (int scale = 0; scale < ratios.length; scale++)
 		{
-		int numElements = 100000 * scale;
+		int numElements = 1000 * (scale + 1);
 		int[] data = new int[numElements];
 		for(int i=0; i<numElements; i++)
 		{
@@ -15,13 +15,16 @@ public class EfficiencyTester
 		
 		// (1) Put code here to time the findTheLargestMethod
 		long start = System.currentTimeMillis();
+		findTheLargest(data);
 		long end = System.currentTimeMillis();
+
 		
 		
 		// (2) Put code here to time the findTheLargestSlowlyMethod
 		long secStart = System.currentTimeMillis();
+		findTheLargestSlowly(data);
 		long secEnd = System.currentTimeMillis();
-		double ratio = (secEnd - secStart) / (end - start);
+		double ratio = (secEnd - secStart) / (end - start + 1);
 		ratios[scale] = ratio;
 		}
 		System.out.println(Arrays.toString(ratios));
