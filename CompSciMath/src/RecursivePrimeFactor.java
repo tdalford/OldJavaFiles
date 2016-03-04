@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 
 public class RecursivePrimeFactor 
 {
@@ -5,7 +7,40 @@ public class RecursivePrimeFactor
 	
 	public static void main(String[] args)
 	{
-		printPrimeFactors(12473450);
+		boolean goOn = true;
+		Scanner myScanner = new Scanner(System.in);
+		while (goOn) 
+		{
+		System.out.println("input a number to be factorized");
+		int factee = myScanner.nextInt();
+		printPrimeFactors(factee);
+		System.out.println("would you like to run this sequence again?");
+		boolean noAnswer = true;
+		//check if user wants to check another value
+		while (noAnswer)
+		{
+		String answer = myScanner.next();
+		if (answer.toLowerCase().indexOf("yes") != -1) 
+		{
+			//You said yes
+			System.out.println("Great!");
+			noAnswer = false;
+		}
+		
+		else if (answer.toLowerCase().indexOf("no") != -1)
+		{
+			System.out.println("That's fine.");
+			noAnswer = false;
+			goOn = false;
+		}
+		
+		else 
+		{
+			System.out.println("Sorry, I couldn't understand what you typed. Please try again.");
+		}
+		}
+		
+	  }
 	}
 	public static void printPrimeFactors(int num)
 	{		
@@ -32,25 +67,4 @@ public class RecursivePrimeFactor
 		}
 	}
 	
-
-	/*//check if number is prime
-	public static boolean isPrime (int testNumb)
-	{
-		 if (testNumb <= 1) {
-	         return false;
-	     }
-	     if (testNumb == 2) {
-	         return true;
-	     }
-	     if (testNumb % 2 == 0) {
-	         return false;
-	     }
-	     for (int i = 3; i <= Math.sqrt(testNumb) + 1; i += 2) {
-	         if (testNumb % i == 0) {
-	             return false;
-	         }
-	     }
-	     return true;
-	 }
-	 */
 }	
