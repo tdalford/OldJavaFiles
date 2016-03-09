@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class WordCount 
 {
+	
 	public static void main(String[] args)
 	{
 		EasyReader infile = new EasyReader("sampletext.txt");
@@ -13,7 +14,6 @@ public class WordCount
 		message.remove(message.size()-1);  // removes end of file character
 		System.out.println(message);
 		System.out.println("unique words = " + uniqueWords(message));
-		System.out.println("amount of times 'the' appears = " + wordOccuranceCount(message, "the"));
 	}
 	
 	public static int uniqueWords(ArrayList<String> message)
@@ -62,7 +62,9 @@ public class WordCount
 						break;
 					}
 				}
-				}
+				}				
+				
+				
 				if (usedWords.contains(word.toLowerCase()) == false && word.isEmpty() == false)
 				{
 					usedWords.add(word.toLowerCase());
@@ -71,11 +73,19 @@ public class WordCount
 			}
 		}
 		System.out.println(usedWords);
+		ArrayList<Integer> counts = wordOccuranceCount(message, usedWords);
+		for (int i = 0; i < counts.size(); i++)
+		{
+			System.out.println("number of times " + "'" + usedWords.get(i) + "'" +  " occurs: " + counts.get(i));
+		}
 		return uniqueWords;
 	}
 	
-	public static int wordOccuranceCount(ArrayList<String> message, String wordCheck)
+	public static ArrayList<Integer> wordOccuranceCount(ArrayList<String> message, ArrayList<String> usedWords)
 	{
+		ArrayList<Integer> wordCount = new ArrayList<Integer>();
+		for (int a = 0; a < usedWords.size(); a++)
+		{
 		int count = 0;
 		for (int i = 0; i < message.size(); i++)
 		{
@@ -111,12 +121,14 @@ public class WordCount
 					}
 				}
 				}
-				if (word.toLowerCase().equals(wordCheck))
+				if (word.toLowerCase().equals(usedWords.get(a)))
 				{
 					count++;
 				}
 			}
 		}
-		return count;
+		wordCount.add(count);
+		}
+		return wordCount;
 	}
 }
