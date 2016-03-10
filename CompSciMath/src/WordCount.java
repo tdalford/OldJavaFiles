@@ -5,7 +5,7 @@ public class WordCount
 	
 	public static void main(String[] args)
 	{
-		EasyReader infile = new EasyReader("sampletext.txt");
+		EasyReader infile = new EasyReader("CommunistManifesto.txt");
 		ArrayList<String> message = new ArrayList<String>();
 		while(!infile.eof())
 		{
@@ -40,14 +40,6 @@ public class WordCount
 					break;
 					}
 				}		
-				while (word.charAt(0) == '"' || word.charAt(0) == '‘')
-				{
-					word = word.substring(1, word.length());
-					if (word.isEmpty())
-					{
-						break;
-					}
-				}
 				
 				if (word.isEmpty() == false)
 				{
@@ -74,9 +66,34 @@ public class WordCount
 		}
 		System.out.println(usedWords);
 		ArrayList<Integer> counts = wordOccuranceCount(message, usedWords);
+		//sort both
+    	for(int a=0; a<counts.size(); a++)
+    	{
+    		for(int b=a+1; b<counts.size(); b++)
+    		{
+    			if(counts.get(a) < counts.get(b))
+    			{
+    				int temp = counts.get(a);
+    				String tempS = usedWords.get(a);
+    				counts.set(a, counts.get(b));
+    				usedWords.set(a, usedWords.get(b));
+    				counts.set(b, temp);
+    				usedWords.set(b, tempS);
+    				
+    			}
+    		}
+    	}
 		for (int i = 0; i < counts.size(); i++)
 		{
 			System.out.println("number of times " + "'" + usedWords.get(i) + "'" +  " occurs: " + counts.get(i));
+			if (i == 100)
+			{
+				break;
+			}
+		}
+		for (int i = 0; i < 30; i++)
+		{
+			System.out.println((double) counts.get(0) / counts.get(i) + ", " + (i + 1));
 		}
 		return uniqueWords;
 	}
@@ -107,6 +124,8 @@ public class WordCount
 					break;
 					}
 				}
+				
+				
 				if (word.isEmpty() == false)
 				{
 					while (word.charAt(word.length() - 1) == '.' || word.charAt(word.length() - 1) == ':' 
