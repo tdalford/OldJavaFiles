@@ -5,17 +5,14 @@ public class MultiArrays {
 	{
 			int colIndex = matrix.length - 1;
 			int rowIndex = matrix[0].length - 1;
-			for (int i = colIndex; i >= colIndex / 2; i--)
+			for (int i = colIndex; i >= (double) colIndex / 2; i--)
 			{
 				for (int j = rowIndex; j >= 0; j--)
 				{
-					/*System.out.println(i);
-					System.out.println(j);
-					*/
 					int temp = matrix[i][j];
 					matrix[i][j] = matrix[colIndex - i][rowIndex - j];
 					matrix[colIndex - i][rowIndex - j] = temp;	
-					if (i == colIndex / 2 && j == (int) (rowIndex / 2) + 1)
+					if (i == (double) colIndex / 2 && j == (int) (rowIndex / 2) + 1)
 					{
 						return matrix;
 					}
@@ -39,46 +36,33 @@ public class MultiArrays {
 		}
 	}
 	
-	public static void main(String[] args)
+	public static int[][] createMatrix(int rows, int columns)
 	{
 		Random rn = new Random();
-		int[][] mat = new int[5][5];
-		for (int r = 0; r < 5; r++)
+		int[][] mat = new int[rows][columns];
+		for (int r = 0; r < rows; r++)
 		{
-			for (int c= 0; c < 5; c++)
-			{
-				mat[r][c] = rn.nextInt(90) + 10;
-			}
-		}
-		printMatrix(mat);
-		printMatrix(reverseMatrix(mat));
-		/*//reverse array:
-		all:
-		for (int i = 4; i >= 2; i--)
-		{
-			for (int j = 4; j >= 0; j--)
-			{
-				int temp = mat[i][j];
-				mat[i][j] = mat[4 - i][4 - j];
-				mat[4 - i][4 - j] = temp;	
-				if (i == 2 && j == 2)
-				{
-					break all;
-				}
-			}
-		}		
-		printMatrix(mat);
-		*/
-		mat = new int[3][4];
-		for (int r = 0; r < 3; r++)
-		{
-			for (int c= 0; c < 4; c++)
+			for (int c= 0; c < columns; c++)
 			{
 				mat[r][c] = rn.nextInt(90) + 10;
 			}
 		}	
+		return mat;
+	}
+	
+	public static void main(String[] args)
+	{
+		int[][] mat = createMatrix(5, 5);
+		printMatrix(mat);
+		printMatrix(reverseMatrix(mat));
+
+		mat = createMatrix(3, 4);
 		printMatrix(mat);
 		System.out.println(mat.length);
+		printMatrix(reverseMatrix(mat));
+		
+		mat = createMatrix(8, 11);
+		printMatrix(mat);
 		printMatrix(reverseMatrix(mat));
 	}	
 
