@@ -1,5 +1,5 @@
 import java.util.Random;
-
+import java.util.ArrayList;
 public class Password {
 
 	public static void main(String[] args) {
@@ -32,9 +32,20 @@ public class Password {
 			password = password + rand;
 		}
 		password = SortAlgs.scramble(password);
+		ArrayList<Integer> encrypted = new ArrayList<Integer>();
 		System.out.println(password);
-		//print password on file
-		outFile.println(password);
+		int[] values = {3, 2, 8, 1, 7,3};
+		EncryptAlpha encrypter = new EncryptAlpha(values);
+		encrypted = encrypter.encrypt(password);
+				
+		for (int j = 0; j < encrypted.size(); j++)
+		{
+			System.out.print(encrypted.get(j));
+			//print encrypted password on file
+			outFile.print(encrypted.get(j));
+		}
+		outFile.println();
+		System.out.println();
 		}
 		outFile.close(); // optional
 
