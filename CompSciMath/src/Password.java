@@ -4,7 +4,7 @@ public class Password {
 
 	public static void main(String[] args) {
 		EasyWriter outFile = new EasyWriter("passwords.txt");
-		for (int i = 0; i < 1000; i++)
+		for (int i = 0; i < 10; i++)
 		{
 		String password = "";
 		Random rn = new Random();
@@ -27,23 +27,27 @@ public class Password {
 		password = password + symb;
 
 		// add random characters, 33-126
-		for (int j = 0; j < 4; j++) {
+		int moreChars = rn.nextInt(10) + 4;
+		for (int j = 0; j < moreChars; j++) {
 			char rand = (char) (rn.nextInt(94) + 33);
 			password = password + rand;
 		}
 		password = SortAlgs.scramble(password);
 		ArrayList<Integer> encrypted = new ArrayList<Integer>();
 		System.out.println(password);
+		System.out.println();
+		outFile.println(password);
+		outFile.println(); 
 		int[] values = {3, 2, 8, 1, 7,3};
 		EncryptAlpha encrypter = new EncryptAlpha(values);
 		encrypted = encrypter.encrypt(password);
-				
+		String encryptedNum = "";
 		for (int j = 0; j < encrypted.size(); j++)
 		{
-			System.out.print(encrypted.get(j));
-			//print encrypted password on file
-			outFile.print(encrypted.get(j));
+			encryptedNum += encrypted.get(j);
 		}
+		System.out.println(encryptedNum);
+		outFile.println(encryptedNum);
 		outFile.println();
 		System.out.println();
 		}
