@@ -13,8 +13,8 @@ public class WrapAroundCode {
 		}
 		
 		System.out.println(getValue('C'));
-		System.out.println(getChar(6));
-		System.out.println(change('C', 1));
+		System.out.println(getChar(-8));
+		System.out.println(change('F', 3));
 		Scanner myScanner = new Scanner(System.in);
 		System.out.println("Input values to encode:");
 		String values = myScanner.nextLine();
@@ -28,7 +28,8 @@ public class WrapAroundCode {
 					if (48 <= values.charAt(j) && values.charAt(j) <= 58)
 					{
 						int numb = values.charAt(j);
-						System.out.print(change(value, numb));
+						System.out.print(getChar(change(value, numb)));
+						//have to change code to start at previous letter value and move left/right from there
 						break;
 					}
 				}
@@ -56,7 +57,7 @@ public class WrapAroundCode {
 		return (char) ascii;
 	}
 	
-	public static char change(char letter, int numb)
+	public static int change(char letter, int numb)
 	{
 		int value = getValue(letter);
 		if (numb == 1)
@@ -82,7 +83,7 @@ public class WrapAroundCode {
 			value = factorSum(value)*10;
 		}
 		
-		return getChar(value);
+		return value;
 	}
 	
 	public static int factorSum(int numb)
