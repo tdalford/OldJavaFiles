@@ -164,6 +164,6 @@ public class TicTacMethods {
 	
 	public boolean isEmpty(char[][] board)
 	{
-		
+		return true;
 	}
 }

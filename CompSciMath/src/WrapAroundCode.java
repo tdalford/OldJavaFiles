@@ -12,8 +12,9 @@ public class WrapAroundCode {
 			alphabet[i - 65] = (char) i;
 		}
 		
-		System.out.println(getValue('Z'));
-		System.out.println(getChar(-26));
+		System.out.println(getValue('C'));
+		System.out.println(getChar(6));
+		System.out.println(change('C', 1));
 		Scanner myScanner = new Scanner(System.in);
 		System.out.println("Input values to encode:");
 		String values = myScanner.nextLine();
@@ -26,7 +27,9 @@ public class WrapAroundCode {
 				{
 					if (48 <= values.charAt(j) && values.charAt(j) <= 58)
 					{
-						int numb = values.charAt(j);			
+						int numb = values.charAt(j);
+						System.out.print(change(value, numb));
+						break;
 					}
 				}
 			}
@@ -45,15 +48,15 @@ public class WrapAroundCode {
 	public static char getChar(int value)
 	{
 		value %= 26;
-		int ascii = 89 - value;
-		if (ascii > 90)
+		int ascii = 65 + value;
+		if (ascii < 64)
 		{
-			ascii = 180 - ascii;
+			ascii = 27 + ascii;
 		}
 		return (char) ascii;
 	}
 	
-	public char change(char letter, int numb)
+	public static char change(char letter, int numb)
 	{
 		int value = getValue(letter);
 		if (numb == 1)
@@ -82,7 +85,7 @@ public class WrapAroundCode {
 		return getChar(value);
 	}
 	
-	public int factorSum(int numb)
+	public static int factorSum(int numb)
 	{
 		int sum = 0;
 		for (int i = 1; i < numb / 2; i++)
