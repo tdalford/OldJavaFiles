@@ -7,20 +7,18 @@ public class ConicProblem
 	
 	public static void main(String[] args)
 	{
-		/*
-		 * System.out.println("Input general form equation of a conic:");
-		 *
+		
+		System.out.println("Input general form equation of a conic:");
 		//x^2-y^2-4x-6y-3=0
 		Scanner myScanner = new Scanner(System.in);
 		String conic = myScanner.nextLine();
-		*/
-		String conic = "y^2-12x-2y-35=0";
 		assignVariables(conic);
-		System.out.println(A);
+		/*System.out.println(A);
 		System.out.println(C);
 		System.out.println(D);
 		System.out.println(E);
 		System.out.println(F);
+		*/
 		assignConicType(A, B, C);
 		System.out.print(conicType + ", ");
 		if (conicType.equals("Parabola"))
@@ -33,11 +31,20 @@ public class ConicProblem
 				System.out.print("(" + centerX + ", " + centerY + ")" + ", ");
 				System.out.print("x = " + centerX);
 			}
+			else
+			{
+				int centerY = -E / (2*C);
+				int constant = F - centerY*centerY;
+				int centerX = constant / D;
+				System.out.print("(" + centerX + ", " + centerY + ")" + ", ");
+				System.out.print("y = " + centerY);
+			}
 		}
 		else
 		{
 		int centerX = -D / (2*A);
 		int centerY = -E / (2*C);
+		System.out.print("(" + centerX + ", " + centerY + ")" + ", ");
 		int constant = -F + centerX*centerX*A + centerY*centerY*C;
 		System.out.println(lastPart(constant));
 		}
@@ -69,6 +76,7 @@ public class ConicProblem
 						{
 							A += Math.pow(10, count)*Character.getNumericValue(conic.charAt(i - 1));
 							i--;
+							count++;
 							if (i == 0)
 							{
 								break;
@@ -112,6 +120,7 @@ public class ConicProblem
 						{
 							C += Math.pow(10, count)*Character.getNumericValue(conic.charAt(i - 1));
 							i--;
+							count++;
 							if (i == 0)
 							{
 								break;
@@ -151,6 +160,7 @@ public class ConicProblem
 					{
 					D += Math.pow(10, count)*Character.getNumericValue(conic.charAt(i - 1));
 					i--;
+					count++;
 					}
 					i++;
 				}
