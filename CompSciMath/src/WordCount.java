@@ -45,8 +45,7 @@ public class WordCount
 				{
 					while (word.charAt(word.length() - 1) == '.' || word.charAt(word.length() - 1) == ':' 
 						|| word.charAt(word.length() - 1) == ';' || word.charAt(word.length() - 1) == ',' 
-						|| word.charAt(word.length() - 1) == '!' || word.charAt(word.length() - 1) == '"' 
-						|| word.charAt(word.length() - 1) == '’' || word.charAt(word.length() - 1) == '–')
+						|| word.charAt(word.length() - 1) == '!' || word.charAt(word.length() - 1) == '"' )
 				{
 					word = word.substring(0, word.length() - 1);
 					if (word.isEmpty())
@@ -130,8 +129,7 @@ public class WordCount
 				{
 					while (word.charAt(word.length() - 1) == '.' || word.charAt(word.length() - 1) == ':' 
 						|| word.charAt(word.length() - 1) == ';' || word.charAt(word.length() - 1) == ',' 
-						|| word.charAt(word.length() - 1) == '!' || word.charAt(word.length() - 1) == '"' 
-						|| word.charAt(word.length() - 1) == '’' || word.charAt(word.length() - 1) == '–')
+						|| word.charAt(word.length() - 1) == '!' || word.charAt(word.length() - 1) == '"') 
 				{
 					word = word.substring(0, word.length() - 1);
 					if (word.isEmpty())
