@@ -11,24 +11,31 @@ public class WrapAroundCode {
 		{
 			alphabet[i - 65] = (char) i;
 		}
-		
-		System.out.println(getValue('C'));
-		System.out.println(getChar(-8));
-		System.out.println(change('F', 3));
 		Scanner myScanner = new Scanner(System.in);
 		System.out.println("Input values to encode:");
 		String values = myScanner.nextLine();
+		char currentChar = 'A';
 		for (int i = 0; i < values.length(); i++)
 		{
-			char value = values.charAt(i);
-			if (65 <= value && value <= 90)
+			char charValue = values.charAt(i);
+			if (65 <= charValue && charValue <= 90)
 			{
 				for (int j = i + 1; j < values.length(); j++)
 				{
 					if (48 <= values.charAt(j) && values.charAt(j) <= 58)
 					{
-						int numb = values.charAt(j);
-						System.out.print(getChar(change(value, numb)));
+						int numb = Character.getNumericValue(values.charAt(j));
+						int shift = change(charValue, numb) % 26;
+						if (shift >= 0)
+						{
+							shift--;
+						}
+						else if (shift < 0)
+							shift -= 2;
+
+						int newValue = getValue(currentChar) + shift;
+						currentChar = getChar(newValue);
+						System.out.print(currentChar);
 						//have to change code to start at previous letter value and move left/right from there
 						break;
 					}
@@ -80,7 +87,7 @@ public class WrapAroundCode {
 		}
 		else if (numb == 5)
 		{
-			value = factorSum(value)*10;
+			value = factorSum(getValue(letter))*10;
 		}
 		
 		return value;
@@ -89,11 +96,12 @@ public class WrapAroundCode {
 	public static int factorSum(int numb)
 	{
 		int sum = 0;
-		for (int i = 1; i < numb / 2; i++)
+		for (int i = 1; i <= Math.sqrt(numb); i++)
 		{
 			if (numb % i == 0)
 			{
 				sum += i;
+				sum += (numb / i);
 			}
 		}
 		return sum;
