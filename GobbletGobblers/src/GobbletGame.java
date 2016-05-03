@@ -13,7 +13,7 @@ public class GobbletGame
 		//otherwise you can't move
 		boolean canMove = true;
 		int startIndex = getTopIndex(startX, startY);
-		if (board[startX - 1][startY - 1][startIndex] == gobb)
+		if (board[startX - 1][startY - 1][startIndex].equals(gobb))
 		{
 			board[startX - 1][startY - 1][startIndex] = null;
 		}
@@ -44,9 +44,9 @@ public class GobbletGame
 	
 	public int getTopIndex(int xCoord, int yCoord)
 	{
-		for (int i = board[3][3].length - 1; i >= 0; i--)
+		for (int i = 0; i < board[3][3].length; i++)
 		{
-			if (board[xCoord - 1][yCoord - 1][i] != null)
+			if (board[xCoord - 1][yCoord - 1][i] == null)
 			{
 				return i;
 			}

@@ -18,4 +18,13 @@ public class Gobbler {
 	{
 		return size;
 	}
+	
+	public boolean equals(Gobbler gobb)
+	{
+		if (gobb.size() == size && gobb.color() == color)
+		{
+			return true;
+		}		
+		return false;
+	}
 }
