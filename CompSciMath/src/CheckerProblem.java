@@ -15,7 +15,7 @@ public class CheckerProblem {
 		System.out.println("Input checkers on the board:");
 		String checkerPos = myScanner.nextLine();	
 		initializeBoard(checkerPos);
-		//printBoard(checkerBoard);	
+		printBoard(checkerBoard);	
 		int mostJumps = 0;
 		for (int i = 0; i < youPos.length; i++)
 		{
