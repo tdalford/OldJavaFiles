@@ -1,7 +1,7 @@
 
 public class Gobbler {
-	static String color;
-	static int size;
+	String color;
+	int size;
 	
 	public Gobbler(String c, int s)
 	{
