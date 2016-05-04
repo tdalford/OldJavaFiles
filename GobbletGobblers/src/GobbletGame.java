@@ -12,6 +12,7 @@ public class GobbletGame extends JFrame implements ActionListener
 	JButton[] button;
 	int count = 0;
 	int sign = 0;
+	
 	public GobbletGame() 
 	{
 		panel = new JPanel();
@@ -29,6 +30,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
+	
 	public void actionPerformed(ActionEvent e){
 		count++;
 		for(int i =0; i <=8; i++){
@@ -59,6 +61,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		sign++;
 		
 	}
+	
 	public boolean checkWinner()
 	{
 		
