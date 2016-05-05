@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 public class GobbletGame extends JFrame implements ActionListener
 {
 	static Gobbler[][][] board = new Gobbler[3][3][3];
@@ -12,16 +13,49 @@ public class GobbletGame extends JFrame implements ActionListener
 	JButton[] button;
 	int count = 0;
 	int sign = 0;
+	ImageIcon smallBlueIcon;
+	ImageIcon smallOrangeIcon;
+	ImageIcon mediumBlueIcon;
+	ImageIcon mediumOrangeIcon;
+	ImageIcon largeBlueIcon;
+	ImageIcon largeOrangeIcon;
+	static Icon gobblerImage;
 	
 	public GobbletGame() 
 	{
+		//configure images into icons
+		java.net.URL imageURL = GobbletGame.class.getResource("SmallBlue.png");
+		smallBlueIcon = new ImageIcon(imageURL);
+		imageURL = GobbletGame.class.getResource("SmallOrange.png");
+		smallOrangeIcon = new ImageIcon(imageURL);
+		imageURL = GobbletGame.class.getResource("MediumBlue.png");
+		mediumBlueIcon = new ImageIcon(imageURL);
+		imageURL = GobbletGame.class.getResource("MediumOrange.png");
+		mediumOrangeIcon = new ImageIcon(imageURL);
+		imageURL = GobbletGame.class.getResource("LargeBlue.png");
+		largeBlueIcon = new ImageIcon(imageURL);
+		imageURL = GobbletGame.class.getResource("LargeOrange.png");
+		largeOrangeIcon = new ImageIcon(imageURL);
 		panel = new JPanel();
 		panel.setLayout(new GridLayout(4,4));
 		this.add(panel);
 		button = new JButton[16];
+		//initialize blank buttons
 		for(int i = 0; i <= 15; i++)
 		{
 			button[i] = new JButton();
+		}
+		//create buttons with icons
+		button[1] = new JButton(smallBlueIcon);
+		button[2] = new JButton(mediumBlueIcon);
+		button[3] = new JButton(largeBlueIcon);
+		button[4] = new JButton(smallOrangeIcon);
+		button[8] = new JButton(mediumOrangeIcon);
+		button[12] = new JButton(largeOrangeIcon);
+		
+		
+		for(int i = 0; i <= 15; i++)
+		{
 			panel.add(button[i]);
 			button[i].setEnabled(true);
 			button[i].addActionListener(this);
@@ -32,36 +66,44 @@ public class GobbletGame extends JFrame implements ActionListener
 		button[0].setVisible(false);
 	}
 	
+	//if first click, store the icon of the box clicked
+	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
 	public void actionPerformed(ActionEvent e){
 		count++;
-		for(int i =0; i <=15; i++){
-			if(button[i] == e.getSource()){
-				if(sign%2 == 0){
+		if (count == 1)
+		{
+			for(int i = 1; i <= 15; i++)
+			{
+				if(button[i] == e.getSource())
+				{
+					Icon gobblerImage = button[i].getIcon();
+					System.out.println(gobblerImage.equals(smallOrangeIcon));
+				}
+			}
+		}
+		else
+		{
+		for(int i = 0; i <= 15; i++)
+		{
+			if(button[i] == e.getSource())
+			{
+				gobblerImage = button[i].getIcon();
+				System.out.println(gobblerImage.equals(smallOrangeIcon));
+				if(sign%2 == 0)
+				{
 					button[i].setText("X");
 					button[i].setEnabled(false);
 				}
-				else{
+				else
+				{
 					button[i].setText("O");
 					button[i].setEnabled(false);
 				}
-			
 			}
-		
 		}
-		/*checkWinner();
-		if(count >= 9){
-			JOptionPane.showMessageDialog(null, "Cat's Game!");
-			for(int j = 0; j<= 15; j++){
-				button[j].setText("");
-				button[j].setEnabled(true);
-			}
-			count = 0;
-			sign = 0;
-			return;
 		}
+		checkWinner();
 		sign++;
-		*/
-		
 	}
 	
 	public boolean checkWinner()
