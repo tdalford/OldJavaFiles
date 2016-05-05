@@ -16,10 +16,10 @@ public class GobbletGame extends JFrame implements ActionListener
 	public GobbletGame() 
 	{
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(3,3));
+		panel.setLayout(new GridLayout(4,4));
 		this.add(panel);
-		button = new JButton[9];
-		for(int i = 0; i <= 8; i++)
+		button = new JButton[16];
+		for(int i = 0; i <= 15; i++)
 		{
 			button[i] = new JButton();
 			panel.add(button[i]);
@@ -29,11 +29,12 @@ public class GobbletGame extends JFrame implements ActionListener
 		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
+		button[0].setVisible(false);
 	}
 	
 	public void actionPerformed(ActionEvent e){
 		count++;
-		for(int i =0; i <=8; i++){
+		for(int i =0; i <=15; i++){
 			if(button[i] == e.getSource()){
 				if(sign%2 == 0){
 					button[i].setText("X");
@@ -47,10 +48,10 @@ public class GobbletGame extends JFrame implements ActionListener
 			}
 		
 		}
-		checkWinner();
+		/*checkWinner();
 		if(count >= 9){
 			JOptionPane.showMessageDialog(null, "Cat's Game!");
-			for(int j = 0; j<= 8; j++){
+			for(int j = 0; j<= 15; j++){
 				button[j].setText("");
 				button[j].setEnabled(true);
 			}
@@ -59,12 +60,44 @@ public class GobbletGame extends JFrame implements ActionListener
 			return;
 		}
 		sign++;
+		*/
 		
 	}
 	
 	public boolean checkWinner()
 	{
+		/*
+		for (int i = 0; i < 3; i++)
+		{
+			if (board[i][0][getTopIndex(i, 0)].color().equals(board[i][1][getTopIndex(i, 1)].color())
+				&& board[i][1][getTopIndex(i, 1)].color().equals(board[i][2][getTopIndex(i, 2)].color()))
+			{
+				return true;
+			}
+		}
 		
+		for (int i = 0; i < 3; i++)
+		{
+			if (board[0][i][getTopIndex(0, i)].color().equals(board[1][i][getTopIndex(1, i)].color())
+				&& board[1][i][getTopIndex(1, i)].color().equals(board[2][i][getTopIndex(2, i)].color()))
+			{
+				return true;
+			}
+		}
+		
+		for (int i = 0; i < 2; i++)
+		{
+			i *= 2;
+			if (board[i][0][getTopIndex(0, i)].color().equals(board[1][i][getTopIndex(1, 1)].color())
+				&& board[1][1][getTopIndex(1, 1)].color().equals(board[2][i][getTopIndex(2 - i, 2)].color()))
+			{
+				return true;
+			}
+		}			
+		return false;
+		*/
+		//we will worry about this later
+		return false;
 	}
 	
 	public static void main(String[] args)
@@ -109,7 +142,7 @@ public class GobbletGame extends JFrame implements ActionListener
 				color = "Blue";
 			}
 			else
-				color = "Red";
+				color = "Orange";
 			if (moveParams.size() == 3)
 			{
 				move(new Gobbler(color, moveParams.get(0)), moveParams.get(1), moveParams.get(2));
@@ -171,7 +204,7 @@ public class GobbletGame extends JFrame implements ActionListener
 	//moves using a gobbler not on the board
 	public static void move(Gobbler gobb, int endX, int endY)
 	{
-		if (gobb.color() == "Red")
+		if (gobb.color() == "Orange")
 		{
 			if (redGobbAmt[gobb.size()] > 0)
 			{
