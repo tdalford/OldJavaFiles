@@ -23,6 +23,12 @@ public class GobbletGame extends JFrame implements ActionListener
 	static Icon secondGobblerImage;
 	static int firstButtonIndex;
 	static int secondButtonIndex;
+	static Gobbler firstGobbler = null;
+	static Gobbler secondGobbler = null;
+	int firstX = -1;
+	int firstY = -1;
+	int secondX;
+	int secondY;
 	
 	public GobbletGame() 
 	{
@@ -73,12 +79,6 @@ public class GobbletGame extends JFrame implements ActionListener
 	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
 	public void actionPerformed(ActionEvent e){
 		count++;
-		Gobbler firstGobbler = null;
-		Gobbler secondGobbler = null;
-		int firstX = -1;
-		int firstY = -1;
-		int secondX;
-		int secondY;
 		if (count == 1)
 		{
 			for(int i = 1; i <= 15; i++)
@@ -114,6 +114,7 @@ public class GobbletGame extends JFrame implements ActionListener
 				//Gobbler wasn't on board
 				{
 					move(firstGobbler, secondX, secondY);
+					button[i].setIcon(getGobblerIcon(firstGobbler));
 				}
 				//gobbler was on board
 				else
@@ -172,18 +173,18 @@ public class GobbletGame extends JFrame implements ActionListener
 	
 	public static void main(String[] args)
 	{
-		new GobbletGame();
-		run();
-	}
-	
-	public static void run()
-	{
 		//initialize Gobbler amounts
 		for (int i = 0; i < 3; i++)
 		{
 			blueGobbAmt[i] = 2;
 			redGobbAmt[i] = 2;
 		}
+		new GobbletGame();
+		run();
+	}
+	
+	public static void run()
+	{
 		boolean hasWon = false;
 		boolean isBlue = true;
 		System.out.println("input a position to move a Gobbler, or input 'end' to break");
@@ -328,6 +329,15 @@ public class GobbletGame extends JFrame implements ActionListener
 		return 2;
 	}
 	
+	public static Gobbler getTopGobbler(int xCoord, int yCoord)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			return board[xCoord][yCoord][i];
+		}
+		return null;
+	}
+	
 	public static void printGobblerBoard(Gobbler[][][] board)
 	{
 		for (int r = 0; r < 3; r++)
@@ -353,13 +363,13 @@ public class GobbletGame extends JFrame implements ActionListener
 		if (buttonIndex > 0 && buttonIndex < 4)
 		{
 			blueGobbAmt[buttonIndex - 1]--;
-			return (new Gobbler("blue", (buttonIndex - 3)));
+			return (new Gobbler("Blue", (buttonIndex - 1)));
 		}
 		
 		else if (buttonIndex == 4 || buttonIndex == 8  || buttonIndex == 12)
 		{
 			redGobbAmt[(buttonIndex / 4) - 1]--;
-			return (new Gobbler("orange", (buttonIndex / 4) - 1));
+			return (new Gobbler("Orange", (buttonIndex / 4) - 1));
 		}
 		//567, 91011, 131415
 		//5- (0, 0), 6- (0, 1) 15- (2, 2)
