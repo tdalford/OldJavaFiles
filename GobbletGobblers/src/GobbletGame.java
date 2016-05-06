@@ -19,14 +19,17 @@ public class GobbletGame extends JFrame implements ActionListener
 	ImageIcon mediumOrangeIcon;
 	ImageIcon largeBlueIcon;
 	ImageIcon largeOrangeIcon;
-	static Icon gobblerImage;
+	static Icon firstGobblerImage;
+	static Icon secondGobblerImage;
+	static int firstButtonIndex;
+	static int secondButtonIndex;
 	
 	public GobbletGame() 
 	{
 		//configure images into icons
-		java.net.URL imageURL = GobbletGame.class.getResource("BlueSMall.png");
+		java.net.URL imageURL = GobbletGame.class.getResource("SmallBlue.png");
 		smallBlueIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("OrangeSmall.png");
+		imageURL = GobbletGame.class.getResource("SmallOrange.png");
 		smallOrangeIcon = new ImageIcon(imageURL);
 		imageURL = GobbletGame.class.getResource("MediumBlue.png");
 		mediumBlueIcon = new ImageIcon(imageURL);
@@ -70,14 +73,26 @@ public class GobbletGame extends JFrame implements ActionListener
 	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
 	public void actionPerformed(ActionEvent e){
 		count++;
+		Gobbler firstGobbler = null;
+		Gobbler secondGobbler = null;
+		int firstX = -1;
+		int firstY = -1;
+		int secondX;
+		int secondY;
 		if (count == 1)
 		{
 			for(int i = 1; i <= 15; i++)
 			{
 				if(button[i] == e.getSource())
 				{
-					Icon gobblerImage = button[i].getIcon();
-					System.out.println(gobblerImage.equals(smallOrangeIcon));
+					firstButtonIndex = i;
+					firstGobbler = getGobblerFromButton(firstButtonIndex);
+					if (isOnBoard(i))
+					{
+					firstX = getXFromButton(firstButtonIndex);
+					firstY = getYFromButton(firstButtonIndex);
+					}
+					firstGobblerImage = button[i].getIcon();
 				}
 			}
 		}
@@ -87,20 +102,33 @@ public class GobbletGame extends JFrame implements ActionListener
 		{
 			if(button[i] == e.getSource())
 			{
-				gobblerImage = button[i].getIcon();
-				System.out.println(gobblerImage.equals(smallOrangeIcon));
-				if(sign%2 == 0)
+				secondGobblerImage = button[i].getIcon();
+				secondButtonIndex = i;
+				secondX = getXFromButton(secondButtonIndex);
+				secondY = getYFromButton(secondButtonIndex);
+				if (getTopIndex(secondX, secondY) != -1)			
 				{
-					button[i].setText("X");
-					button[i].setEnabled(false);
+					secondGobbler = getGobblerFromButton(secondButtonIndex);
 				}
+				if (firstX == -1)
+				//Gobbler wasn't on board
+				{
+					move(firstGobbler, secondX, secondY);
+				}
+				//gobbler was on board
 				else
 				{
-					button[i].setText("O");
-					button[i].setEnabled(false);
+					button[firstButtonIndex].setIcon(getGobblerIcon(board[firstX][firstY][getTopIndex(firstX, firstY)]));
+					button[secondButtonIndex].setIcon(getGobblerIcon(firstGobbler));
+					move(firstGobbler, firstX, firstY, secondX, secondY);
 				}
+
 			}
 		}
+		}
+		if (count == 2)
+		{
+			count = 0;
 		}
 		checkWinner();
 		sign++;
@@ -318,5 +346,136 @@ public class GobbletGame extends JFrame implements ActionListener
 			System.out.println();
 		}
 		System.out.println();
+	}
+	
+	public Gobbler getGobblerFromButton(int buttonIndex)
+	{
+		if (buttonIndex > 0 && buttonIndex < 4)
+		{
+			blueGobbAmt[buttonIndex - 1]--;
+			return (new Gobbler("blue", (buttonIndex - 3)));
+		}
+		
+		else if (buttonIndex == 4 || buttonIndex == 8  || buttonIndex == 12)
+		{
+			redGobbAmt[(buttonIndex / 4) - 1]--;
+			return (new Gobbler("orange", (buttonIndex / 4) - 1));
+		}
+		//567, 91011, 131415
+		//5- (0, 0), 6- (0, 1) 15- (2, 2)
+		else			
+		{
+			int x;
+			int y;
+			if ( 4 < buttonIndex  && buttonIndex < 8)
+			{
+			x = 0;
+			y = (buttonIndex - 5);
+			}
+			else if ( 8 < buttonIndex  && buttonIndex < 12)
+			{
+			x = 1;
+			y = (buttonIndex - 9);
+			}
+			else if (12 < buttonIndex  && buttonIndex < 16)
+			{
+			x = 2;
+			y = (buttonIndex - 13);
+			}
+			else
+			{
+				return null;
+			}
+			return board[x][y][getTopIndex(x, y)];	
+		}	
+
+	}
+
+	public int getXFromButton(int buttonIndex)
+	{
+		int x;
+		if ( 4 < buttonIndex  && buttonIndex < 8)
+		{
+		x = 0;
+		}
+		else if ( 8 < buttonIndex  && buttonIndex < 12)
+		{
+		x = 1;
+		}
+		else if (12 < buttonIndex  && buttonIndex < 16)
+		{
+		x = 2;
+		}
+		else
+		{
+			return -1;
+		}
+		return x;
+	}
+	
+	public int getYFromButton(int buttonIndex)
+	{
+		int y;
+		if ( 4 < buttonIndex  && buttonIndex < 8)
+		{
+		y = (buttonIndex - 5);
+		}
+		else if ( 8 < buttonIndex  && buttonIndex < 12)
+		{
+		y = (buttonIndex - 9);
+		}
+		else if (12 < buttonIndex  && buttonIndex < 16)
+		{
+		y = (buttonIndex - 13);
+		}
+		else
+		{
+			return -1;
+		}
+		return y;
+	}
+	
+	public boolean isOnBoard(int buttonIndex)
+	{
+		if ((4 < buttonIndex && buttonIndex < 8) || (8 < buttonIndex && buttonIndex < 12)
+		|| (12 < buttonIndex && buttonIndex < 16))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public Icon getGobblerIcon(Gobbler gobb)
+	{
+		if (gobb.color() == "Orange")
+		{
+			if (gobb.size() == 0)
+			{
+				return smallOrangeIcon;
+			}
+			else if (gobb.size() == 1)
+			{
+				return mediumOrangeIcon;
+			}
+			else
+			{
+				return largeOrangeIcon;
+			}
+		}
+		else
+		{
+			if (gobb.size() == 0)
+			{
+				return smallBlueIcon;
+			}
+			else if (gobb.size() == 1)
+			{
+				return mediumBlueIcon;
+			}
+			else
+			{
+				return largeBlueIcon;
+			}
+		}
 	}
 }
