@@ -24,9 +24,9 @@ public class GobbletGame extends JFrame implements ActionListener
 	public GobbletGame() 
 	{
 		//configure images into icons
-		java.net.URL imageURL = GobbletGame.class.getResource("SmallBlue.png");
+		java.net.URL imageURL = GobbletGame.class.getResource("BlueSMall.png");
 		smallBlueIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("SmallOrange.png");
+		imageURL = GobbletGame.class.getResource("OrangeSmall.png");
 		smallOrangeIcon = new ImageIcon(imageURL);
 		imageURL = GobbletGame.class.getResource("MediumBlue.png");
 		mediumBlueIcon = new ImageIcon(imageURL);
