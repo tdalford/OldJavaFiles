@@ -4,12 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GobbletGame extends JFrame implements ActionListener
+public class GobbletGame 
 {
 	static Gobbler[][][] board = new Gobbler[3][3][3];
 	static int[] blueGobbAmt = new int[3];
-	static int[] redGobbAmt = new int[3];
-	JPanel panel;
+	static int[] orangeGobbAmt = new int[3];
+	/*JPanel panel;
 	JButton[] button;
 	int count = 0;
 	int sign = 0;
@@ -29,8 +29,9 @@ public class GobbletGame extends JFrame implements ActionListener
 	int firstY = -1;
 	int secondX;
 	int secondY;
+	*/
 	
-	public GobbletGame() 
+	/*public GobbletGame() 
 	{
 		//configure images into icons
 		java.net.URL imageURL = GobbletGame.class.getResource("SmallBlue.png");
@@ -74,6 +75,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		this.setVisible(true);
 		button[0].setVisible(false);
 	}
+	
 	
 	//if first click, store the icon of the box clicked
 	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
@@ -134,7 +136,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		checkWinner();
 		sign++;
 	}
-	
+	*/
 	public boolean checkWinner()
 	{
 		/*
@@ -171,7 +173,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		return false;
 	}
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		//initialize Gobbler amounts
 		for (int i = 0; i < 3; i++)
@@ -182,8 +184,9 @@ public class GobbletGame extends JFrame implements ActionListener
 		new GobbletGame();
 		run();
 	}
+	*/
 	
-	public static void run()
+	/*public static void run()
 	{
 		boolean hasWon = false;
 		boolean isBlue = true;
@@ -238,10 +241,11 @@ public class GobbletGame extends JFrame implements ActionListener
 			
 		}	
 	}
-	
+	*/
 	//moves by taking a gobbler on the board and moving it somewhere else
-	public static void move(Gobbler gobb, int startX, int startY, int endX, int endY)
+	public static boolean move(Gobbler gobb, int startX, int startY, int endX, int endY)
 	{
+		boolean hasMoved = false;
 		//move to location (x, y).  if gobbSize > currentSize you play over it, 
 		//otherwise you can't move
 		int startIndex = getTopIndex(startX, startY);
@@ -251,8 +255,8 @@ public class GobbletGame extends JFrame implements ActionListener
 		}
 		else
 		{
-			System.out.println("illegal move!");
-			return;
+			System.out.println("illegal move- no starting pos!");
+			return hasMoved;
 		}
 		
 		int endIndex = getTopIndex(endX, endY);
@@ -266,25 +270,28 @@ public class GobbletGame extends JFrame implements ActionListener
 		}
 		else
 		{
-			System.out.println("illegal move!");
-			return;
+			System.out.println("illegal move- too big of a gobb!");
+			return hasMoved;
 		}
+		hasMoved = true;
+		return hasMoved;
 			
 	}
 	
 	//moves using a gobbler not on the board
-	public static void move(Gobbler gobb, int endX, int endY)
+	public static boolean move(Gobbler gobb, int endX, int endY)
 	{
+		boolean hasMoved = false;
 		if (gobb.color() == "Orange")
 		{
-			if (redGobbAmt[gobb.size()] > 0)
+			if (orangeGobbAmt[gobb.size()] > 0)
 			{
-					redGobbAmt[gobb.size()]--;
+				orangeGobbAmt[gobb.size()]--;
 			}
 			else
 			{
-				System.out.println("illegal move!");
-				return;
+				System.out.println("Not enough orange gobbs!");
+				return hasMoved;
 			}
 		}
 		else
@@ -295,8 +302,12 @@ public class GobbletGame extends JFrame implements ActionListener
 			}
 			else
 			{
-				System.out.println("illegal move!");
-				return;
+				for (int i = 0; i < blueGobbAmt.length; i++)
+				{
+					System.out.println(blueGobbAmt[i]);
+				}
+				System.out.println("illegal move- not enough blue gobbs!");
+				return hasMoved;
 			}
 		}
 		
@@ -311,10 +322,11 @@ public class GobbletGame extends JFrame implements ActionListener
 		}
 		else
 		{
-			System.out.println("illegal move!");
-			return;
+			System.out.println("illegal move- size doesn't work!");
+			return hasMoved;
 		}
-		
+		hasMoved = true;
+		return hasMoved;		
 	}
 	
 	public static int getTopIndex(int xCoord, int yCoord)
@@ -331,9 +343,12 @@ public class GobbletGame extends JFrame implements ActionListener
 	
 	public static Gobbler getTopGobbler(int xCoord, int yCoord)
 	{
-		for (int i = 0; i < 3; i++)
+		for (int i = 2; i >= 0; i--)
 		{
-			return board[xCoord][yCoord][i];
+			if (board[xCoord][yCoord][i] != null)
+			{
+				return board[xCoord][yCoord][i];
+			}
 		}
 		return null;
 	}
@@ -358,19 +373,20 @@ public class GobbletGame extends JFrame implements ActionListener
 		System.out.println();
 	}
 	
-	public Gobbler getGobblerFromButton(int buttonIndex)
+	public static Gobbler getGobblerFromButton(int buttonIndex)
 	{
 		if (buttonIndex > 0 && buttonIndex < 4)
 		{
-			blueGobbAmt[buttonIndex - 1]--;
+			//blueGobbAmt[buttonIndex - 1]--;
 			return (new Gobbler("Blue", (buttonIndex - 1)));
 		}
 		
 		else if (buttonIndex == 4 || buttonIndex == 8  || buttonIndex == 12)
 		{
-			redGobbAmt[(buttonIndex / 4) - 1]--;
+			//orangeGobbAmt[(buttonIndex / 4) - 1]--;
 			return (new Gobbler("Orange", (buttonIndex / 4) - 1));
 		}
+		//Gobbler was on board
 		//567, 91011, 131415
 		//5- (0, 0), 6- (0, 1) 15- (2, 2)
 		else			
@@ -396,12 +412,12 @@ public class GobbletGame extends JFrame implements ActionListener
 			{
 				return null;
 			}
-			return board[x][y][getTopIndex(x, y)];	
+			return getTopGobbler(x, y);	
 		}	
 
 	}
 
-	public int getXFromButton(int buttonIndex)
+	public static int getXFromButton(int buttonIndex)
 	{
 		int x;
 		if ( 4 < buttonIndex  && buttonIndex < 8)
@@ -423,7 +439,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		return x;
 	}
 	
-	public int getYFromButton(int buttonIndex)
+	public static int getYFromButton(int buttonIndex)
 	{
 		int y;
 		if ( 4 < buttonIndex  && buttonIndex < 8)
@@ -445,7 +461,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		return y;
 	}
 	
-	public boolean isOnBoard(int buttonIndex)
+	public static boolean isOnBoard(int buttonIndex)
 	{
 		if ((4 < buttonIndex && buttonIndex < 8) || (8 < buttonIndex && buttonIndex < 12)
 		|| (12 < buttonIndex && buttonIndex < 16))
@@ -455,7 +471,7 @@ public class GobbletGame extends JFrame implements ActionListener
 		return false;
 	}
 	
-	public Icon getGobblerIcon(Gobbler gobb)
+	/*public Icon getGobblerIcon(Gobbler gobb)
 	{
 		if (gobb.color() == "Orange")
 		{
@@ -486,6 +502,16 @@ public class GobbletGame extends JFrame implements ActionListener
 			{
 				return largeBlueIcon;
 			}
+		}
+	}
+	*/
+	
+	public static void resetGobbAmounts()
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			blueGobbAmt[i] = 2;
+			orangeGobbAmt[i] = 2;
 		}
 	}
 }

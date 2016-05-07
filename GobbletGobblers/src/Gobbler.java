@@ -27,4 +27,9 @@ public class Gobbler {
 		}		
 		return false;
 	}
+	
+	public String toString()
+	{
+		return color() + " Gobbler of size " + size();
+	}
 }
