@@ -63,8 +63,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 		button[8].setText("x2");
 		button[12] = new JButton(largeOrangeIcon);
 		button[12].setText("x2");
-		button[1].setSelected(false);
-		
 		
 		for(int i = 0; i <= 15; i++)
 		{
@@ -75,7 +73,9 @@ public class GobbletGUI extends JFrame implements ActionListener
 		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
-		button[0].setVisible(false);
+		button[0].setText("Gobblet Gobblers!");
+		button[0].setFocusPainted(false);
+		//button[0].setVisible(false);
 	}
 	
 	//if first click, store the icon of the box clicked
@@ -178,7 +178,14 @@ public class GobbletGUI extends JFrame implements ActionListener
 			}
 		if (checkWinner() == true)
 		{
-			System.out.println(firstGobbler.color() + " won!!");
+			System.out.println(firstGobbler.color() + " won!!");	
+			JPanel winnerPanel = new JPanel();
+			this.add(winnerPanel);
+			JButton resetButton = new JButton();
+			resetButton.setText(firstGobbler.color() + " won!!");
+			this.pack();
+			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			this.setVisible(true);
 		}
 		}
 		if (count == 2)
