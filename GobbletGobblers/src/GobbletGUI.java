@@ -8,6 +8,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 {
 	JPanel panel;
 	JButton[] button;
+	JButton resetButton;
 	int count = 0;
 	int sign = 0;
 	ImageIcon smallBlueIcon;
@@ -73,7 +74,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
-		button[0].setText("Gobblet Gobblers!");
+		button[0].setText("Press to Reset");
 		button[0].setFocusPainted(false);
 		//button[0].setVisible(false);
 	}
@@ -82,6 +83,30 @@ public class GobbletGUI extends JFrame implements ActionListener
 	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
 	public void actionPerformed(ActionEvent e){
 		count++;
+		if (button[0] == e.getSource())
+		{
+			System.out.println("resetting");
+			GobbletGame.resetGobbAmounts();
+			GobbletGame.resetBoard();
+			for(int i = 5; i <= 15; i++)
+			{
+				button[i].setText("");
+				button[i].setIcon(null);
+			}
+			//create buttons with icons
+			button[1] = new JButton(smallBlueIcon);
+			button[1].setText("x2");
+			button[2] = new JButton(mediumBlueIcon);
+			button[2].setText("x2");
+			button[3] = new JButton(largeBlueIcon);
+			button[3].setText("x2");
+			button[4] = new JButton(smallOrangeIcon);
+			button[4].setText("x2");
+			button[8] = new JButton(mediumOrangeIcon);
+			button[8].setText("x2");
+			button[12] = new JButton(largeOrangeIcon);
+			button[12].setText("x2");		
+		}
 		if (count == 1)
 		{
 			for(int i = 1; i <= 15; i++)
@@ -178,14 +203,31 @@ public class GobbletGUI extends JFrame implements ActionListener
 			}
 		if (checkWinner() == true)
 		{
-			System.out.println(firstGobbler.color() + " won!!");	
-			JPanel winnerPanel = new JPanel();
-			this.add(winnerPanel);
-			JButton resetButton = new JButton();
-			resetButton.setText(firstGobbler.color() + " won!!");
-			this.pack();
-			this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-			this.setVisible(true);
+			/*System.out.println(firstGobbler.color() + " won!!");	
+			JFrame winnerFrame = new JFrame();
+			//this.add(winnerFrame);
+			Label winnerLabel = new Label(firstGobbler.color() + " won!!");
+			Button resetButton = new Button("Press to Reset");
+			winnerFrame.add(winnerLabel);
+			winnerFrame.add(resetButton);
+			winnerFrame.setVisible(true);
+			//this.pack();
+			//this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+			//this.setVisible(true);
+			 * */
+			 JFrame frame = new JFrame(firstGobbler.color() + " won!!");
+		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 
+		        JLabel emptyLabel = new JLabel("");
+		        emptyLabel.setPreferredSize(new Dimension(175, 100));
+		        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+		        
+		        JButton resetButton = new JButton("Press to reset");
+		        frame.getContentPane().add(resetButton, BorderLayout.CENTER);
+		 
+		        //Display the window.
+		        frame.pack();
+		        frame.setVisible(true);
 		}
 		}
 		if (count == 2)
@@ -256,9 +298,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 		GobbletGame.resetGobbAmounts();
 		new GobbletGUI();
 	}
-	
-	
-	
 	
 	public Icon getGobblerIcon(Gobbler gobb)
 	{

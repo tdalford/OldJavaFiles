@@ -9,239 +9,8 @@ public class GobbletGame
 	static Gobbler[][][] board = new Gobbler[3][3][3];
 	static int[] blueGobbAmt = new int[3];
 	static int[] orangeGobbAmt = new int[3];
-	/*JPanel panel;
-	JButton[] button;
-	int count = 0;
-	int sign = 0;
-	ImageIcon smallBlueIcon;
-	ImageIcon smallOrangeIcon;
-	ImageIcon mediumBlueIcon;
-	ImageIcon mediumOrangeIcon;
-	ImageIcon largeBlueIcon;
-	ImageIcon largeOrangeIcon;
-	static Icon firstGobblerImage;
-	static Icon secondGobblerImage;
-	static int firstButtonIndex;
-	static int secondButtonIndex;
-	static Gobbler firstGobbler = null;
-	static Gobbler secondGobbler = null;
-	int firstX = -1;
-	int firstY = -1;
-	int secondX;
-	int secondY;
-	*/
-	
-	/*public GobbletGame() 
-	{
-		//configure images into icons
-		java.net.URL imageURL = GobbletGame.class.getResource("SmallBlue.png");
-		smallBlueIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("SmallOrange.png");
-		smallOrangeIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("MediumBlue.png");
-		mediumBlueIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("MediumOrange.png");
-		mediumOrangeIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("LargeBlue.png");
-		largeBlueIcon = new ImageIcon(imageURL);
-		imageURL = GobbletGame.class.getResource("LargeOrange.png");
-		largeOrangeIcon = new ImageIcon(imageURL);
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(4,4));
-		this.add(panel);
-		button = new JButton[16];
-		//initialize blank buttons
-		for(int i = 0; i <= 15; i++)
-		{
-			button[i] = new JButton();
-		}
-		//create buttons with icons
-		button[1] = new JButton(smallBlueIcon);
-		button[2] = new JButton(mediumBlueIcon);
-		button[3] = new JButton(largeBlueIcon);
-		button[4] = new JButton(smallOrangeIcon);
-		button[8] = new JButton(mediumOrangeIcon);
-		button[12] = new JButton(largeOrangeIcon);
-		
-		
-		for(int i = 0; i <= 15; i++)
-		{
-			panel.add(button[i]);
-			button[i].setEnabled(true);
-			button[i].addActionListener(this);
-		}
-		this.pack();
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setVisible(true);
-		button[0].setVisible(false);
-	}
 	
 	
-	//if first click, store the icon of the box clicked
-	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
-	public void actionPerformed(ActionEvent e){
-		count++;
-		if (count == 1)
-		{
-			for(int i = 1; i <= 15; i++)
-			{
-				if(button[i] == e.getSource())
-				{
-					firstButtonIndex = i;
-					firstGobbler = getGobblerFromButton(firstButtonIndex);
-					if (isOnBoard(i))
-					{
-					firstX = getXFromButton(firstButtonIndex);
-					firstY = getYFromButton(firstButtonIndex);
-					}
-					firstGobblerImage = button[i].getIcon();
-				}
-			}
-		}
-		else
-		{
-		for(int i = 0; i <= 15; i++)
-		{
-			if(button[i] == e.getSource())
-			{
-				secondGobblerImage = button[i].getIcon();
-				secondButtonIndex = i;
-				secondX = getXFromButton(secondButtonIndex);
-				secondY = getYFromButton(secondButtonIndex);
-				if (getTopIndex(secondX, secondY) != -1)			
-				{
-					secondGobbler = getGobblerFromButton(secondButtonIndex);
-				}
-				if (firstX == -1)
-				//Gobbler wasn't on board
-				{
-					move(firstGobbler, secondX, secondY);
-					button[i].setIcon(getGobblerIcon(firstGobbler));
-				}
-				//gobbler was on board
-				else
-				{
-					button[firstButtonIndex].setIcon(getGobblerIcon(board[firstX][firstY][getTopIndex(firstX, firstY)]));
-					button[secondButtonIndex].setIcon(getGobblerIcon(firstGobbler));
-					move(firstGobbler, firstX, firstY, secondX, secondY);
-				}
-
-			}
-		}
-		}
-		if (count == 2)
-		{
-			count = 0;
-		}
-		checkWinner();
-		sign++;
-	}
-	*/
-	public boolean checkWinner()
-	{
-		/*
-		for (int i = 0; i < 3; i++)
-		{
-			if (board[i][0][getTopIndex(i, 0)].color().equals(board[i][1][getTopIndex(i, 1)].color())
-				&& board[i][1][getTopIndex(i, 1)].color().equals(board[i][2][getTopIndex(i, 2)].color()))
-			{
-				return true;
-			}
-		}
-		
-		for (int i = 0; i < 3; i++)
-		{
-			if (board[0][i][getTopIndex(0, i)].color().equals(board[1][i][getTopIndex(1, i)].color())
-				&& board[1][i][getTopIndex(1, i)].color().equals(board[2][i][getTopIndex(2, i)].color()))
-			{
-				return true;
-			}
-		}
-		
-		for (int i = 0; i < 2; i++)
-		{
-			i *= 2;
-			if (board[i][0][getTopIndex(0, i)].color().equals(board[1][i][getTopIndex(1, 1)].color())
-				&& board[1][1][getTopIndex(1, 1)].color().equals(board[2][i][getTopIndex(2 - i, 2)].color()))
-			{
-				return true;
-			}
-		}			
-		return false;
-		*/
-		//we will worry about this later
-		return false;
-	}
-	
-	/*public static void main(String[] args)
-	{
-		//initialize Gobbler amounts
-		for (int i = 0; i < 3; i++)
-		{
-			blueGobbAmt[i] = 2;
-			redGobbAmt[i] = 2;
-		}
-		new GobbletGame();
-		run();
-	}
-	*/
-	
-	/*public static void run()
-	{
-		boolean hasWon = false;
-		boolean isBlue = true;
-		System.out.println("input a position to move a Gobbler, or input 'end' to break");
-		System.out.println();
-		System.out.println("Ex. 2, 0, 0 moves a Gobbler of size 2 to position (0, 0)");
-		System.out.println("Ex. 2, 0, 0, 1, 1 moves a Gobbler of size 2 from position (0, 0) to position (1, 1)");
-		while (hasWon == false)
-		{
-			Scanner myScanner = new Scanner(System.in);
-			String movePos = myScanner.nextLine();
-			if (movePos.indexOf("end") >= 0)
-			{
-				break;
-			} 
-			ArrayList<Integer> moveParams = new ArrayList<Integer>();
-			for (int i = 0; i < movePos.length(); i++)
-			{
-				if (48 <= movePos.charAt(i) && movePos.charAt(i) <= 58)
-				{
-					moveParams.add(Character.getNumericValue(movePos.charAt(i)));
-				}
-			}
-			String color;
-			if (isBlue)
-			{
-				color = "Blue";
-			}
-			else
-				color = "Orange";
-			if (moveParams.size() == 3)
-			{
-				move(new Gobbler(color, moveParams.get(0)), moveParams.get(1), moveParams.get(2));
-			}
-			else if (moveParams.size() == 5)
-			{
-				move(new Gobbler(color, moveParams.get(0)), moveParams.get(1), moveParams.get(2), moveParams.get(3), moveParams.get(4));
-			}
-			else
-			{
-				System.out.println("Your string isn't in the correct format");
-			}
-			printGobblerBoard(board);
-			if (isBlue == true)
-			{
-				isBlue = false;
-			}
-			else
-			{
-				isBlue = true;
-			}
-			
-		}	
-	}
-	*/
 	//moves by taking a gobbler on the board and moving it somewhere else
 	public static boolean move(Gobbler gobb, int startX, int startY, int endX, int endY)
 	{
@@ -329,6 +98,7 @@ public class GobbletGame
 		return hasMoved;		
 	}
 	
+	//returns the index of the top gobbler of a position on the board, and -1 if there is no Gobbler at that position
 	public static int getTopIndex(int xCoord, int yCoord)
 	{
 		for (int i = 0; i < 3; i++)
@@ -471,41 +241,6 @@ public class GobbletGame
 		return false;
 	}
 	
-	/*public Icon getGobblerIcon(Gobbler gobb)
-	{
-		if (gobb.color() == "Orange")
-		{
-			if (gobb.size() == 0)
-			{
-				return smallOrangeIcon;
-			}
-			else if (gobb.size() == 1)
-			{
-				return mediumOrangeIcon;
-			}
-			else
-			{
-				return largeOrangeIcon;
-			}
-		}
-		else
-		{
-			if (gobb.size() == 0)
-			{
-				return smallBlueIcon;
-			}
-			else if (gobb.size() == 1)
-			{
-				return mediumBlueIcon;
-			}
-			else
-			{
-				return largeBlueIcon;
-			}
-		}
-	}
-	*/
-	
 	public static void resetGobbAmounts()
 	{
 		for (int i = 0; i < 3; i++)
@@ -513,5 +248,10 @@ public class GobbletGame
 			blueGobbAmt[i] = 2;
 			orangeGobbAmt[i] = 2;
 		}
+	}
+	
+	public static void resetBoard()
+	{
+		board = new Gobbler[3][3][3];
 	}
 }
