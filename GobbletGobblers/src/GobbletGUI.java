@@ -76,6 +76,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 		}
 		this.pack();
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setSize(1000, 1000);
 		this.setVisible(true);
 		button[0].setText("Press to Reset");
 		button[0].setFocusPainted(false);
@@ -153,8 +154,15 @@ public class GobbletGUI extends JFrame implements ActionListener
 					{
 						if (GobbletGame.isOnBoard(i))
 						{
-							firstX = GobbletGame.getXFromButton(firstButtonIndex);
-							firstY = GobbletGame.getYFromButton(firstButtonIndex);
+							if (firstGobbler != null)
+							{
+								firstX = GobbletGame.getXFromButton(firstButtonIndex);
+								firstY = GobbletGame.getYFromButton(firstButtonIndex);
+							}
+							else
+							{
+								count--;
+							}
 						}
 						else
 						{
@@ -207,7 +215,18 @@ public class GobbletGUI extends JFrame implements ActionListener
 						}
 						else
 						{
-							count--;
+							 JFrame frame = new JFrame("Illegal Move!");
+						     JLabel emptyLabel = new JLabel("");
+						     emptyLabel.setPreferredSize(new Dimension(175, 100));
+					         frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+				             frame.setPreferredSize(new Dimension(300, 10));	        
+						     //  JButton resetButton = new JButton("Press to reset");
+				             // frame.getContentPane().add(resetButton, BorderLayout.CENTER);
+						 
+						     //Display the window.
+				             frame.pack();
+						     frame.setVisible(true);
+							count = 0;
 						}
 					}
 					//gobbler was on board
@@ -239,7 +258,18 @@ public class GobbletGUI extends JFrame implements ActionListener
 						}
 						else
 						{
-							count--;
+							JFrame frame = new JFrame("Illegal Move!");
+						     JLabel emptyLabel = new JLabel("Illegal Move!");
+						     emptyLabel.setPreferredSize(new Dimension(175, 100));
+					         frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+				             frame.setPreferredSize(new Dimension(300, 10));	        
+						     //  JButton resetButton = new JButton("Press to reset");
+				             // frame.getContentPane().add(resetButton, BorderLayout.CENTER);
+						 
+						     //Display the window.
+				             frame.pack();
+						     frame.setVisible(true);
+							count = 0;
 						}
 					}
 				}
@@ -301,18 +331,16 @@ public class GobbletGUI extends JFrame implements ActionListener
 			//this.setVisible(true);
 			 * */
 			 JFrame frame = new JFrame(firstGobbler.color() + " won!!");
+		     JLabel emptyLabel = new JLabel("");
+		     emptyLabel.setPreferredSize(new Dimension(175, 100));
+	         frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+             frame.setPreferredSize(new Dimension(300, 10));	        
+		     //  JButton resetButton = new JButton("Press to reset");
+             // frame.getContentPane().add(resetButton, BorderLayout.CENTER);
 		 
-		        JLabel emptyLabel = new JLabel("");
-		        emptyLabel.setPreferredSize(new Dimension(175, 100));
-		        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
-		        frame.setPreferredSize(new Dimension(300, 10));
-		        
-		      //  JButton resetButton = new JButton("Press to reset");
-		       // frame.getContentPane().add(resetButton, BorderLayout.CENTER);
-		 
-		        //Display the window.
-		        frame.pack();
-		        frame.setVisible(true);
+		     //Display the window.
+             frame.pack();
+		     frame.setVisible(true);
 		}
 		}
 		if (count == 2)
