@@ -10,7 +10,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 	JButton[] button;
 	JButton resetButton;
 	int count = 0;
-	int sign = 0;
 	ImageIcon smallBlueIcon;
 	ImageIcon smallOrangeIcon;
 	ImageIcon mediumBlueIcon;
@@ -91,7 +90,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 		{
 			GobbletGame.resetGobbAmounts();
 			GobbletGame.resetBoard();
-			for(int i = 5; i <= 15; i++)
+			/*for(int i = 5; i <= 15; i++)
 			{
 				button[i].setText("");
 				button[i].setIcon(null);
@@ -109,8 +108,19 @@ public class GobbletGUI extends JFrame implements ActionListener
 			button[8].setText("x2");
 			button[12].setIcon(largeOrangeIcon);
 			button[12].setText("x2");		
+			turnPlayer = null;
+			firstPlayer = null;
+			secondPlayer = null;		
+			turnNum = 0;
+			firstX = -1;
+			firstY = -1;
+			firstGobbler = null;
+			secondGobbler = null;
+			*/
+			this.dispose();
+			new GobbletGUI();
 		}
-		if (count == 1)
+		if (count == 1) //first click
 		{
 			for(int i = 1; i <= 15; i++)
 			{
@@ -120,14 +130,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 					firstGobbler = GobbletGame.getGobblerFromButton(firstButtonIndex);
 					if (turnNum > 0)
 					{
-					if (turnNum % 2 == 0)
-					{
-						turnPlayer = firstPlayer;
-					}
-					else
-					{
-						turnPlayer = secondPlayer;
-					}	
 					if (firstGobbler.color().equals(turnPlayer))
 					{
 						if (GobbletGame.isOnBoard(i))
@@ -172,74 +174,74 @@ public class GobbletGUI extends JFrame implements ActionListener
 			{
 				if (GobbletGame.isOnBoard(i))
 				{
-				secondButtonIndex = i;
-				secondX = GobbletGame.getXFromButton(secondButtonIndex);
-				secondY = GobbletGame.getYFromButton(secondButtonIndex);
-				secondGobbler = GobbletGame.getTopGobbler(secondX, secondY);
-				if (firstX == -1)
-				//First Gobbler wasn't on board
-				{
-					boolean hasMoved = GobbletGame.move(firstGobbler, secondX, secondY);
-					if (hasMoved)
+					secondButtonIndex = i;
+					secondX = GobbletGame.getXFromButton(secondButtonIndex);
+					secondY = GobbletGame.getYFromButton(secondButtonIndex);
+					secondGobbler = GobbletGame.getTopGobbler(secondX, secondY);
+					if (firstX == -1)
+						//First Gobbler wasn't on board
 					{
-						button[i].setIcon(getGobblerIcon(firstGobbler));
-						if (firstGobbler.color() == "Blue")
+						boolean hasMoved = GobbletGame.move(firstGobbler, secondX, secondY);
+						if (hasMoved)
 						{
-							button[firstButtonIndex].setText("x" + GobbletGame.blueGobbAmt[firstGobbler.size()]);
+							button[i].setIcon(getGobblerIcon(firstGobbler));
+							if (firstGobbler.color() == "Blue")
+							{
+								button[firstButtonIndex].setText("x" + GobbletGame.blueGobbAmt[firstGobbler.size()]);
+							}
+							else
+							{
+								button[firstButtonIndex].setText("x" + GobbletGame.orangeGobbAmt[firstGobbler.size()]);
+							}
+							turnNum++;
+							if (turnNum == 1)
+							{
+								firstPlayer = firstGobbler.color();						
+								if (firstPlayer == "Blue")
+								{
+									secondPlayer = "Orange";
+								}
+								else
+									secondPlayer = "Blue";
+							}
 						}
 						else
 						{
-							button[firstButtonIndex].setText("x" + GobbletGame.orangeGobbAmt[firstGobbler.size()]);
+							count--;
 						}
-						turnNum++;
-						if (turnNum == 1)
+					}
+					//gobbler was on board
+					else
+					{			
+						boolean hasMoved = GobbletGame.move(firstGobbler, firstX, firstY, secondX, secondY);
+						if (hasMoved)
 						{
-							firstPlayer = firstGobbler.color();						
-							if (firstPlayer == "Blue")
+							if (GobbletGame.getTopIndex(firstX, firstY) == -1)
 							{
-								secondPlayer = "Orange";
+								button[firstButtonIndex].setIcon(null);
 							}
 							else
-								secondPlayer = "Blue";
-						}
-					}
-					else
-					{
-						count--;
-					}
-				}
-				//gobbler was on board
-				else
-				{			
-					boolean hasMoved = GobbletGame.move(firstGobbler, firstX, firstY, secondX, secondY);
-					if (hasMoved)
-					{
-						if (GobbletGame.getTopIndex(firstX, firstY) == -1)
-						{
-							button[firstButtonIndex].setIcon(null);
+							{
+								button[firstButtonIndex].setIcon(getGobblerIcon(GobbletGame.getTopGobbler(firstX, firstY)));
+							}
+							button[secondButtonIndex].setIcon(getGobblerIcon(firstGobbler));
+							turnNum++;
+							if (turnNum == 1)
+							{
+								firstPlayer = firstGobbler.color();
+								if (firstPlayer == "Blue")
+								{
+									secondPlayer = "Orange";
+								}
+								else
+									secondPlayer = "Blue";
+							}
 						}
 						else
 						{
-							button[firstButtonIndex].setIcon(getGobblerIcon(GobbletGame.getTopGobbler(firstX, firstY)));
-						}
-						button[secondButtonIndex].setIcon(getGobblerIcon(firstGobbler));
-						turnNum++;
-						if (turnNum == 1)
-						{
-							firstPlayer = firstGobbler.color();
-							if (firstPlayer == "Blue")
-							{
-								secondPlayer = "Orange";
-							}
-							else
-								secondPlayer = "Blue";
+							count--;
 						}
 					}
-					else
-					{
-						count--;
-					}
-				}
 				}
 				//clicked a gobbler not on board twice in a row
 				else
@@ -256,7 +258,16 @@ public class GobbletGUI extends JFrame implements ActionListener
 					count--;
 					}
 				}
-				if (turnPlayer == "Orange")
+				}
+				if (turnNum % 2 == 0)
+				{
+					turnPlayer = firstPlayer;
+				}
+				else
+				{
+					turnPlayer = secondPlayer;
+				}	
+				if (turnPlayer == "Blue")
 				{
 					button[1].setFocusPainted(true);
 					button[2].setFocusPainted(true);
@@ -265,7 +276,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 					button[8].setFocusPainted(false);
 					button[12].setFocusPainted(false);
 				}
-				else
+				else if (turnPlayer == "Orange")
 				{
 					button[1].setFocusPainted(false);
 					button[2].setFocusPainted(false);
@@ -274,8 +285,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 					button[8].setFocusPainted(true);
 					button[12].setFocusPainted(true);
 				}
-				}
-
 			}
 		if (checkWinner() == true)
 		{
@@ -310,7 +319,6 @@ public class GobbletGUI extends JFrame implements ActionListener
 		{
 			count = 0;
 		}
-		sign++;
 	}
 	
 	public boolean checkWinner()
