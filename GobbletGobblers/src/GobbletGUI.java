@@ -129,7 +129,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 				{
 					firstButtonIndex = i;
 					firstGobbler = GobbletGame.getGobblerFromButton(firstButtonIndex);
-					if (turnNum > 0)
+					if (turnNum > 0 && firstGobbler != null)
 					{
 					if (firstGobbler.color().equals(turnPlayer))
 					{
@@ -258,7 +258,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 						}
 						else
 						{
-							JFrame frame = new JFrame("Illegal Move!");
+						     JFrame frame = new JFrame("Illegal Move!");
 						     JLabel emptyLabel = new JLabel("Illegal Move!");
 						     emptyLabel.setPreferredSize(new Dimension(175, 100));
 					         frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
