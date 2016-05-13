@@ -40,6 +40,7 @@ public class GobbletGame
 		else
 		{
 			System.out.println("illegal move- too big of a gobb!");
+			board[startX][startY][startIndex] = gobb;
 			return hasMoved;
 		}
 		hasMoved = true;
