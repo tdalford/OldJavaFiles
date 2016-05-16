@@ -46,11 +46,11 @@ public class GobbletGUI extends JFrame implements ActionListener
 		imageURL = GobbletGame.class.getResource("LargeOrange.png");
 		largeOrangeIcon = new ImageIcon(imageURL);
 		panel = new JPanel();
-		panel.setLayout(new GridLayout(4,4));
+		panel.setLayout(new GridLayout(5,4));
 		this.add(panel);
-		button = new JButton[16];
+		button = new JButton[20];
 		//initialize blank buttons
-		for(int i = 0; i <= 15; i++)
+		for(int i = 0; i <= 19; i++)
 		{
 			button[i] = new JButton();
 		}
@@ -67,8 +67,10 @@ public class GobbletGUI extends JFrame implements ActionListener
 		button[8].setText("x2");
 		button[12] = new JButton(largeOrangeIcon);
 		button[12].setText("x2");
+		button[18].setText("Undo");
+		button[17].setText("How to Play");
 		
-		for(int i = 0; i <= 15; i++)
+		for(int i = 0; i <= 19; i++)
 		{
 			panel.add(button[i]);
 			button[i].setEnabled(true);
@@ -78,20 +80,32 @@ public class GobbletGUI extends JFrame implements ActionListener
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(1000, 1000);
 		this.setVisible(true);
-		button[0].setText("Press to Reset");
+		button[0].setText("Reset");
 		button[0].setFocusPainted(false);		
+		button[16].setVisible(false);
+		button[19].setVisible(false);
 	}
 	
 	//if first click, store the icon of the box clicked
 	//if second click, transfer the stored icon onto the new Button and reconfigure variable amounts
 	public void actionPerformed(ActionEvent e){
 		count++;
-		if (button[0] == e.getSource())
+		if (button[0] == e.getSource())//reset
 		{
 			GobbletGame.resetGobbAmounts();
 			GobbletGame.resetBoard();
 			this.dispose();
 			new GobbletGUI();
+		}
+		else if (button[17] == e.getSource())//how to play
+		{
+			String instructions = "Each player"
+					+ " is given two Gobblers of each size at the beginning of the game. The goal of the game is to get three Gobblers "
+					+ "of your color in a row on the board. Each Gobbler of a bigger size than another Gobbler (of any color)"
+					+ " can be placed over that on the board. First click a Gobbler either already on the board or a fresh one "
+					+ "from the side, then click a second (smaller) Gobbler or an empty space on the board to make your move. Play "
+					+ "then switches to the next player";
+			createPopUp(instructions, 500, 500);
 		}
 		if (count == 1) //first click
 		{
@@ -381,11 +395,24 @@ public class GobbletGUI extends JFrame implements ActionListener
 	{
 		JFrame frame = new JFrame();
 	    JLabel label = new JLabel(text);
-	    label.setSize(new Dimension(175, 100));
+	   // label.setSize(new Dimension(175, 100));
         frame.getContentPane().add(label, BorderLayout.CENTER);
-        frame.setSize(new Dimension(300, 300));	        
-        //JButton resetButton = new JButton("Press to reset");
-        // frame.getContentPane().add(resetButton, BorderLayout.CENTER);
+       // frame.setSize(new Dimension(300, 300));	        
+	 
+	    //Display the window.
+        frame.add(label);
+        frame.pack();
+	    frame.setVisible(true);
+	}
+	
+	public void createPopUp(String text, int length, int width)
+	{
+		JFrame frame = new JFrame();
+	    JLabel label = new JLabel(text);
+	    label.setSize(new Dimension(length, width
+	    		));
+        frame.getContentPane().add(label, BorderLayout.CENTER);
+        frame.setSize(new Dimension(length, width));	        
 	 
 	    //Display the window.
         frame.add(label);
