@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -25,10 +27,17 @@ public class GobbletGUI extends JFrame implements ActionListener
 	static int firstY = -1;
 	static int secondX;
 	static int secondY;
+	static int lastButtonIndex;
 	String firstPlayer;
 	String secondPlayer;
 	String turnPlayer;
 	int turnNum = 0;
+	static Gobbler lastPlayed;
+	static boolean playedFromSide;
+	static int previousX;
+	static int previousY;
+	static int currentX;
+	static int currentY;
 	
 	public GobbletGUI() 
 	{
@@ -118,6 +127,14 @@ public class GobbletGUI extends JFrame implements ActionListener
 		else if (button[18] == e.getSource())//undo button
 		{
 			GobbletGame.undo();
+			if (GobbletGame.getGobblerFromButton(lastButtonIndex) == null)
+			{
+				button[lastButtonIndex].setIcon(null);
+			}
+			else //real Gobbler left
+			{
+			button[lastButtonIndex].setIcon(getGobblerIcon(GobbletGame.getGobblerFromButton(lastButtonIndex)));
+			}
 			
 		}
 		if (count == 1) //first click
@@ -192,6 +209,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 						if (hasMoved)
 						{
 							button[i].setIcon(getGobblerIcon(firstGobbler));
+							lastButtonIndex = i;
 							if (firstGobbler.color() == "Blue")
 							{
 								button[firstButtonIndex].setText("x" + GobbletGame.blueGobbAmt[firstGobbler.size()]);
@@ -224,6 +242,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 						boolean hasMoved = GobbletGame.move(firstGobbler, firstX, firstY, secondX, secondY);
 						if (hasMoved)
 						{
+							lastButtonIndex = i;
 							if (GobbletGame.getTopIndex(firstX, firstY) == -1)
 							{
 								button[firstButtonIndex].setIcon(null);
@@ -431,5 +450,10 @@ public class GobbletGUI extends JFrame implements ActionListener
         frame.add(label);
         frame.pack();
 	    frame.setVisible(true);
+	}
+	
+	public void undo()
+	{
+		
 	}
 }
