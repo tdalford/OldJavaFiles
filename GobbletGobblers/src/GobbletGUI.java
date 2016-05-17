@@ -99,13 +99,21 @@ public class GobbletGUI extends JFrame implements ActionListener
 		}
 		else if (button[17] == e.getSource())//how to play
 		{
-			String instructions = "Each player"
-					+ " is given two Gobblers of each size at the beginning of the game. The goal of the game is to get three Gobblers "
-					+ "of your color in a row on the board. Each Gobbler of a bigger size than another Gobbler (of any color)"
-					+ " can be placed over that on the board. First click a Gobbler either already on the board or a fresh one "
-					+ "from the side, then click a second (smaller) Gobbler or an empty space on the board to make your move. Play "
-					+ "then switches to the next player";
-			createPopUp(instructions, 500, 500);
+			String instructions = "Each player is given two Gobblers of each size at the beginning of the game. "
+				+ "The goal of the game is to get three Gobblers of your color in a row on the board. "
+				+ "Each Gobbler of a bigger size than another Gobbler (of any color) can be placed over that on the board. "
+				+ "First click a Gobbler either already on the board or a fresh one from the side, "
+				+ "then click a second (smaller) Gobbler or an empty space on the board to make your move."
+				+ " Play then switches to the next player.";
+			JFrame frame = new JFrame();
+		    JTextArea area = new JTextArea();
+		    area.setLineWrap(true);
+		    area.setText(instructions);
+		    frame.add(area);	 
+		    //Display the window.
+	        frame.pack();
+	        frame.setSize(403, 150);	
+		    frame.setVisible(true);
 		}
 		if (count == 1) //first click
 		{

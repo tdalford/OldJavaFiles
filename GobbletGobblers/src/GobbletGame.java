@@ -9,6 +9,11 @@ public class GobbletGame
 	static Gobbler[][][] board = new Gobbler[3][3][3];
 	static int[] blueGobbAmt = new int[3];
 	static int[] orangeGobbAmt = new int[3];
+	Gobbler lastPlayed;
+	static boolean playedFromSide;
+	static int previousX;
+	static int previousY;
+	
 	
 	
 	//moves by taking a gobbler on the board and moving it somewhere else
@@ -44,6 +49,9 @@ public class GobbletGame
 			return hasMoved;
 		}
 		hasMoved = true;
+		previousX = startX;
+		previousY = startY;
+		playedFromSide = false;
 		return hasMoved;
 			
 	}
@@ -96,7 +104,28 @@ public class GobbletGame
 			return hasMoved;
 		}
 		hasMoved = true;
+		playedFromSide = true;
 		return hasMoved;		
+	}
+	
+	public void undo(int x, int y)
+	{
+		if (playedFromSide)
+		{
+			if (lastPlayed.color() == "Orange")
+			{
+				orangeGobbAmt[lastPlayed.size()]++;
+			}
+			else if (lastPlayed.color() == "Blue")
+			{
+				blueGobbAmt[lastPlayed.size()]++;
+			}
+			board[x][y][getTopIndex(x, y)] = null;
+		}
+		else //played already from the board
+		{
+			move(lastPlayed, x, y, previousX, previousY);
+		}
 	}
 	
 	//returns the index of the top gobbler of a position on the board, and -1 if there is no Gobbler at that position
