@@ -9,10 +9,12 @@ public class GobbletGame
 	static Gobbler[][][] board = new Gobbler[3][3][3];
 	static int[] blueGobbAmt = new int[3];
 	static int[] orangeGobbAmt = new int[3];
-	Gobbler lastPlayed;
+	static Gobbler lastPlayed;
 	static boolean playedFromSide;
 	static int previousX;
 	static int previousY;
+	static int currentX;
+	static int currentY;
 	
 	
 	
@@ -51,7 +53,10 @@ public class GobbletGame
 		hasMoved = true;
 		previousX = startX;
 		previousY = startY;
+		currentX = endX;
+		currentY = endY;
 		playedFromSide = false;
+		lastPlayed = gobb;
 		return hasMoved;
 			
 	}
@@ -105,10 +110,13 @@ public class GobbletGame
 		}
 		hasMoved = true;
 		playedFromSide = true;
+		currentX = endX;
+		currentY = endY;
+		lastPlayed = gobb;
 		return hasMoved;		
 	}
 	
-	public void undo(int x, int y)
+	public static void undo()
 	{
 		if (playedFromSide)
 		{
@@ -120,11 +128,11 @@ public class GobbletGame
 			{
 				blueGobbAmt[lastPlayed.size()]++;
 			}
-			board[x][y][getTopIndex(x, y)] = null;
+			board[currentX][currentY][getTopIndex(currentX, currentY)] = null;
 		}
 		else //played already from the board
 		{
-			move(lastPlayed, x, y, previousX, previousY);
+			move(lastPlayed, currentX, currentY, previousX, previousY);
 		}
 	}
 	

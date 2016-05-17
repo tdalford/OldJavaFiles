@@ -115,6 +115,11 @@ public class GobbletGUI extends JFrame implements ActionListener
 	        frame.setSize(403, 150);	
 		    frame.setVisible(true);
 		}
+		else if (button[18] == e.getSource())//undo button
+		{
+			GobbletGame.undo();
+			
+		}
 		if (count == 1) //first click
 		{
 			for(int i = 1; i <= 15; i++)
