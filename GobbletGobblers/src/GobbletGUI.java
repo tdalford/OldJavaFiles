@@ -126,7 +126,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 		}
 		else if (button[18] == e.getSource())//undo button
 		{
-			GobbletGame.undo();
+			/*GobbletGame.undo();
 			if (GobbletGame.getGobblerFromButton(lastButtonIndex) == null)
 			{
 				button[lastButtonIndex].setIcon(null);
@@ -135,6 +135,8 @@ public class GobbletGUI extends JFrame implements ActionListener
 			{
 			button[lastButtonIndex].setIcon(getGobblerIcon(GobbletGame.getGobblerFromButton(lastButtonIndex)));
 			}
+			*/
+			undo();
 			
 		}
 		if (count == 1) //first click
@@ -208,6 +210,10 @@ public class GobbletGUI extends JFrame implements ActionListener
 						boolean hasMoved = GobbletGame.move(firstGobbler, secondX, secondY);
 						if (hasMoved)
 						{
+							lastPlayed = firstGobbler;
+							playedFromSide = true;
+							currentX = secondX;
+							currentY = secondY;
 							button[i].setIcon(getGobblerIcon(firstGobbler));
 							lastButtonIndex = i;
 							if (firstGobbler.color() == "Blue")
@@ -242,6 +248,12 @@ public class GobbletGUI extends JFrame implements ActionListener
 						boolean hasMoved = GobbletGame.move(firstGobbler, firstX, firstY, secondX, secondY);
 						if (hasMoved)
 						{
+							lastPlayed = firstGobbler;
+							playedFromSide = false;
+							previousX = firstX;
+							previousY = firstY;
+							currentX = secondX;
+							currentY = secondY;
 							lastButtonIndex = i;
 							if (GobbletGame.getTopIndex(firstX, firstY) == -1)
 							{
@@ -454,6 +466,65 @@ public class GobbletGUI extends JFrame implements ActionListener
 	
 	public void undo()
 	{
-		
+		if (playedFromSide)
+		{
+			if (lastPlayed.color() == "Orange")
+			{
+				GobbletGame.orangeGobbAmt[lastPlayed.size()]++;
+			}
+			else if (lastPlayed.color() == "Blue")
+			{
+				GobbletGame.blueGobbAmt[lastPlayed.size()]++;
+			}
+			GobbletGame.board[currentX][currentY][GobbletGame.getTopIndex(currentX, currentY)] = null;
+			if (firstGobbler.color() == "Blue")
+			{
+				button[firstButtonIndex].setText("x" + GobbletGame.blueGobbAmt[firstGobbler.size()]);
+			}
+			else
+			{
+				button[firstButtonIndex].setText("x" + GobbletGame.orangeGobbAmt[firstGobbler.size()]);
+			}
+		}
+		else //played already from the board
+		{
+			GobbletGame.move(lastPlayed, currentX, currentY, previousX, previousY);
+			button[firstButtonIndex].setIcon(getGobblerIcon(lastPlayed));
+		}
+		if (GobbletGame.getGobblerFromButton(lastButtonIndex) == null)
+		{
+			button[lastButtonIndex].setIcon(null);
+		}	
+		else //real Gobbler left
+		{
+		button[lastButtonIndex].setIcon(getGobblerIcon(GobbletGame.getGobblerFromButton(lastButtonIndex)));
+		}
+		if (turnPlayer == "Blue")
+		{
+			turnPlayer = "Orange";
+		}
+		else
+		{
+			turnPlayer = "Blue";
+		}
+		turnNum--;
+		if (turnPlayer == "Blue")
+		{
+			button[1].setFocusPainted(true);
+			button[2].setFocusPainted(true);
+			button[3].setFocusPainted(true);
+			button[4].setFocusPainted(false);
+			button[8].setFocusPainted(false);
+			button[12].setFocusPainted(false);
+		}
+		else if (turnPlayer == "Orange")
+		{
+			button[1].setFocusPainted(false);
+			button[2].setFocusPainted(false);
+			button[3].setFocusPainted(false);
+			button[4].setFocusPainted(true);
+			button[8].setFocusPainted(true);
+			button[12].setFocusPainted(true);
+		}
 	}
 }
