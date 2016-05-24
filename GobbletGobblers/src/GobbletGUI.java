@@ -93,6 +93,7 @@ public class GobbletGUI extends JFrame implements ActionListener
 		button[0].setFocusPainted(false);		
 		button[16].setVisible(false);
 		button[19].setVisible(false);
+		button[18].setVisible(false);
 	}
 	
 	//if first click, store the icon of the box clicked
